@@ -1,0 +1,29 @@
+# Závislosti a build
+node_modules
+dist
+dist-ssr
+*.local
+.tmp
+
+# Logy
+logs
+*.log
+npm-debug.log*
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# Env (šablona se neverzuje, .env s prázdnými hodnotami ano)
+.env.example
+
+# Dokumentace a pracovní soubory
+docs
+superpowers
+
+# Testy
+**/*.test.ts
+**/*.test.tsx
+src/test

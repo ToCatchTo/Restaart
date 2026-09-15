@@ -1,0 +1,45 @@
+// Obal aplikace – mobilní sloupec omezený na maximální šířku, stav menu
+import { useEffect, useState, type ReactNode } from 'react'
+import Box from '@mui/material/Box'
+import { useLocation } from 'react-router-dom'
+import { APP_MAX_WIDTH, COLORS } from '../theme'
+import { MenuContext } from './MenuContext'
+import MenuOverlay from './MenuOverlay'
+
+interface AppShellProps {
+  children: ReactNode
+}
+
+export function AppShell({ children }: AppShellProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  const { pathname } = useLocation()
+
+  // Změna stránky odscrolluje nahoru (menu se zavírá při kliknutí na odkaz)
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
+  return (
+    <MenuContext.Provider value={{ isOpen, open: () => setIsOpen(true), close: () => setIsOpen(false) }}>
+      <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.black }}>
+        <Box
+          component="main"
+          sx={{
+            position: 'relative',
+            width: '100%',
+            maxWidth: APP_MAX_WIDTH,
+            marginX: 'auto',
+            minHeight: '100vh',
+            backgroundColor: COLORS.dark,
+            overflowX: 'hidden',
+          }}
+        >
+          {children}
+        </Box>
+        <MenuOverlay />
+      </Box>
+    </MenuContext.Provider>
+  )
+}
+
+export default AppShell

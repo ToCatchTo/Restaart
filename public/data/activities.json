@@ -1,0 +1,669 @@
+[
+  {
+    "slug": "skupinova-cviceni",
+    "title": "Skupinová cvičení",
+    "category": "sport",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": true,
+    "classes": [
+      {
+        "name": "Joga Šárka:",
+        "text": "Jemná jóga v klidném tempu pro všechny, kteří si chtějí protáhnout tělo, uvolnit napětí a zklidnit mysl. Lekci zakončujeme krátkou meditací a relaxací."
+      },
+      {
+        "name": "Joga Ivča:",
+        "text": "Detska joga, hravy pohyb, ktery prinasi klid a sebevedomi.\n\nDetska joga probiha hravou a prirozenou formou, ktera odpovida veku a moznostem deti.\nNejde o dokonale provedeni pozice, ale o radost z pohybu, uvolneni a rozvoj fantazie.\nDeti se uci vnimat sve telo, zklidnit dech i mysl a objevuji radost z klidu i pohybu."
+      },
+      {
+        "name": "Jóga Linda: POWER JÓGA – pevné tělo & zdravá záda",
+        "text": "Dynamická lekce, která propojuje jógové pozice, vědomý dech a plynulý pohyb. Posílí a zpevní celé tělo, zlepší flexibilitu páteře, rovnováhu i kondici a pomůže uvolnit napětí a stres."
+      },
+      {
+        "name": "Joga Martina ráno:",
+        "text": "Jemné rozhýbání těla po noci, zaktivujeme lymfu pro nastartování imunity, pozdrav slunce, který nám vnese lehkost a svěží energii do celého dne"
+      },
+      {
+        "name": "Joga Martina večer:",
+        "text": "Budeme uvolňovat napětí a stres, které jsme nasbírali během dne, hlubší protažení, zklidnění mysli, nebude chybět pozdrav měsíce a závěrečná relaxace pro dobrý spánek"
+      }
+    ]
+  },
+  {
+    "slug": "detske-krouzky",
+    "title": "Dětské kroužky",
+    "category": "sport",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "squash",
+    "title": "Squash",
+    "category": "sport",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "badminton",
+    "title": "Badminton",
+    "category": "sport",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "stolni-tenis",
+    "title": "Stolní tenis",
+    "category": "sport",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "posilovna",
+    "title": "Posilovna",
+    "category": "sport",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "fitzona",
+    "title": "Fitzóna",
+    "category": "sport",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "vacushape",
+    "title": "VacuShape",
+    "category": "sport",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "soukroma-sauna",
+    "title": "Soukromá sauna",
+    "category": "regenerace",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "maderoterapie",
+    "title": "Maderoterapie",
+    "category": "regenerace",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "bodywraps",
+    "title": "BodyWraps",
+    "category": "regenerace",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "lymfodrenaz",
+    "title": "Lymfodrenáž",
+    "category": "regenerace",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "masaze",
+    "title": "Masáže",
+    "category": "regenerace",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "tejpovani",
+    "title": "Tejpování",
+    "category": "regenerace",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  },
+  {
+    "slug": "vyziva",
+    "title": "Výživa",
+    "category": "regenerace",
+    "description": "Naše privátní finská sauna v Pardubicích - Svítkově Vám nabízí komfortní prostředí až pro 6 osob. Odpočinková místnost je do přírodních tónů tak, aby se Vám v ní příjemně relaxovalo. Zchladit se můžete ledovým vodopádem. Samozřejmostí je i karafa s citrusy a také svíčky pro lepší požitek ze saunování. V zázemí sauny nechybí soukromé wc a teplá sprcha. Pro rodiny s dětmi rádi nastavíme teplotu tak, aby byla vyhovující",
+    "priceGroups": [
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ],
+      [
+        {
+          "duration": "60 min.",
+          "price": "600 Kč"
+        },
+        {
+          "duration": "90 min.",
+          "price": "800 Kč"
+        },
+        {
+          "duration": "120 min.",
+          "price": "900 Kč"
+        }
+      ]
+    ],
+    "gallery": [
+      "/images/sauna_gallery_1.png",
+      "/images/sauna_gallery_2.png",
+      "/images/sauna_gallery_3.png"
+    ],
+    "backgroundImage": "/images/activity_bg_sauna.png",
+    "hasClassList": false
+  }
+]
