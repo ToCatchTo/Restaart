@@ -3,6 +3,7 @@ import { content } from '../content'
 import { fluid } from '../fluid'
 import type { Event } from '../types'
 import { useFetch } from '../hooks/useFetch'
+import { usePageTitle } from '../hooks/usePageTitle'
 import DataStatus from '../components/DataStatus'
 import EventsGrid from '../components/EventsGrid'
 import Footer from '../components/Footer'
@@ -13,6 +14,7 @@ import QuickNav from '../components/QuickNav'
 
 export function EventsPage() {
   const { data, loading, error } = useFetch<Event[]>(content.api.events)
+  usePageTitle(content.pages.events.title)
 
   return (
     <>

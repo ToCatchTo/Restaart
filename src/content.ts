@@ -150,6 +150,14 @@ export const content = {
     { label: 'KONTAKT', href: '/kontakt' },
   ] satisfies NavSectionData[],
 
+  // Titulky karty prohlížeče: „Restaart - …“ (stránky s vlastním názvem ho použijí přímo)
+  titles: {
+    separator: ' - ',
+    home: 'Sport a relax centrum Pardubice',
+    activities: 'Aktivity',
+    contact: 'Kontakt',
+  },
+
   pages: {
     events: { title: 'Akce', image: '/images/events_bg.png' },
     eventDetail: { back: 'zpět na výpis', backIcon: '/icons/arrow_left_white_bg.svg', image: '/images/events_bg.png' },
@@ -307,6 +315,8 @@ export const content = {
   api: {
     activities: '/activities.json',
     events: '/events.json',
+    // Serverless funkce (api/google-rating.ts) – hodnocení Google s cache
+    googleRating: '/api/google-rating',
   },
 }
 

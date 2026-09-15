@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { fluid } from '../fluid'
 import { COLORS } from '../theme'
+import { usePageTitle } from '../hooks/usePageTitle'
 import Header from '../components/Header'
 import PageTitle from '../components/PageTitle'
 import QuickNav from '../components/QuickNav'
@@ -35,6 +36,7 @@ const paragraphSx = {
 
 export function LegalPage({ page }: LegalPageProps) {
   const { title, updated, sections } = content.legal[page]
+  usePageTitle(title)
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.dark }}>

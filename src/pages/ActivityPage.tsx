@@ -6,6 +6,7 @@ import { fluid } from '../fluid'
 import { COLORS } from '../theme'
 import type { Activity } from '../types'
 import { useFetch } from '../hooks/useFetch'
+import { usePageTitle } from '../hooks/usePageTitle'
 import ClassListAccordion from '../components/ClassListAccordion'
 import DataStatus from '../components/DataStatus'
 import Footer from '../components/Footer'
@@ -20,6 +21,7 @@ export function ActivityPage() {
   const { slug } = useParams<{ slug: string }>()
   const { data, loading, error } = useFetch<Activity[]>(content.api.activities)
   const activity = data?.find((item) => item.slug === slug) ?? null
+  usePageTitle(activity?.title ?? content.titles.activities)
   const tempGallery = [
     '/images/activity_gallery_image.png',
     '/images/activity_bg_sauna.png',

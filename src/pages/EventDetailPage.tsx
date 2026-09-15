@@ -7,6 +7,7 @@ import { fluid } from '../fluid'
 import { COLORS } from '../theme'
 import type { Event } from '../types'
 import { useFetch } from '../hooks/useFetch'
+import { usePageTitle } from '../hooks/usePageTitle'
 import BackLink from '../components/BackLink'
 import DataStatus from '../components/DataStatus'
 import Footer from '../components/Footer'
@@ -20,6 +21,7 @@ export function EventDetailPage() {
   const { data, loading, error } = useFetch<Event[]>(content.api.events)
   const event = data?.find((item) => item.slug === slug) ?? null
   const { back, backIcon, image } = content.pages.eventDetail
+  usePageTitle(event?.title ?? content.pages.events.title)
 
   return (
     <>

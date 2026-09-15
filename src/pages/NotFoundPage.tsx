@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { fluid } from '../fluid'
 import { COLORS } from '../theme'
+import { usePageTitle } from '../hooks/usePageTitle'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import PageBackground from '../components/PageBackground'
@@ -12,6 +13,8 @@ import PageTitle from '../components/PageTitle'
 import QuickNav from '../components/QuickNav'
 
 export function NotFoundPage() {
+  usePageTitle(content.pages.notFound.title)
+
   return (
     <>
       <PageBackground image={content.hero.image} minHeight={fluid(810, 860)}>

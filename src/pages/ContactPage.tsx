@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { fluid } from '../fluid'
 import { COLORS } from '../theme'
+import { usePageTitle } from '../hooks/usePageTitle'
 import ContactInfo from '../components/ContactInfo'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
@@ -24,6 +25,7 @@ const textSx = {
 
 export function ContactPage() {
   const { addressTitle, addressLines, mapUrl, parkingTitle, parkingLines, social } = content.contact
+  usePageTitle(content.titles.contact)
 
   return (
     <>
