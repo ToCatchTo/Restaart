@@ -17,8 +17,9 @@ interface FetchResult<T> {
 // Základní URL – prázdná env proměnná znamená lokální mock data
 const BASE_URL = import.meta.env.VITE_API_URL || '/data'
 
-// Absolutní URL (http/https) se používá beze změny, relativní cesta se připojí k základní URL
-const resolveUrl = (path: string) => (/^https?:\/\//.test(path) ? path : `${BASE_URL}${path}`)
+// Absolutní URL (http/https) a lokální serverless funkce (/api/…) se používají beze změny,
+// ostatní relativní cesty se připojí k základní URL
+const resolveUrl = (path: string) => (/^https?:\/\//.test(path) || path.startsWith('/api/') ? path : `${BASE_URL}${path}`)
 
 // Cesta null znamená, že se nic nenačítá (např. chybí konfigurace)
 export function useFetch<T>(path: string | null): FetchState<T> {

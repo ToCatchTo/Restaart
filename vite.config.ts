@@ -1,12 +1,33 @@
 /// <reference types="vitest/config" />
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv, type Plugin } from 'vite'
 
-export default defineConfig({
-  plugins: [react()],
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['./src/test/setup.ts'],
-  },
+// Lokální obsluha serverless funkcí z adresáře api/ (na Vercelu je spouští platforma)
+function localApi(): Plugin {
+  return {
+    name: 'local-api',
+    configureServer(server) {
+      server.middlewares.use('/api/google-rating', async (_req, res) => {
+        const { GET } = (await server.ssrLoadModule('/api/google-rating.ts')) as { GET: () => Promise<Response> }
+        const response = await GET()
+        res.statusCode = response.status
+        response.headers.forEach((value, key) => res.setHeader(key, value))
+        res.end(await response.text())
+      })
+    },
+  }
+}
+
+export default defineConfig(({ mode }) => {
+  // Proměnné z .env* pro lokální běh serverless funkcí (Vite je do process.env sám nedává)
+  Object.assign(process.env, loadEnv(mode, process.cwd(), ''))
+
+  return {
+    plugins: [react(), localApi()],
+    test: {
+      environment: 'jsdom',
+      globals: true,
+      setupFiles: ['./src/test/setup.ts'],
+    },
+  }
 })

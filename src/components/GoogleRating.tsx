@@ -1,4 +1,4 @@
-// Bílá karta s hodnocením Google (logo, známka, hvězdy, počet recenzí) – data z Google Places API
+// Bílá karta s hodnocením Google (logo, známka, hvězdy, počet recenzí) – data ze serverless funkce api/google-rating
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
@@ -10,22 +10,11 @@ import MaskIcon from './MaskIcon'
 const STAR_COLOR = '#f4b400'
 const STAR_EMPTY_COLOR = '#dadce0'
 const REVIEWS_COLOR = '#1a73e8'
-const PLACES_API_URL = 'https://places.googleapis.com/v1/places/'
 
-// Odpověď Places API (New) s vyžádanými poli
+// Odpověď serverless funkce (pole z Places API)
 interface PlaceDetails {
   rating?: number
   userRatingCount?: number
-}
-
-// URL požadavku na Places API; bez klíče nebo Place ID se nic nenačítá
-function buildPlaceUrl(): string | null {
-  const apiKey = import.meta.env.VITE_GOOGLE_PLACES_API_KEY
-  const placeId = import.meta.env.VITE_GOOGLE_PLACE_ID
-  if (!apiKey || !placeId) return null
-
-  const params = new URLSearchParams({ fields: 'rating,userRatingCount', key: apiKey })
-  return `${PLACES_API_URL}${encodeURIComponent(placeId)}?${params}`
 }
 
 const formatRating = (rating: number) => rating.toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
@@ -33,7 +22,7 @@ const formatCount = (count: number) => count.toLocaleString('cs-CZ')
 
 export function GoogleRating() {
   const { logo, logoAlt, starIcon, maxStars, reviewsLabel, fallbackRating, fallbackCount } = content.googleRating
-  const { data } = useFetch<PlaceDetails>(buildPlaceUrl())
+  const { data } = useFetch<PlaceDetails>(content.api.googleRating)
 
   const rating = data?.rating ?? fallbackRating
   const count = data?.userRatingCount ?? fallbackCount
