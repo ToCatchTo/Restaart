@@ -9,6 +9,7 @@ import { fluid } from '../fluid'
 import { COLORS } from '../theme'
 import type { ActivityClass } from '../types'
 import Icon from './Icon'
+import RichText from './RichText'
 
 interface ClassListAccordionProps {
   classes: ActivityClass[]
@@ -59,12 +60,11 @@ export function ClassListAccordion({ classes }: ClassListAccordionProps) {
               >
                 {item.name}
               </Typography>
-              <Typography
+              <RichText
                 component="dd"
-                sx={{ margin: 0, fontSize: fluid(16, 17), lineHeight: fluid(28, 30), whiteSpace: 'pre-line', color: COLORS.white }}
-              >
-                {item.text}
-              </Typography>
+                html={item.text}
+                sx={{ margin: 0, fontSize: fluid(16, 17), lineHeight: fluid(28, 30) }}
+              />
             </Box>
           ))}
         </Box>

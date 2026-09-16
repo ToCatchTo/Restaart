@@ -6,7 +6,7 @@ import Collapse from '@mui/material/Collapse'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { fluid } from '../fluid'
-import { COLORS } from '../theme'
+import { COLORS, FONT_SECONDARY } from '../theme'
 import type { NavSectionData } from '../types'
 
 interface NavSectionProps {
@@ -81,6 +81,7 @@ export function NavSection({ section, onNavigate, alwaysOpen = false, expanded, 
                   sx={{
                     fontSize: fluid(16, 17),
                     lineHeight: fluid(26, 28),
+                    fontFamily: FONT_SECONDARY,
                     fontWeight: 200,
                     color: COLORS.white,
                     textDecoration: 'none',

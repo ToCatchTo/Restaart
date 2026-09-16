@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { fluid } from '../fluid'
-import { COLORS } from '../theme'
+import { COLORS, FONT_SECONDARY } from '../theme'
 import { usePageTitle } from '../hooks/usePageTitle'
 import Header from '../components/Header'
 import PageTitle from '../components/PageTitle'
@@ -29,6 +29,7 @@ const paragraphSx = {
   paddingTop: fluid(12, 14),
   fontSize: fluid(15, 16),
   lineHeight: fluid(24, 26),
+  fontFamily: FONT_SECONDARY,
   fontWeight: 200,
   letterSpacing: '0.02em',
   color: COLORS.white,

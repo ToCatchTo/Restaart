@@ -3,13 +3,14 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { fluid } from '../fluid'
-import { COLORS } from '../theme'
+import { COLORS, FONT_SECONDARY } from '../theme'
 
 const textSx = {
   display: 'block',
   fontSize: fluid(16, 17),
   lineHeight: fluid(20, 21),
   color: COLORS.white,
+  fontFamily: FONT_SECONDARY,
   fontWeight: 200
 } as const
 

@@ -14,15 +14,14 @@ export function PageTitle({ children, align = 'left' }: PageTitleProps) {
       component="h1"
       sx={{
         margin: 0,
-        paddingTop: fluid(40, 44),
+        paddingTop: fluid(48, 44),
         paddingLeft: fluid(30, 34),
         paddingRight: fluid(30, 34),
-        fontSize: fluid(30, 32),
+        fontSize: fluid(40, 32),
         lineHeight: fluid(40, 40),
-        fontWeight: 500,
+        fontWeight: 600,
         textAlign: align,
         color: COLORS.white,
-        textDecoration: 'underline',
         textUnderlineOffset: '6px',
         textDecorationThickness: '2px',
       }}

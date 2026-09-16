@@ -18,8 +18,8 @@ export function HomePage() {
       <PageBackground image={content.hero.image} height={fluid(812, 860)}>
         <Header />
         <QuickNav />
-        <Hero />
         <EventPill />
+        <Hero />
         <GoogleRating />
       </PageBackground>
       <Footer />

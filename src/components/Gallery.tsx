@@ -22,7 +22,7 @@ export function Gallery({ images, alt }: GalleryProps) {
   const step = (delta: number) => setIndex((value) => (value + delta + count) % count)
 
   return (
-    <Box sx={{ paddingTop: fluid(95, 100), paddingLeft: fluid(30, 34), paddingRight: fluid(30, 34) }}>
+    <Box sx={{ paddingTop: fluid(45, 100), paddingLeft: fluid(30, 34), paddingRight: fluid(30, 34) }}>
       <Box
         component="img"
         src={images[index]}

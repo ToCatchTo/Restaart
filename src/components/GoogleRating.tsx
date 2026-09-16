@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { fluid } from '../fluid'
 import { useFetch } from '../hooks/useFetch'
-import { COLORS } from '../theme'
+import { COLORS, FONT_SECONDARY } from '../theme'
 import MaskIcon from './MaskIcon'
 
 const STAR_COLOR = '#f4b400'
@@ -29,7 +29,7 @@ export function GoogleRating() {
   const filledStars = Math.round(rating)
 
   return (
-    <Box sx={{ paddingTop: fluid(92, 100), display: 'flex', justifyContent: 'center' }}>
+    <Box sx={{ paddingTop: fluid(145, 100), display: 'flex', justifyContent: 'center' }}>
       <Box
         sx={{
           width: fluid(258, 270),
@@ -44,7 +44,7 @@ export function GoogleRating() {
       >
         <Box component="img" src={logo} alt={logoAlt} sx={{ width: fluid(30, 32), height: fluid(30, 32), display: 'block' }} />
         <Box sx={{ display: 'flex', alignItems: 'center', gap: fluid(8, 9), paddingTop: fluid(14, 16) }}>
-          <Typography component="span" sx={{ fontSize: fluid(26, 28), lineHeight: fluid(30, 32), fontWeight: 700, color: COLORS.black }}>
+          <Typography component="span" sx={{ fontSize: fluid(26, 28), lineHeight: fluid(30, 32), fontFamily: FONT_SECONDARY, fontWeight: 700, color: COLORS.black }}>
             {formatRating(rating)}
           </Typography>
           <Box sx={{ display: 'flex', gap: fluid(2, 3) }} aria-hidden>
@@ -55,7 +55,7 @@ export function GoogleRating() {
         </Box>
         <Typography
           component="span"
-          sx={{ paddingTop: fluid(10, 11), fontSize: fluid(13, 14), lineHeight: fluid(16, 17), fontWeight: 500, color: REVIEWS_COLOR }}
+          sx={{ paddingTop: fluid(10, 11), fontSize: fluid(13, 14), lineHeight: fluid(16, 17), fontFamily: FONT_SECONDARY, fontWeight: 500, color: REVIEWS_COLOR }}
         >
           {formatCount(count)} {reviewsLabel}
         </Typography>

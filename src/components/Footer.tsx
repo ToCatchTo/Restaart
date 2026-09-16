@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { fluid } from '../fluid'
-import { COLORS } from '../theme'
+import { COLORS, FONT_SECONDARY } from '../theme'
 import ContactInfo from './ContactInfo'
 import OpeningHours from './OpeningHours'
 import PageBackground from './PageBackground'
@@ -21,6 +21,7 @@ const smallSx = {
   fontSize: fluid(12, 13),
   lineHeight: fluid(15, 16),
   color: COLORS.white,
+  fontFamily: FONT_SECONDARY,
   fontWeight: 200
 } as const
 

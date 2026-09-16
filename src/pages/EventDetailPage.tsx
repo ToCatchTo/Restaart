@@ -1,6 +1,5 @@
 // Detail akce – /akce/:slug
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import { useParams } from 'react-router-dom'
 import { content } from '../content'
 import { fluid } from '../fluid'
@@ -15,6 +14,7 @@ import Header from '../components/Header'
 import PageBackground from '../components/PageBackground'
 import PageTitle from '../components/PageTitle'
 import QuickNav from '../components/QuickNav'
+import RichText from '../components/RichText'
 
 export function EventDetailPage() {
   const { slug } = useParams<{ slug: string }>()
@@ -48,7 +48,8 @@ export function EventDetailPage() {
                 }}
               />
             </Box>
-            <Typography
+            <RichText
+              html={event.description}
               sx={{
                 paddingTop: fluid(42, 54),
                 paddingLeft: fluid(30, 34),
@@ -56,10 +57,7 @@ export function EventDetailPage() {
                 paddingBottom: fluid(110, 54),
                 fontSize: fluid(16, 17),
                 lineHeight: fluid(28, 30),
-                whiteSpace: 'pre-line',
-                color: COLORS.white,
               }}
-              dangerouslySetInnerHTML={{ __html: event.description }}
             />
           </>
         ) : (

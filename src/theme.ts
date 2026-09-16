@@ -1,8 +1,10 @@
 // MUI téma – barvy a písma podle XD návrhu (Restaart_web)
 import { createTheme } from '@mui/material/styles'
 
-// Rodiny písem (náhrady za Safiro / Avalanche z návrhu)
-export const FONT_BODY = "'Outfit', 'Helvetica Neue', Arial, sans-serif"
+// Rodiny písem – Safiro je lokální (public/fonts), ostatní jsou náhrady z Google Fonts
+export const FONT_BODY = "'Safiro', 'Helvetica Neue', Arial, sans-serif"
+// Outfit – lehké texty (tloušťka pod 400, Safiro ji nemá) a Google widget
+export const FONT_SECONDARY = "'Outfit', 'Helvetica Neue', Arial, sans-serif"
 export const FONT_LABEL = "'Gantari', 'Helvetica Neue', Arial, sans-serif"
 export const FONT_SCRIPT = "'Permanent Marker', 'Comic Sans MS', cursive"
 

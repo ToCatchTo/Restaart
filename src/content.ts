@@ -1,8 +1,8 @@
 // Všechny statické texty aplikace (žádné texty přímo v komponentách)
 import type { NavSectionData } from './types'
 
-// Externí rezervační systém (zatím bez adresy)
-const RESERVATION_URL = '#'
+// Externí rezervační systém
+const RESERVATION_URL = 'https://rezervace.restaart.cz/login'
 
 // Pomocná funkce pro tvorbu odkazu na detail aktivity
 const activity = (label: string, slug: string) => ({ label, href: `/aktivity/${slug}` })
@@ -59,17 +59,16 @@ export const content = {
   },
 
   hero: {
-    lineA: 'pohodové',
-    script: 'sport a relax',
-    lineB: 'centrum v Pardubicích',
+    lines: ['sportovní centrum', 'pro celou rodinu'],
     image: '/images/hero_home.png',
   },
 
   eventPill: {
+    // false = tlačítko se nevykreslí, ale jeho místo zůstane zachované
+    enabled: true,
     text: '28/9 Den otevřených dveří',
     href: '/akce/restaart-day',
-    icon: '/icons/little_bolt.svg',
-    arrowIcon: '/icons/arrow_right.svg',
+    arrowIcon: '/icons/arrow_right_dark_bg.svg',
   },
 
   googleRating: {

@@ -1,9 +1,10 @@
 // Univerzální detail aktivity (sport / regenerace) – /aktivity/:slug
 import Typography from '@mui/material/Typography'
 import { useParams } from 'react-router-dom'
+import { fadeInUpSx } from '../animations'
 import { content } from '../content'
 import { fluid } from '../fluid'
-import { COLORS } from '../theme'
+import { COLORS, FONT_SECONDARY } from '../theme'
 import type { Activity } from '../types'
 import { useFetch } from '../hooks/useFetch'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -16,6 +17,7 @@ import PageBackground from '../components/PageBackground'
 import PageTitle from '../components/PageTitle'
 import PriceList from '../components/PriceList'
 import QuickNav from '../components/QuickNav'
+import RevealOnScroll from '../components/RevealOnScroll'
 
 export function ActivityPage() {
   const { slug } = useParams<{ slug: string }>()
@@ -39,18 +41,23 @@ export function ActivityPage() {
             <PageTitle>{activity.title}</PageTitle>
             <Typography
               sx={{
-                paddingTop: fluid(45, 44),
+                paddingTop: fluid(27, 44),
                 paddingLeft: fluid(30, 34),
                 paddingRight: fluid(30, 34),
                 fontSize: fluid(16, 17),
                 lineHeight: fluid(25, 30),
                 color: COLORS.white,
+                fontFamily: FONT_SECONDARY,
                 fontWeight: 200,
+                letterSpacing: '0.02em',
+                ...fadeInUpSx(),
               }}
             >
               {activity.description}
             </Typography>
-            <PriceList groups={activity.priceGroups} />
+            <RevealOnScroll threshold={0.5}>
+              <PriceList groups={activity.priceGroups} />
+            </RevealOnScroll>
             <Gallery images={tempGallery} alt={activity.title} />
           </>
         ) : (

@@ -1,0 +1,57 @@
+/* Lokální písmo Safiro (public/fonts) – čtyři tloušťky, každá s kurzívou */
+@font-face {
+  font-family: 'Safiro';
+  src: url('/fonts/safiro_regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Safiro';
+  src: url('/fonts/safiro_regular_italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Safiro';
+  src: url('/fonts/safiro_medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Safiro';
+  src: url('/fonts/safiro_medium_italic.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Safiro';
+  src: url('/fonts/safiro_semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Safiro';
+  src: url('/fonts/safiro_semibold_italic.woff2') format('woff2');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Safiro';
+  src: url('/fonts/safiro_bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Safiro';
+  src: url('/fonts/safiro_bold_italic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}

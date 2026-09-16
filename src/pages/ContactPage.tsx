@@ -4,7 +4,7 @@ import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { fluid } from '../fluid'
-import { COLORS } from '../theme'
+import { COLORS, FONT_SECONDARY } from '../theme'
 import { usePageTitle } from '../hooks/usePageTitle'
 import ContactInfo from '../components/ContactInfo'
 import Footer from '../components/Footer'
@@ -19,6 +19,7 @@ const textSx = {
   fontSize: fluid(16, 17),
   lineHeight: fluid(20, 21),
   color: COLORS.white,
+  fontFamily: FONT_SECONDARY,
   fontWeight: 200,
   letterSpacing: '0.02em',
 } as const
