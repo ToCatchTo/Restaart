@@ -1,10 +1,10 @@
-// Kontakt – /kontakt
+// Kontakt – /kontakt; desktop: tři sloupce (kontakt + otevírací doba | sociální sítě + adresa | provozovatel)
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
-import { fluid } from '../fluid'
-import { COLORS, FONT_SECONDARY } from '../theme'
+import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
+import { COLORS, DESKTOP, FONT_SECONDARY } from '../theme'
 import { usePageTitle } from '../hooks/usePageTitle'
 import ContactInfo from '../components/ContactInfo'
 import Footer from '../components/Footer'
@@ -16,12 +16,23 @@ import QuickNav from '../components/QuickNav'
 
 const textSx = {
   display: 'block',
-  fontSize: fluid(16, 17),
-  lineHeight: fluid(20, 21),
+  fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 20) },
+  lineHeight: { xs: fluid(20, 21), md: desktopType(25) },
   color: COLORS.white,
   fontFamily: FONT_SECONDARY,
   fontWeight: 200,
   letterSpacing: '0.02em',
+} as const
+
+// Mobilní okraje bloků (mimo patičku, která má vlastní)
+const gutterSx = { paddingLeft: { xs: fluid(30, 34), md: 0 }, paddingRight: { xs: fluid(30, 34), md: 0 } } as const
+
+// Desktop: sloupec široký 552 px (rozestup 278 → 830 → 1382), ale nikdy užší než jeho obsah
+const columnItemSx = {
+  width: { md: desktopScaled(552) },
+  minWidth: { md: 'max-content' },
+  paddingRight: { md: desktopScaled(30) },
+  boxSizing: 'border-box',
 } as const
 
 export function ContactPage() {
@@ -30,42 +41,40 @@ export function ContactPage() {
 
   return (
     <>
-      <PageBackground image={content.pages.contact.image} minHeight={fluid(1621, 1700)} overlay="rgba(0, 0, 0, 0.6)">
+      <PageBackground
+        image={content.pages.contact.image}
+        minHeight={{ xs: fluid(1621, 1700), md: '0px' }}
+        viewportHeight
+        overlay={{ xs: 'rgba(0, 0, 0, 0.6)', md: 'rgba(0, 0, 0, 0.7)' }}
+        position={{ xs: 'center top', md: '52.2% 34.3%' }}
+        size={{ xs: 'cover', md: '237% auto' }}
+      >
         <Header />
         <QuickNav />
 
-        <Box sx={{ paddingTop: fluid(102, 122), paddingLeft: fluid(30, 34), paddingRight: fluid(30, 34) }}>
-          <ContactInfo size="large" />
-
-          <Box sx={{ paddingTop: fluid(70, 64) }}>
-            <OpeningHours />
+        {/* Mobil: bloky pod sebou, desktop: dva řádky sloupců na x = 278, 830 a 1382; sloupce se při nedostatku místa zalomí */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            flexWrap: 'wrap',
+            alignItems: { md: 'flex-start' },
+            paddingTop: { xs: fluid(102, 122), md: desktopScaled(236) },
+            paddingLeft: { md: desktopScaled(DESKTOP.content) },
+          }}
+        >
+          <Box sx={{ ...gutterSx, ...columnItemSx, order: { xs: 0, md: 0 }, paddingTop: { md: desktopScaled(0) } }}>
+            <ContactInfo size="large" />
           </Box>
 
-          <Box sx={{ paddingTop: fluid(45, 54) }}>
-            <Typography component="span" sx={textSx}>
-              {addressTitle}
-            </Typography>
-            <Typography component="a" href={mapUrl} target="_blank" rel="noreferrer" sx={{ ...textSx, textDecoration: 'underline' }}>
-              {addressLines.map((line) => (
-                <Typography key={line} component="span" sx={textSx}>
-                  {line}
-                </Typography>
-              ))}
-            </Typography>
+          {/* Desktop: zalomení řádku za sociálními sítěmi */}
+          <Box aria-hidden sx={{ display: { xs: 'none', md: 'block' }, flexBasis: '100%', order: 2 }} />
+
+          <Box sx={{ ...gutterSx, ...columnItemSx, order: { xs: 1, md: 3 }, paddingTop: { xs: fluid(70, 64), md: desktopScaled(58) } }}>
+            <OpeningHours column />
           </Box>
 
-          <Box sx={{ paddingTop: fluid(45, 44) }}>
-            <Typography component="span" sx={textSx}>
-              {parkingTitle}
-            </Typography>
-            {parkingLines.map((line) => (
-              <Typography key={line} component="span" sx={textSx}>
-                {line}
-              </Typography>
-            ))}
-          </Box>
-
-          <Box sx={{ paddingTop: fluid(75, 106), display: 'flex', gap: fluid(50, 40) }}>
+          <Box sx={{ ...gutterSx, ...columnItemSx, order: { xs: 3, md: 1 }, paddingTop: { xs: fluid(75, 106), md: 0 }, display: 'flex', gap: { xs: fluid(50, 40), md: desktopScaled(93) } }}>
             {social.map((item) => (
               <ButtonBase
                 key={item.label}
@@ -76,13 +85,39 @@ export function ContactPage() {
                 aria-label={item.label}
                 sx={{ borderRadius: '50%' }}
               >
-                <Icon src={item.icon} size={fluid(46, 48)} />
+                <Icon src={item.icon} size={{ xs: fluid(46, 48), md: desktopType(45) }} />
               </ButtonBase>
             ))}
           </Box>
-        </Box>
 
-        <Footer compact embedded />
+          <Box sx={{ ...gutterSx, ...columnItemSx, order: { xs: 2, md: 4 }, paddingTop: { xs: fluid(45, 54), md: desktopScaled(58) } }}>
+            <Typography component="span" sx={textSx}>
+              {addressTitle}
+            </Typography>
+            <Typography component="a" href={mapUrl} target="_blank" rel="noreferrer" sx={{ ...textSx, textDecoration: 'underline' }}>
+              {addressLines.map((line) => (
+                <Typography key={line} component="span" sx={textSx}>
+                  {line}
+                </Typography>
+              ))}
+            </Typography>
+
+            <Box sx={{ paddingTop: { xs: fluid(45, 44), md: desktopScaled(93) } }}>
+              <Typography component="span" sx={textSx}>
+                {parkingTitle}
+              </Typography>
+              {parkingLines.map((line) => (
+                <Typography key={line} component="span" sx={textSx}>
+                  {line}
+                </Typography>
+              ))}
+            </Box>
+          </Box>
+
+          <Box sx={{ order: { xs: 4, md: 5 }, flexGrow: { md: 1 }, minWidth: { md: 'max-content' } }}>
+            <Footer compact embedded />
+          </Box>
+        </Box>
       </PageBackground>
     </>
   )

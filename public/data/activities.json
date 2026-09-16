@@ -35,11 +35,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/events_bg.webp",
+      "/images/contact_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": true,
     "classes": [
       {
@@ -100,11 +100,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/contact_bg.webp",
+      "/images/footer_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -143,11 +143,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/footer_bg.webp",
+      "/images/hero_home.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -186,11 +186,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/hero_home.webp",
+      "/images/events_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -229,11 +229,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/events_bg.webp",
+      "/images/contact_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -272,11 +272,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/contact_bg.webp",
+      "/images/footer_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -315,11 +315,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/footer_bg.webp",
+      "/images/hero_home.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -358,11 +358,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/hero_home.webp",
+      "/images/events_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -401,11 +401,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/events_bg.webp",
+      "/images/contact_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -444,11 +444,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/contact_bg.webp",
+      "/images/footer_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -487,11 +487,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/footer_bg.webp",
+      "/images/hero_home.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -530,11 +530,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/hero_home.webp",
+      "/images/events_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -573,11 +573,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/events_bg.webp",
+      "/images/contact_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -616,11 +616,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/contact_bg.webp",
+      "/images/footer_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   },
   {
@@ -659,11 +659,11 @@
       ]
     ],
     "gallery": [
-      "/images/sauna_gallery_1.png",
-      "/images/sauna_gallery_2.png",
-      "/images/sauna_gallery_3.png"
+      "/images/activity_gallery_1.webp",
+      "/images/footer_bg.webp",
+      "/images/hero_home.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.png",
+    "backgroundImage": "/images/activity_bg_sauna.webp",
     "hasClassList": false
   }
 ]

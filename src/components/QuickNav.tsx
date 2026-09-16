@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { fluid } from '../fluid'
-import { APP_MAX_WIDTH, COLORS, FONT_SECONDARY } from '../theme'
+import { COLORS, FONT_SECONDARY } from '../theme'
 import ActivitiesDropdown from './ActivitiesDropdown'
 import CloseMark from './CloseMark'
 import Icon from './Icon'
@@ -94,7 +94,7 @@ export function QuickNav() {
   return (
     <>
       {/* Zástupné místo v toku stránky – samotný pruh je ve fixní vrstvě */}
-      <Box aria-hidden sx={{ height: BAR_HEIGHT, marginTop: BAR_GAP }} />
+      <Box aria-hidden sx={{ height: BAR_HEIGHT, marginTop: BAR_GAP, display: { xs: 'block', md: 'none' } }} />
 
       <Box
         ref={layerRef}
@@ -105,7 +105,8 @@ export function QuickNav() {
           left: 0,
           right: 0,
           zIndex: (theme) => theme.zIndex.appBar,
-          display: 'flex',
+          // Na desktopu rychlá navigace není (nahrazuje ji tlačítko v hlavičce a hamburger)
+          display: { xs: 'flex', md: 'none' },
           justifyContent: 'center',
           // Okraje mimo mobilní sloupec propouštějí kliknutí na obsah pod nimi
           pointerEvents: 'none',
@@ -115,7 +116,6 @@ export function QuickNav() {
           sx={{
             position: 'relative',
             width: '100%',
-            maxWidth: APP_MAX_WIDTH,
             boxSizing: 'border-box',
             paddingLeft: fluid(19, 22),
             paddingRight: fluid(19, 22),

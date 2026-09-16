@@ -2,8 +2,8 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
-import { fluid } from '../fluid'
-import { COLORS, FONT_SECONDARY } from '../theme'
+import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
+import { COLORS, DESKTOP, FONT_BODY, FONT_SECONDARY, columnSx } from '../theme'
 import { usePageTitle } from '../hooks/usePageTitle'
 import Header from '../components/Header'
 import PageTitle from '../components/PageTitle'
@@ -13,26 +13,34 @@ interface LegalPageProps {
   page: keyof typeof content.legal
 }
 
+// Desktop nemá vlastní návrh – text v sloupci 812 px od obsahové hrany, písmo jako popis akce (16/25)
 const headingSx = {
   display: 'block',
   margin: 0,
-  fontSize: fluid(18, 19),
-  lineHeight: fluid(24, 25),
-  fontWeight: 500,
-  letterSpacing: '0.02em',
+  fontSize: { xs: fluid(18, 19), md: fluidDesktop(18.4, 20) },
+  lineHeight: { xs: fluid(24, 25), md: desktopType(30) },
+  fontWeight: { xs: 500, md: 600 },
+  letterSpacing: { xs: '0.02em', md: 0 },
   color: COLORS.white,
 } as const
 
 const paragraphSx = {
   display: 'block',
   margin: 0,
-  paddingTop: fluid(12, 14),
-  fontSize: fluid(15, 16),
-  lineHeight: fluid(24, 26),
-  fontFamily: FONT_SECONDARY,
-  fontWeight: 200,
-  letterSpacing: '0.02em',
+  paddingTop: { xs: fluid(12, 14), md: desktopScaled(14) },
+  fontSize: { xs: fluid(15, 16), md: fluidDesktop(15.4, 16) },
+  lineHeight: { xs: fluid(24, 26), md: desktopType(25) },
+  fontFamily: { xs: FONT_SECONDARY, md: FONT_BODY },
+  fontWeight: { xs: 200, md: 400 },
+  letterSpacing: { xs: '0.02em', md: 0 },
   color: COLORS.white,
+} as const
+
+// Mobilní okraje, desktop: text od obsahové hrany 278 v šířce 812
+const gutterSx = {
+  paddingLeft: { xs: fluid(30, 34), md: desktopScaled(DESKTOP.content) },
+  paddingRight: { xs: fluid(30, 34), md: 0 },
+  maxWidth: { md: desktopScaled(812) },
 } as const
 
 export function LegalPage({ page }: LegalPageProps) {
@@ -40,25 +48,26 @@ export function LegalPage({ page }: LegalPageProps) {
   usePageTitle(title)
 
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.dark }}>
+    <Box sx={{ ...columnSx, minHeight: '100vh', backgroundColor: COLORS.dark }}>
       <Header />
       <QuickNav />
-      <PageTitle>{title}</PageTitle>
-      <Typography component="span" sx={{ ...paragraphSx, paddingTop: fluid(14, 16), paddingLeft: fluid(30, 34), paddingRight: fluid(30, 34) }}>
+      <PageTitle alignDesktop="left" variantDesktop="small" topDesktop={78} widthDesktop={812}>
+        {title}
+      </PageTitle>
+      <Typography component="span" sx={{ ...paragraphSx, ...gutterSx, paddingTop: { xs: fluid(14, 16), md: desktopScaled(20) } }}>
         {updated}
       </Typography>
 
       <Box
         component="article"
         sx={{
-          paddingTop: fluid(40, 44),
-          paddingLeft: fluid(30, 34),
-          paddingRight: fluid(30, 34),
-          paddingBottom: fluid(60, 70),
+          ...gutterSx,
+          paddingTop: { xs: fluid(40, 44), md: desktopScaled(58) },
+          paddingBottom: { xs: fluid(60, 70), md: desktopScaled(110) },
         }}
       >
         {sections.map((section) => (
-          <Box key={section.heading} component="section" sx={{ '& + &': { paddingTop: fluid(32, 36) } }}>
+          <Box key={section.heading} component="section" sx={{ '& + &': { paddingTop: { xs: fluid(32, 36), md: desktopScaled(40) } } }}>
             <Typography component="h2" sx={headingSx}>
               {section.heading}
             </Typography>

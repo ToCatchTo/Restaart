@@ -1,9 +1,9 @@
-// Galerie – jedna zaoblená fotka a šipky pro přepínání
+// Galerie – jedna zaoblená fotka a šipky pro přepínání; desktop: 1640×650 s rámem
 import { useState } from 'react'
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import { content } from '../content'
-import { fluid } from '../fluid'
+import { desktopScaled, desktopType, fluid } from '../fluid'
 import { COLORS } from '../theme'
 import Icon from './Icon'
 
@@ -22,7 +22,13 @@ export function Gallery({ images, alt }: GalleryProps) {
   const step = (delta: number) => setIndex((value) => (value + delta + count) % count)
 
   return (
-    <Box sx={{ paddingTop: fluid(45, 100), paddingLeft: fluid(30, 34), paddingRight: fluid(30, 34) }}>
+    <Box
+      sx={{
+        paddingTop: { xs: fluid(45, 100), md: desktopScaled(200) },
+        paddingLeft: { xs: fluid(30, 34), md: desktopScaled(140) },
+        paddingRight: { xs: fluid(30, 34), md: desktopScaled(140) },
+      }}
+    >
       <Box
         component="img"
         src={images[index]}
@@ -30,27 +36,29 @@ export function Gallery({ images, alt }: GalleryProps) {
         sx={{
           display: 'block',
           width: '100%',
-          aspectRatio: '1 / 1',
+          aspectRatio: { xs: '1 / 1', md: '1640 / 650' },
           objectFit: 'cover',
-          borderRadius: fluid(31, 33),
+          borderRadius: { xs: fluid(31, 33), md: desktopScaled(71) },
+          border: { md: `${desktopScaled(4)} solid ${COLORS.grayFrame}` },
+          boxSizing: 'border-box',
           backgroundColor: COLORS.gray,
         }}
       />
       <Box
         sx={{
-          paddingTop: fluid(36, 38),
-          minHeight: fluid(132, 136),
+          paddingTop: { xs: fluid(36, 38), md: desktopScaled(66) },
+          minHeight: { xs: fluid(132, 136), md: 0 },
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'flex-start',
-          gap: fluid(28, 30),
+          gap: { xs: fluid(28, 30), md: desktopScaled(64.3) },
         }}
       >
         <ButtonBase aria-label={prevLabel} onClick={() => step(-1)} sx={{ borderRadius: '50%' }}>
-          <Icon src={prevIcon} size={fluid(28, 30)} />
+          <Icon src={prevIcon} size={{ xs: fluid(28, 30), md: desktopType(53.6) }} />
         </ButtonBase>
         <ButtonBase aria-label={nextLabel} onClick={() => step(1)} sx={{ borderRadius: '50%' }}>
-          <Icon src={nextIcon} size={fluid(28, 30)} />
+          <Icon src={nextIcon} size={{ xs: fluid(28, 30), md: desktopType(53.6) }} />
         </ButtonBase>
       </Box>
     </Box>

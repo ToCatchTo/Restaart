@@ -1,5 +1,6 @@
 // MUI téma – barvy a písma podle XD návrhu (Restaart_web)
 import { createTheme } from '@mui/material/styles'
+import { DESKTOP_BREAKPOINT, desktopType } from './fluid'
 
 // Rodiny písem – Safiro je lokální (public/fonts), ostatní jsou náhrady z Google Fonts
 export const FONT_BODY = "'Safiro', 'Helvetica Neue', Arial, sans-serif"
@@ -15,17 +16,43 @@ export const COLORS = {
   teal: '#36696a',
   cyan: '#00f5ff',
   cyanDark: '#00ced1',
+  cyanLabel: '#00f8ff',
   dark: '#2b2b2b',
   navy: '#252f3e',
   grayLight: '#eaeaea',
   gray: '#707070',
+  grayFrame: '#696969',
   overlay: 'rgba(0, 0, 0, 0.55)',
 } as const
 
-// Maximální šířka mobilního sloupce na širších obrazovkách
-export const APP_MAX_WIDTH = 480
+// Desktop: šířka návrhu a rozměry mřížky (okraj 140, obsahová hrana 278)
+export const DESKTOP_MAX_WIDTH = 1920
+export const DESKTOP = { margin: 140, content: 278, width: DESKTOP_MAX_WIDTH } as const
+
+// Media query pro desktopovou strukturu (klíč do sx pro skupinové bloky)
+export const DESKTOP_MQ = `@media (min-width: ${DESKTOP_BREAKPOINT}px)`
+
+// Prosklené tlačítko z desktopového návrhu (průhledná výplň + rozostření a zesvětlení pozadí)
+export const frostedButtonSx = {
+  height: desktopType(60),
+  borderRadius: desktopType(40),
+  backdropFilter: 'blur(30px) brightness(1.15)',
+  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+  color: COLORS.white,
+} as const
+
+// Centrovaný sloupec obsahu: pod breakpointem plná šířka, nad ním nejvýše 1920 px
+export const columnSx = {
+  position: 'relative',
+  width: '100%',
+  maxWidth: { xs: 'none', md: DESKTOP_MAX_WIDTH },
+  marginX: 'auto',
+} as const
 
 export const theme = createTheme({
+  breakpoints: {
+    values: { xs: 0, sm: 480, md: DESKTOP_BREAKPOINT, lg: 1440, xl: 1920 },
+  },
   palette: {
     mode: 'dark',
     primary: { main: COLORS.teal, contrastText: COLORS.white },
@@ -41,6 +68,8 @@ export const theme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
+        // Místo pro posuvník zůstává i při zamknutém scrollu (otevřené menu), stránka tak neposkočí
+        html: { scrollbarGutter: 'stable' },
         body: { backgroundColor: COLORS.dark, margin: 0 },
         a: { color: 'inherit' },
       },

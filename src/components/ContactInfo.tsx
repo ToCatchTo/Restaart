@@ -1,8 +1,8 @@
-// E-mail a telefon (malá varianta v patičce, velká na stránce Kontakt)
+// E-mail a telefon (malá varianta v patičce, velká na stránce Kontakt); desktop: Safiro 30/50
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
-import { fluid } from '../fluid'
+import { desktopType, fluid, fluidDesktop } from '../fluid'
 import { COLORS, FONT_SECONDARY } from '../theme'
 
 interface ContactInfoProps {
@@ -13,12 +13,15 @@ export function ContactInfo({ size = 'small' }: ContactInfoProps) {
   const large = size === 'large'
   const linkSx = {
     display: 'block',
-    fontSize: large ? fluid(26, 28) : fluid(16, 17),
-    lineHeight: large ? fluid(50, 34) : fluid(30, 21),
+    fontSize: { xs: large ? fluid(26, 28) : fluid(16, 17), md: fluidDesktop(large ? 26.5 : 16.5, 30) },
+    lineHeight: { xs: large ? fluid(50, 34) : fluid(30, 21), md: desktopType(50) },
     color: COLORS.white,
     textDecoration: 'none',
+    whiteSpace: 'nowrap',
     fontFamily: FONT_SECONDARY,
     fontWeight: 200,
+    // Podtržení při najetí myší
+    '&:hover': { textDecoration: 'underline' },
   } as const
 
   return (
@@ -26,11 +29,7 @@ export function ContactInfo({ size = 'small' }: ContactInfoProps) {
       <Typography component="a" href={`mailto:${content.contact.email}`} sx={linkSx}>
         {content.contact.email}
       </Typography>
-      <Typography
-        component="a"
-        href={content.contact.phoneHref}
-        sx={{ ...linkSx }}
-      >
+      <Typography component="a" href={content.contact.phoneHref} sx={linkSx}>
         {content.contact.phone}
       </Typography>
     </Box>

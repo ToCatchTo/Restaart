@@ -5,7 +5,7 @@ import ButtonBase from '@mui/material/ButtonBase'
 import Collapse from '@mui/material/Collapse'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
-import { fluid } from '../fluid'
+import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
 import { COLORS, FONT_SECONDARY } from '../theme'
 import type { NavSectionData } from '../types'
 
@@ -20,8 +20,8 @@ interface NavSectionProps {
 }
 
 const headingSx = {
-  fontSize: fluid(20, 22),
-  lineHeight: fluid(24, 26),
+  fontSize: { xs: fluid(20, 22), md: fluidDesktop(21, 25) },
+  lineHeight: { xs: fluid(24, 26), md: desktopType(40) },
   fontWeight: 400,
   letterSpacing: '0.02em',
   textDecoration: 'underline',
@@ -67,20 +67,27 @@ export function NavSection({ section, onNavigate, alwaysOpen = false, expanded, 
 
       {hasItems && (
         <Collapse in={isExpanded}>
-          <Box component="ul" sx={{ listStyle: 'none', margin: 0, padding: 0, paddingTop: fluid(14, 16) }}>
+          <Box
+            component="ul"
+            sx={{ listStyle: 'none', margin: 0, padding: 0, paddingTop: { xs: fluid(14, 16), md: desktopScaled(9) } }}
+          >
             {items.map((item) => (
               <Box
                 component="li"
                 key={item.href}
-                sx={{ paddingLeft: fluid(37, 40), '& + &': { paddingTop: fluid(14, 16) } }}
+                sx={{
+                  paddingLeft: { xs: fluid(37, 40), md: desktopScaled(38) },
+                  '& + &': { paddingTop: { xs: fluid(14, 16), md: 0 } },
+                }}
               >
                 <Typography
                   component={Link}
                   to={item.href}
                   onClick={onNavigate}
                   sx={{
-                    fontSize: fluid(16, 17),
-                    lineHeight: fluid(26, 28),
+                    display: { md: 'block' },
+                    fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 25) },
+                    lineHeight: { xs: fluid(26, 28), md: desktopType(40) },
                     fontFamily: FONT_SECONDARY,
                     fontWeight: 200,
                     color: COLORS.white,

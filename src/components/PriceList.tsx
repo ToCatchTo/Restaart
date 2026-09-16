@@ -1,7 +1,8 @@
 // Ceník – jedna prosklená karta, řádky „délka | cena“ ve skupinách
+// Desktop: šedá karta 673×419 vedle popisu aktivity
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { fluid } from '../fluid'
+import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
 import { COLORS, FONT_SECONDARY } from '../theme'
 import type { PriceRow } from '../types'
 
@@ -11,36 +12,45 @@ interface PriceListProps {
 
 // Délka lekce – tučně hlavním písmem
 const durationSx = {
-  fontSize: fluid(16, 17),
-  lineHeight: fluid(20, 21),
+  fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 24) },
+  lineHeight: { xs: fluid(20, 21), md: desktopType(25) },
   fontWeight: 500,
   color: COLORS.white,
 } as const
 
-// Cena – lehkým písmem
+// Cena – lehkým písmem (desktop: Safiro Regular)
 const priceSx = {
-  fontSize: fluid(16, 17),
-  lineHeight: fluid(20, 21),
+  fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 24) },
+  lineHeight: { xs: fluid(20, 21), md: desktopType(25) },
   fontFamily: FONT_SECONDARY,
   fontWeight: 200,
   color: COLORS.white,
 } as const
 
-// Rozestup mezi řádky (i mezi skupinami)
-const ROW_GAP = fluid(25, 27)
+// Rozestup mezi řádky (i mezi skupinami); desktop: rozteč řádků 60 při výšce řádku 25
+const ROW_GAP = { xs: fluid(25, 27), md: desktopScaled(35) }
 
 export function PriceList({ groups }: PriceListProps) {
   return (
-    <Box sx={{ paddingTop: fluid(60, 64), paddingLeft: fluid(30, 34), paddingRight: fluid(30, 34) }}>
+    <Box
+      sx={{
+        paddingTop: { xs: fluid(60, 64), md: 0 },
+        paddingLeft: { xs: fluid(30, 34), md: 0 },
+        paddingRight: { xs: fluid(30, 34), md: 0 },
+      }}
+    >
       <Box
         sx={{
-          borderRadius: fluid(58, 37),
-          backgroundColor: 'rgba(255, 255, 255, 0.16)',
-          backdropFilter: 'blur(4px)',
-          paddingTop: fluid(72, 62),
-          paddingBottom: fluid(72, 62),
-          paddingLeft: fluid(22, 24),
-          paddingRight: fluid(22, 24),
+          borderRadius: { xs: fluid(58, 37), md: desktopScaled(80) },
+          backgroundColor: { xs: 'rgba(255, 255, 255, 0.16)', md: 'rgba(88, 88, 88, 0.6)' },
+          backdropFilter: { xs: 'blur(4px)', md: 'none' },
+          width: { md: desktopScaled(673) },
+          minHeight: { md: desktopScaled(419) },
+          boxSizing: 'border-box',
+          paddingTop: { xs: fluid(72, 62), md: desktopScaled(45) },
+          paddingBottom: { xs: fluid(72, 62), md: 0 },
+          paddingLeft: { xs: fluid(22, 24), md: desktopScaled(57) },
+          paddingRight: { xs: fluid(22, 24), md: desktopScaled(57) },
         }}
       >
         {groups.map((rows, groupIndex) => (

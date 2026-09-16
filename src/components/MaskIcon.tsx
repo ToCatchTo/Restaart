@@ -1,10 +1,11 @@
 // Jednobarevná SVG ikona vykreslená přes CSS mask – barva se řídí přes prop color
 import Box from '@mui/material/Box'
 import type { SxProps, Theme } from '@mui/material/styles'
+import type { ResponsiveStyleValue } from '@mui/system'
 
 interface MaskIconProps {
   src: string
-  size: string
+  size: ResponsiveStyleValue<string>
   color?: string
   sx?: SxProps<Theme>
 }

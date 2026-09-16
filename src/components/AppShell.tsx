@@ -1,8 +1,8 @@
-// Obal aplikace – mobilní sloupec omezený na maximální šířku, stav menu
+// Obal aplikace – obsah přes celou šířku okna (pozadí sekcí full-bleed), stav menu
 import { useEffect, useState, type ReactNode } from 'react'
 import Box from '@mui/material/Box'
 import { useLocation } from 'react-router-dom'
-import { APP_MAX_WIDTH, COLORS } from '../theme'
+import { COLORS } from '../theme'
 import { MenuContext } from './MenuContext'
 import MenuOverlay from './MenuOverlay'
 
@@ -21,14 +21,12 @@ export function AppShell({ children }: AppShellProps) {
 
   return (
     <MenuContext.Provider value={{ isOpen, open: () => setIsOpen(true), close: () => setIsOpen(false) }}>
-      <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.black }}>
+      <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.dark }}>
         <Box
           component="main"
           sx={{
             position: 'relative',
             width: '100%',
-            maxWidth: APP_MAX_WIDTH,
-            marginX: 'auto',
             minHeight: '100vh',
             backgroundColor: COLORS.dark,
             overflowX: 'hidden',

@@ -14,17 +14,24 @@ import QuickNav from '../components/QuickNav'
 
 export function EventsPage() {
   const { data, loading, error } = useFetch<Event[]>(content.api.events)
-  usePageTitle(content.pages.events.title)
+  usePageTitle(content.titles.events)
 
   return (
     <>
-      <PageBackground image={content.pages.events.image} minHeight={fluid(1238, 1300)} overlay="rgba(0, 0, 0, 0.65)">
+      <PageBackground
+        image={content.pages.events.image}
+        minHeight={{ xs: fluid(1238, 1300), md: '0px' }}
+        viewportHeight
+        overlay={{ xs: 'rgba(0, 0, 0, 0.65)', md: 'rgba(0, 0, 0, 0.7)' }}
+        position={{ xs: 'center top', md: '47.9% 40.5%' }}
+        size={{ xs: 'cover', md: 'auto 459%' }}
+      >
         <Header />
         <QuickNav />
         <PageTitle>{content.pages.events.title}</PageTitle>
         {data ? <EventsGrid events={data} /> : <DataStatus loading={loading} error={error} />}
       </PageBackground>
-      <Footer />
+      <Footer rating />
     </>
   )
 }

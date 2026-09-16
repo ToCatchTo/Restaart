@@ -1,27 +1,46 @@
-// Podtržený nadpis stránky (např. „Soukromá sauna“, „Akce“)
+// Nadpis stránky (např. „soukromá sauna“, „akce“); desktop: Safiro Regular 100/90
 import Typography from '@mui/material/Typography'
-import { fluid } from '../fluid'
-import { COLORS } from '../theme'
+import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
+import { COLORS, DESKTOP } from '../theme'
 
 interface PageTitleProps {
   children: string
   align?: 'left' | 'center'
+  // Desktop: zarovnání a horní odsazení (px v návrhu 1920) – výchozí hodnoty odpovídají výpisu akcí
+  alignDesktop?: 'left' | 'center'
+  topDesktop?: number
+  // Desktop: menší varianta (detail akce – SemiBold 50/60, podtržený)
+  variantDesktop?: 'large' | 'small'
+  // Desktop: maximální šířka textu (px v návrhu 1920)
+  widthDesktop?: number
 }
 
-export function PageTitle({ children, align = 'left' }: PageTitleProps) {
+export function PageTitle({
+  children,
+  align = 'left',
+  alignDesktop = 'center',
+  topDesktop = 14,
+  variantDesktop = 'large',
+  widthDesktop,
+}: PageTitleProps) {
+  const small = variantDesktop === 'small'
+
   return (
     <Typography
       component="h1"
       sx={{
         margin: 0,
-        paddingTop: fluid(48, 44),
-        paddingLeft: fluid(30, 34),
-        paddingRight: fluid(30, 34),
-        fontSize: fluid(40, 32),
-        lineHeight: fluid(40, 40),
-        fontWeight: 600,
-        textAlign: align,
+        paddingTop: { xs: fluid(48, 44), md: desktopScaled(topDesktop) },
+        paddingLeft: { xs: fluid(30, 34), md: desktopScaled(DESKTOP.content) },
+        paddingRight: { xs: fluid(30, 34), md: widthDesktop ? 0 : desktopScaled(DESKTOP.content) },
+        maxWidth: { md: widthDesktop ? desktopScaled(widthDesktop) : 'none' },
+        boxSizing: { md: 'content-box' },
+        fontSize: { xs: fluid(40, 32), md: fluidDesktop(37, small ? 50 : 100) },
+        lineHeight: { xs: fluid(40, 40), md: desktopType(small ? 60 : 90) },
+        fontWeight: { xs: 600, md: small ? 600 : 400 },
+        textAlign: { xs: align, md: alignDesktop },
         color: COLORS.white,
+        textDecoration: { md: small ? 'underline' : 'none' },
         textUnderlineOffset: '6px',
         textDecorationThickness: '2px',
       }}

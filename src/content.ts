@@ -21,6 +21,10 @@ export const content = {
     closeMenu: 'Zavřít menu',
     menuLabel: 'Hlavní menu',
     menuIcon: '/icons/menu_bars.svg',
+    // Desktop: tlačítko v hlavičce vedoucí na rezervační systém
+    reservation: { label: 'rezervovat', icon: '/icons/arrow_right_cyan.svg', href: RESERVATION_URL },
+    // Desktop: varianta tlačítka na stránce přihlášení
+    backToWeb: { label: 'zpět na web', icon: '/icons/arrow_right_cyan.svg', href: '/' },
   },
 
   contact: {
@@ -60,7 +64,9 @@ export const content = {
 
   hero: {
     lines: ['sportovní centrum', 'pro celou rodinu'],
-    image: '/images/hero_home.png',
+    image: '/images/hero_home.webp',
+    // Desktop: ručně psaný nápis „akce“ v pravém dolním rohu hera
+    eventsLabel: { icon: '/icons/akce_label.svg', alt: 'akce', href: '/akce' },
   },
 
   eventPill: {
@@ -83,7 +89,7 @@ export const content = {
   },
 
   footer: {
-    image: '/images/footer_bg.png',
+    image: '/images/footer_bg.webp',
     operatorTitle: 'Provozovatel a fakturace',
     operatorLines: [
       'RESTAART SPORTOVNÍ CENTRUM s.r.o.',
@@ -98,6 +104,7 @@ export const content = {
 
   menu: {
     closeIcon: '/icons/menu_close.svg',
+    closeIconDesktop: '/icons/menu_close_circle.svg',
     phoneIcon: '/icons/phone_volume.svg',
     callReception: 'Volat na recepci',
     callNote: 'Na telefonu jsme v otevíračce',
@@ -155,11 +162,13 @@ export const content = {
     home: 'Sport a relax centrum Pardubice',
     activities: 'Aktivity',
     contact: 'Kontakt',
+    events: 'Akce',
+    login: 'Přihlášení',
   },
 
   pages: {
-    events: { title: 'Akce', image: '/images/events_bg.png' },
-    eventDetail: { back: 'zpět na výpis', backIcon: '/icons/arrow_left_white_bg.svg', image: '/images/events_bg.png' },
+    events: { title: 'akce', image: '/images/events_bg.webp' },
+    eventDetail: { back: 'zpět na výpis', backIcon: '/icons/arrow_left_white_bg.svg', image: '/images/events_bg.webp' },
     activity: {
       classListButton: 'Popis všech cvičení',
       openIcon: '/icons/arrow_down_white_bg.svg',
@@ -169,7 +178,19 @@ export const content = {
       prevLabel: 'Předchozí fotka',
       nextLabel: 'Další fotka',
     },
-    contact: { image: '/images/contact_bg.png' },
+    contact: { image: '/images/contact_bg.webp' },
+    // Statická stránka přihlášení (vzhled rezervačního systému, bez funkčního přihlášení)
+    login: {
+      title: 'přihlášení',
+      emailLabel: 'Email',
+      passwordLabel: 'Heslo',
+      submit: 'přihlásit',
+      submitIcon: '/icons/arrow_right_cyan.svg',
+      noAccount: 'Nemáte účet?',
+      register: 'Registrovat',
+      registerHref: RESERVATION_URL,
+      image: '/images/hero_home.webp',
+    },
     notFound: { title: 'Stránka se připravuje', back: 'Zpět na úvod' },
     loading: 'Načítání…',
     loadError: 'Data se nepodařilo načíst.',

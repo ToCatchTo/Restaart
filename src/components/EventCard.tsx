@@ -3,8 +3,8 @@ import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
-import { fluid } from '../fluid'
-import { COLORS, FONT_LABEL } from '../theme'
+import { desktopScaled, fluid, fluidDesktop } from '../fluid'
+import { COLORS, FONT_BODY, FONT_LABEL } from '../theme'
 import type { Event } from '../types'
 
 interface EventCardProps {
@@ -27,8 +27,9 @@ export function EventCard({ event }: EventCardProps) {
           width: '100%',
           aspectRatio: '1 / 1',
           objectFit: 'cover',
-          borderRadius: fluid(31, 33),
+          borderRadius: { xs: fluid(31, 33), md: desktopScaled(31) },
           backgroundColor: COLORS.gray,
+          boxShadow: { md: '2px 2px 15px rgba(0, 0, 0, 0.16)' },
         }}
       />
       <Typography
@@ -37,19 +38,22 @@ export function EventCard({ event }: EventCardProps) {
           position: 'absolute',
           top: '0px',
           left: '0px',
-          height: fluid(41, 38),
-          paddingLeft: fluid(16, 17),
-          paddingRight: fluid(16, 17),
-          borderRadius: fluid(20, 19),
+          height: { xs: fluid(41, 38), md: desktopScaled(58) },
+          width: { md: desktopScaled(123) },
+          boxSizing: 'border-box',
+          paddingLeft: { xs: fluid(16, 17), md: 0 },
+          paddingRight: { xs: fluid(16, 17), md: 0 },
+          borderRadius: { xs: fluid(20, 19), md: desktopScaled(20) },
           backgroundColor: COLORS.white,
           display: 'flex',
           alignItems: 'center',
-          fontFamily: FONT_LABEL,
-          fontSize: fluid(20, 17),
+          justifyContent: 'center',
+          fontFamily: { xs: FONT_LABEL, md: FONT_BODY },
+          fontSize: { xs: fluid(20, 17), md: fluidDesktop(12, 28) },
           lineHeight: 1,
           fontWeight: 600,
           color: COLORS.black,
-          letterSpacing: '0.02em',
+          letterSpacing: { xs: '0.02em', md: 0 },
         }}
       >
         {event.date}
