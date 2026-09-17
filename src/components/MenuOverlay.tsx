@@ -6,7 +6,7 @@ import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { content } from '../content'
-import { desktopScaled, desktopType, fluid } from '../fluid'
+import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
 import { COLORS, DESKTOP, DESKTOP_MQ } from '../theme'
 import Icon from './Icon'
 import { useMenu } from './MenuContext'
@@ -79,7 +79,9 @@ export function MenuOverlay() {
         // Desktop: panel u pravého okraje okna, vyjíždí zprava a při zavírání zajíždí zpět
         [DESKTOP_MQ]: {
           left: 'auto',
-          width: desktopScaled(814),
+          // Návrh: 814 px na 1920 px; při zmenšování zabírá panel větší část okna (60 % na breakpointu)
+          width: fluidDesktop(360, 814),
+          maxWidth: '100%',
           // Panel se nikdy nezúží pod šířku nejdelší položky menu
           minWidth: 'max-content',
           animation: `menuSlideIn ${MENU_TRANSITION_MS}ms ease-out`,
@@ -112,7 +114,7 @@ export function MenuOverlay() {
           onClick={close}
           sx={{
             position: 'absolute',
-            top: { xs: fluid(52, 56), md: desktopScaled(104) },
+            top: { xs: fluid(52, 56), md: fluidDesktop(75, 104) },
             right: { xs: fluid(28, 32), md: desktopScaled(DESKTOP.margin) },
             borderRadius: '50%',
           }}
@@ -129,13 +131,14 @@ export function MenuOverlay() {
       <Box
         component="nav"
         sx={{
-          paddingTop: { xs: fluid(92, 100), md: desktopScaled(248) },
-          paddingLeft: { xs: fluid(70, 76), md: desktopScaled(173) },
+          paddingTop: { xs: fluid(92, 100), md: fluidDesktop(150, 248) },
+          paddingLeft: { xs: fluid(70, 76), md: fluidDesktop(64, 173) },
           paddingRight: { xs: fluid(30, 34), md: 0 },
+          paddingBottom: { md: fluidDesktop(40, 60) },
         }}
       >
         {content.navSections.map((section) => (
-          <Box key={section.label} sx={{ '& + &': { paddingTop: { xs: fluid(26, 28), md: desktopScaled(10) } } }}>
+          <Box key={section.label} sx={{ '& + &': { paddingTop: { xs: fluid(26, 28), md: fluidDesktop(8, 10) } } }}>
             <NavSection
               section={section}
               onNavigate={close}

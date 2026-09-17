@@ -48,3 +48,11 @@ export interface NavSectionData {
   external?: boolean
   items?: NavItem[]
 }
+
+// Pole formuláře účtu (přihlášení / registrace)
+export interface AuthField {
+  type: 'text' | 'email' | 'tel' | 'password'
+  name: string
+  label: string
+  autoComplete?: string
+}

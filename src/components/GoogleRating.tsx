@@ -12,6 +12,9 @@ const STAR_COLOR = '#f4b400'
 const STAR_EMPTY_COLOR = '#dadce0'
 const REVIEWS_COLOR = '#1a73e8'
 
+// Desktop: odstup karty od horní hrany patičky
+const FOOTER_OFFSET = fluidDesktop(70, 130)
+
 // Odpověď serverless funkce (pole z Places API)
 interface PlaceDetails {
   rating?: number
@@ -24,7 +27,7 @@ const formatCount = (count: number) => count.toLocaleString('cs-CZ')
 interface GoogleRatingProps {
   // Stránky, které mají widget jen v desktopovém návrhu
   desktopOnly?: boolean
-  // Desktop: ukotvení karty – přesah přes spodní okraj fotosekce (výchozí), nebo 97 px pod horní hranou patičky
+  // Desktop: ukotvení karty – přesah přes spodní okraj fotosekce (výchozí), nebo pod horní hranou patičky
   anchor?: 'section-bottom' | 'footer-top'
 }
 
@@ -42,11 +45,11 @@ export function GoogleRating({ desktopOnly = false, anchor = 'section-bottom' }:
         paddingTop: { xs: fluid(145, 100), md: 0 },
         display: { xs: desktopOnly ? 'none' : 'flex', md: 'flex' },
         justifyContent: 'center',
-        // Desktop: karta 1226×121 leží 97 px pod horní hranou patičky (fotosekce má z-index nad patičkou)
+        // Desktop: karta 1226×121 leží pod horní hranou patičky (fotosekce má z-index nad patičkou)
         position: { md: 'absolute' },
         left: { md: desktopScaled(347) },
-        bottom: { md: anchor === 'section-bottom' ? `calc(-1 * (${desktopScaled(97)} + ${desktopType(121)}))` : 'auto' },
-        top: { md: anchor === 'footer-top' ? desktopScaled(97) : 'auto' },
+        bottom: { md: anchor === 'section-bottom' ? `calc(-1 * (${FOOTER_OFFSET} + ${desktopType(121)}))` : 'auto' },
+        top: { md: anchor === 'footer-top' ? FOOTER_OFFSET : 'auto' },
       }}
     >
       <Box

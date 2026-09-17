@@ -1,6 +1,6 @@
 // Nadpis stránky (např. „soukromá sauna“, „akce“); desktop: Safiro Regular 100/90
 import Typography from '@mui/material/Typography'
-import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
+import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { COLORS, DESKTOP } from '../theme'
 
 interface PageTitleProps {
@@ -36,7 +36,7 @@ export function PageTitle({
         maxWidth: { md: widthDesktop ? desktopScaled(widthDesktop) : 'none' },
         boxSizing: { md: 'content-box' },
         fontSize: { xs: fluid(40, 32), md: fluidDesktop(37, small ? 50 : 100) },
-        lineHeight: { xs: fluid(40, 40), md: desktopType(small ? 60 : 90) },
+        lineHeight: { xs: fluid(40, 40), md: fluidDesktop(small ? 44 : 49.5, small ? 60 : 90) },
         fontWeight: { xs: 600, md: small ? 600 : 400 },
         textAlign: { xs: align, md: alignDesktop },
         color: COLORS.white,

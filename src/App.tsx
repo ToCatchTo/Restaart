@@ -9,6 +9,7 @@ import EventsPage from './pages/EventsPage'
 import HomePage from './pages/HomePage'
 import LegalPage from './pages/LegalPage'
 import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 export function App() {
@@ -21,6 +22,7 @@ export function App() {
         <Route path="/akce/:slug" element={<EventDetailPage />} />
         <Route path="/kontakt" element={<ContactPage />} />
         <Route path="/prihlaseni" element={<LoginPage />} />
+        <Route path="/registrace" element={<RegisterPage />} />
         <Route path={content.footer.terms.href} element={<LegalPage page="terms" />} />
         <Route path={content.footer.privacy.href} element={<LegalPage page="privacy" />} />
         <Route path="*" element={<NotFoundPage />} />

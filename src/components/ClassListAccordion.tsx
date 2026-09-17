@@ -64,7 +64,7 @@ export function ClassListAccordion({ classes }: ClassListAccordionProps) {
           </Typography>
           <Icon
             src={open ? closeIcon : openIcon}
-            size={open ? { xs: fluid(44, 46), md: desktopType(32.8) } : { xs: fluid(34, 36), md: desktopType(32.8) }}
+            size={open ? { xs: fluid(44, 46), md: fluidDesktop(26, 32.8) } : { xs: fluid(34, 36), md: fluidDesktop(26, 32.8) }}
           />
         </ButtonBase>
       </Box>
@@ -89,7 +89,7 @@ export function ClassListAccordion({ classes }: ClassListAccordionProps) {
                 component="dt"
                 sx={{
                   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 20) },
-                  lineHeight: { xs: fluid(28, 30), md: desktopType(30) },
+                  lineHeight: { xs: fluid(28, 30), md: fluidDesktop(27, 30) },
                   fontFamily: { md: FONT_SECONDARY },
                   fontWeight: { xs: 700, md: 200 },
                   color: COLORS.white,
@@ -103,7 +103,7 @@ export function ClassListAccordion({ classes }: ClassListAccordionProps) {
                 sx={{
                   margin: 0,
                   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 20) },
-                  lineHeight: { xs: fluid(28, 30), md: desktopType(30) },
+                  lineHeight: { xs: fluid(28, 30), md: fluidDesktop(27, 30) },
                   fontFamily: { md: FONT_SECONDARY },
                   fontWeight: { md: 200 },
                 }}

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import { content } from '../content'
-import { desktopScaled, desktopType, fluid } from '../fluid'
+import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
 import { COLORS } from '../theme'
 import Icon from './Icon'
 
@@ -46,8 +46,9 @@ export function Gallery({ images, alt }: GalleryProps) {
       />
       <Box
         sx={{
-          paddingTop: { xs: fluid(36, 38), md: desktopScaled(66) },
-          minHeight: { xs: fluid(132, 136), md: 0 },
+          paddingTop: { xs: fluid(36, 38), md: fluidDesktop(40, 66) },
+          // Výška řádku = horní odsazení + šipky + volné místo pod nimi
+          minHeight: { xs: fluid(132, 136), md: fluidDesktop(140, 200) },
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'flex-start',

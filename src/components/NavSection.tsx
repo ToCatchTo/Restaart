@@ -5,7 +5,7 @@ import ButtonBase from '@mui/material/ButtonBase'
 import Collapse from '@mui/material/Collapse'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
-import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
+import { fluid, fluidDesktop } from '../fluid'
 import { COLORS, FONT_SECONDARY } from '../theme'
 import type { NavSectionData } from '../types'
 
@@ -21,7 +21,7 @@ interface NavSectionProps {
 
 const headingSx = {
   fontSize: { xs: fluid(20, 22), md: fluidDesktop(21, 25) },
-  lineHeight: { xs: fluid(24, 26), md: desktopType(40) },
+  lineHeight: { xs: fluid(24, 26), md: fluidDesktop(36, 40) },
   fontWeight: 400,
   letterSpacing: '0.02em',
   textDecoration: 'underline',
@@ -69,14 +69,14 @@ export function NavSection({ section, onNavigate, alwaysOpen = false, expanded, 
         <Collapse in={isExpanded}>
           <Box
             component="ul"
-            sx={{ listStyle: 'none', margin: 0, padding: 0, paddingTop: { xs: fluid(14, 16), md: desktopScaled(9) } }}
+            sx={{ listStyle: 'none', margin: 0, padding: 0, paddingTop: { xs: fluid(14, 16), md: fluidDesktop(7, 9) } }}
           >
             {items.map((item) => (
               <Box
                 component="li"
                 key={item.href}
                 sx={{
-                  paddingLeft: { xs: fluid(37, 40), md: desktopScaled(38) },
+                  paddingLeft: { xs: fluid(37, 40), md: fluidDesktop(28, 38) },
                   '& + &': { paddingTop: { xs: fluid(14, 16), md: 0 } },
                 }}
               >
@@ -87,7 +87,7 @@ export function NavSection({ section, onNavigate, alwaysOpen = false, expanded, 
                   sx={{
                     display: { md: 'block' },
                     fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 25) },
-                    lineHeight: { xs: fluid(26, 28), md: desktopType(40) },
+                    lineHeight: { xs: fluid(26, 28), md: fluidDesktop(34, 40) },
                     fontFamily: FONT_SECONDARY,
                     fontWeight: 200,
                     color: COLORS.white,

@@ -1,5 +1,5 @@
 // Všechny statické texty aplikace (žádné texty přímo v komponentách)
-import type { NavSectionData } from './types'
+import type { AuthField, NavSectionData } from './types'
 
 // Externí rezervační systém
 const RESERVATION_URL = 'https://rezervace.restaart.cz/login'
@@ -100,6 +100,7 @@ export const content = {
     premisesLines: ['Přerovská 503, 530 06 Pardubice'],
     terms: { label: 'Obchodní podmínky', href: '/obchodni-podminky' },
     privacy: { label: 'Zásady ochrany osobních údajů', href: '/ochrana-osobnich-udaju' },
+    credit: { label: 'Tvoříme weby s radostí', href: 'https://matfix.cz', logo: '/icons/matfix_logo.svg', logoAlt: 'Matfix', logoIcon: '/icons/footer_icon.svg', logoIconAlt: 'Matfix – ikona' },
   },
 
   menu: {
@@ -164,6 +165,7 @@ export const content = {
     contact: 'Kontakt',
     events: 'Akce',
     login: 'Přihlášení',
+    register: 'Registrace',
   },
 
   pages: {
@@ -188,7 +190,25 @@ export const content = {
       submitIcon: '/icons/arrow_right_cyan.svg',
       noAccount: 'Nemáte účet?',
       register: 'Registrovat',
-      registerHref: RESERVATION_URL,
+      registerHref: '/registrace',
+      image: '/images/hero_home.webp',
+    },
+    // Statická stránka registrace (stejný vzhled jako přihlášení)
+    register: {
+      title: 'registrace',
+      fields: [
+        { type: 'text', name: 'firstName', label: 'Jméno', autoComplete: 'given-name' },
+        { type: 'text', name: 'lastName', label: 'Příjmení', autoComplete: 'family-name' },
+        { type: 'email', name: 'email', label: 'Email', autoComplete: 'email' },
+        { type: 'tel', name: 'phone', label: 'Telefon', autoComplete: 'tel' },
+        { type: 'password', name: 'password', label: 'Heslo', autoComplete: 'new-password' },
+        { type: 'password', name: 'passwordConfirm', label: 'Heslo znovu', autoComplete: 'new-password' },
+      ] satisfies AuthField[],
+      submit: 'registrovat',
+      submitIcon: '/icons/arrow_right_cyan.svg',
+      haveAccount: 'Máte účet?',
+      login: 'Přihlásit',
+      loginHref: '/prihlaseni',
       image: '/images/hero_home.webp',
     },
     notFound: { title: 'Stránka se připravuje', back: 'Zpět na úvod' },

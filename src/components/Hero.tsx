@@ -7,7 +7,7 @@ import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { COLORS, DESKTOP } from '../theme'
 
 // Rozestup animace mezi jednotlivými řádky
-const LINE_STAGGER_MS = 120
+const LINE_STAGGER_MS = 180
 
 const lineSx = {
   display: 'block',
@@ -23,7 +23,7 @@ export function Hero() {
       component="h1"
       sx={{
         margin: 0,
-        paddingTop: { xs: fluid(40, 84), md: desktopScaled(40) },
+        paddingTop: { xs: fluid(40, 84), md: fluidDesktop(30, 40) },
         // Návrh: nadpis začíná 2 px nad spodní hranou upoutávky
         marginTop: { md: desktopScaled(-2) },
         paddingLeft: { xs: fluid(30, 34), md: desktopScaled(DESKTOP.content) },

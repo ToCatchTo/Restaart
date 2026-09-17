@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
-import { desktopType, fluid, fluidDesktop } from '../fluid'
+import { fluid, fluidDesktop } from '../fluid'
 import { COLORS, FONT_SECONDARY } from '../theme'
 
 interface ContactInfoProps {
@@ -14,7 +14,7 @@ export function ContactInfo({ size = 'small' }: ContactInfoProps) {
   const linkSx = {
     display: 'block',
     fontSize: { xs: large ? fluid(26, 28) : fluid(16, 17), md: fluidDesktop(large ? 26.5 : 16.5, 30) },
-    lineHeight: { xs: large ? fluid(50, 34) : fluid(30, 21), md: desktopType(50) },
+    lineHeight: { xs: large ? fluid(50, 34) : fluid(30, 21), md: fluidDesktop(large ? 36 : 27.5, 50) },
     color: COLORS.white,
     textDecoration: 'none',
     whiteSpace: 'nowrap',

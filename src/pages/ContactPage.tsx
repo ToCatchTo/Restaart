@@ -3,11 +3,12 @@ import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
-import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
+import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { COLORS, DESKTOP, FONT_SECONDARY } from '../theme'
 import { usePageTitle } from '../hooks/usePageTitle'
 import ContactInfo from '../components/ContactInfo'
 import Footer from '../components/Footer'
+import FooterCredit from '../components/FooterCredit'
 import Header from '../components/Header'
 import Icon from '../components/Icon'
 import OpeningHours from '../components/OpeningHours'
@@ -17,7 +18,7 @@ import QuickNav from '../components/QuickNav'
 const textSx = {
   display: 'block',
   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 20) },
-  lineHeight: { xs: fluid(20, 21), md: desktopType(25) },
+  lineHeight: { xs: fluid(20, 21), md: fluidDesktop(22, 25) },
   color: COLORS.white,
   fontFamily: FONT_SECONDARY,
   fontWeight: 200,
@@ -27,12 +28,16 @@ const textSx = {
 // Mobilní okraje bloků (mimo patičku, která má vlastní)
 const gutterSx = { paddingLeft: { xs: fluid(30, 34), md: 0 }, paddingRight: { xs: fluid(30, 34), md: 0 } } as const
 
+// Užší desktop: třetí sloupec (provozovatel) je pod prvními dvěma a ty se roztáhnou od kraje ke kraji obsahu
+const TWO_COLUMN_MQ = '@media (min-width: 600px) and (max-width: 1199.95px)'
+
 // Desktop: sloupec široký 552 px (rozestup 278 → 830 → 1382), ale nikdy užší než jeho obsah
 const columnItemSx = {
   width: { md: desktopScaled(552) },
   minWidth: { md: 'max-content' },
-  paddingRight: { md: desktopScaled(30) },
+  paddingRight: { md: fluidDesktop(32, 30) },
   boxSizing: 'border-box',
+  [TWO_COLUMN_MQ]: { width: 'auto', paddingRight: 0 },
 } as const
 
 export function ContactPage() {
@@ -59,8 +64,17 @@ export function ContactPage() {
             flexDirection: { xs: 'column', md: 'row' },
             flexWrap: 'wrap',
             alignItems: { md: 'flex-start' },
-            paddingTop: { xs: fluid(102, 122), md: desktopScaled(236) },
+            paddingTop: { xs: fluid(102, 122), md: fluidDesktop(110, 236) },
             paddingLeft: { md: desktopScaled(DESKTOP.content) },
+            // Místo pro kredit autora webu u spodního okraje
+            paddingBottom: { md: fluidDesktop(70, 95) },
+            [TWO_COLUMN_MQ]: {
+              display: 'grid',
+              gridTemplateColumns: '1fr max-content',
+              columnGap: '32px',
+              justifyItems: 'start',
+              paddingRight: desktopScaled(DESKTOP.content),
+            },
           }}
         >
           <Box sx={{ ...gutterSx, ...columnItemSx, order: { xs: 0, md: 0 }, paddingTop: { md: desktopScaled(0) } }}>
@@ -68,13 +82,13 @@ export function ContactPage() {
           </Box>
 
           {/* Desktop: zalomení řádku za sociálními sítěmi */}
-          <Box aria-hidden sx={{ display: { xs: 'none', md: 'block' }, flexBasis: '100%', order: 2 }} />
+          <Box aria-hidden sx={{ display: { xs: 'none', md: 'block' }, flexBasis: '100%', order: 2, [TWO_COLUMN_MQ]: { display: 'none' } }} />
 
-          <Box sx={{ ...gutterSx, ...columnItemSx, order: { xs: 1, md: 3 }, paddingTop: { xs: fluid(70, 64), md: desktopScaled(58) } }}>
+          <Box sx={{ ...gutterSx, ...columnItemSx, order: { xs: 1, md: 3 }, paddingTop: { xs: fluid(70, 64), md: fluidDesktop(40, 58) } }}>
             <OpeningHours column />
           </Box>
 
-          <Box sx={{ ...gutterSx, ...columnItemSx, order: { xs: 3, md: 1 }, paddingTop: { xs: fluid(75, 106), md: 0 }, display: 'flex', gap: { xs: fluid(50, 40), md: desktopScaled(93) } }}>
+          <Box sx={{ ...gutterSx, ...columnItemSx, order: { xs: 3, md: 1 }, paddingTop: { xs: fluid(75, 106), md: 0 }, display: 'flex', gap: { xs: fluid(50, 40), md: fluidDesktop(40, 93) } }}>
             {social.map((item) => (
               <ButtonBase
                 key={item.label}
@@ -85,12 +99,12 @@ export function ContactPage() {
                 aria-label={item.label}
                 sx={{ borderRadius: '50%' }}
               >
-                <Icon src={item.icon} size={{ xs: fluid(46, 48), md: desktopType(45) }} />
+                <Icon src={item.icon} size={{ xs: fluid(46, 48), md: fluidDesktop(34, 45) }} />
               </ButtonBase>
             ))}
           </Box>
 
-          <Box sx={{ ...gutterSx, ...columnItemSx, order: { xs: 2, md: 4 }, paddingTop: { xs: fluid(45, 54), md: desktopScaled(58) } }}>
+          <Box sx={{ ...gutterSx, ...columnItemSx, order: { xs: 2, md: 4 }, paddingTop: { xs: fluid(45, 54), md: fluidDesktop(40, 58) } }}>
             <Typography component="span" sx={textSx}>
               {addressTitle}
             </Typography>
@@ -102,7 +116,7 @@ export function ContactPage() {
               ))}
             </Typography>
 
-            <Box sx={{ paddingTop: { xs: fluid(45, 44), md: desktopScaled(93) } }}>
+            <Box sx={{ paddingTop: { xs: fluid(45, 44), md: fluidDesktop(40, 93) } }}>
               <Typography component="span" sx={textSx}>
                 {parkingTitle}
               </Typography>
@@ -114,10 +128,12 @@ export function ContactPage() {
             </Box>
           </Box>
 
-          <Box sx={{ order: { xs: 4, md: 5 }, flexGrow: { md: 1 }, minWidth: { md: 'max-content' } }}>
+          <Box sx={{ order: { xs: 4, md: 5 }, flexGrow: { md: 1 }, minWidth: { md: 'max-content' }, [TWO_COLUMN_MQ]: { gridColumn: '1 / -1' } }}>
             <Footer compact embedded />
           </Box>
         </Box>
+
+        <FooterCredit />
       </PageBackground>
     </>
   )

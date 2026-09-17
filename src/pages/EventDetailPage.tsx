@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box'
 import { useParams } from 'react-router-dom'
 import { content } from '../content'
-import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
+import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { COLORS, DESKTOP } from '../theme'
 import type { Event } from '../types'
 import { useFetch } from '../hooks/useFetch'
@@ -15,6 +15,9 @@ import PageBackground from '../components/PageBackground'
 import PageTitle from '../components/PageTitle'
 import QuickNav from '../components/QuickNav'
 import RichText from '../components/RichText'
+
+// Užší desktop: obrázek, nadpis a popis pod sebou
+const STACKED_MQ = '@media (min-width: 600px) and (max-width: 999.95px)'
 
 export function EventDetailPage() {
   const { slug } = useParams<{ slug: string }>()
@@ -37,11 +40,28 @@ export function EventDetailPage() {
         <BackLink to={content.quickNav.events.href} label={back} icon={backIcon} />
 
         {event ? (
-          <>
-            <PageTitle align="center" alignDesktop="left" variantDesktop="small" topDesktop={57} widthDesktop={569}>
-              {event.title}
-            </PageTitle>
-            {/* Desktop: popis vlevo (812 px) a obrázek vpravo (620 px) v CSS gridu */}
+          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Box
+              sx={{
+                [STACKED_MQ]: {
+                  order: 2,
+                  paddingTop: '16px',
+                  // Nadpis vycentrovaný přes šířku obsahu
+                  '& h1': {
+                    textAlign: 'center',
+                    maxWidth: 'none',
+                    boxSizing: 'border-box',
+                    paddingRight: desktopScaled(DESKTOP.content),
+                  },
+                },
+              }}
+            >
+              <PageTitle align="center" alignDesktop="left" variantDesktop="small" topDesktop={57} widthDesktop={569}>
+                {event.title}
+              </PageTitle>
+            </Box>
+            {/* Desktop od 1000 px: popis vlevo (812 px) a obrázek vpravo (620 px) v CSS gridu;
+                užší desktop: obal se rozpustí a pořadí je obrázek, nadpis, popis */}
             <Box
               sx={{
                 display: { md: 'grid' },
@@ -49,6 +69,7 @@ export function EventDetailPage() {
                 columnGap: { md: desktopScaled(70) },
                 alignItems: { md: 'start' },
                 paddingLeft: { md: desktopScaled(DESKTOP.content) },
+                [STACKED_MQ]: { display: 'contents' },
               }}
             >
               <Box
@@ -57,6 +78,12 @@ export function EventDetailPage() {
                   paddingTop: { xs: fluid(30, 54), md: desktopScaled(129) },
                   paddingLeft: { xs: fluid(30, 34), md: 0 },
                   paddingRight: { xs: fluid(30, 34), md: 0 },
+                  [STACKED_MQ]: {
+                    order: 1,
+                    paddingTop: '40px',
+                    alignSelf: 'center',
+                    width: fluidDesktop(240, 620),
+                  },
                 }}
               >
                 <Box
@@ -77,16 +104,21 @@ export function EventDetailPage() {
               <RichText
                 html={event.description}
                 sx={{
-                  paddingTop: { xs: fluid(42, 54), md: desktopScaled(58) },
+                  paddingTop: { xs: fluid(42, 54), md: fluidDesktop(36, 58) },
                   paddingLeft: { xs: fluid(30, 34), md: 0 },
                   paddingRight: { xs: fluid(30, 34), md: 0 },
-                  paddingBottom: { xs: fluid(110, 54), md: 0 },
+                  paddingBottom: { xs: fluid(110, 54), md: fluidDesktop(80, 120) },
                   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.4, 16) },
-                  lineHeight: { xs: fluid(28, 30), md: desktopType(25) },
+                  lineHeight: { xs: fluid(28, 30), md: fluidDesktop(24, 25) },
+                  [STACKED_MQ]: {
+                    order: 3,
+                    paddingLeft: desktopScaled(DESKTOP.content),
+                    paddingRight: desktopScaled(DESKTOP.content),
+                  },
                 }}
               />
             </Box>
-          </>
+          </Box>
         ) : (
           <DataStatus loading={loading} error={error} notFound={!loading && !error} />
         )}

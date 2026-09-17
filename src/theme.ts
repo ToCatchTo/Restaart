@@ -1,6 +1,6 @@
 // MUI téma – barvy a písma podle XD návrhu (Restaart_web)
 import { createTheme } from '@mui/material/styles'
-import { DESKTOP_BREAKPOINT, desktopType } from './fluid'
+import { DESKTOP_BREAKPOINT, fluidDesktop } from './fluid'
 
 // Rodiny písem – Safiro je lokální (public/fonts), ostatní jsou náhrady z Google Fonts
 export const FONT_BODY = "'Safiro', 'Helvetica Neue', Arial, sans-serif"
@@ -34,8 +34,8 @@ export const DESKTOP_MQ = `@media (min-width: ${DESKTOP_BREAKPOINT}px)`
 
 // Prosklené tlačítko z desktopového návrhu (průhledná výplň + rozostření a zesvětlení pozadí)
 export const frostedButtonSx = {
-  height: desktopType(60),
-  borderRadius: desktopType(40),
+  height: fluidDesktop(45, 60),
+  borderRadius: fluidDesktop(30, 40),
   backdropFilter: 'blur(30px) brightness(1.15)',
   backgroundColor: 'rgba(255, 255, 255, 0.08)',
   color: COLORS.white,

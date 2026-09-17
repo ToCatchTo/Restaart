@@ -24,12 +24,13 @@ export function Header({ action = 'reservation' }: HeaderProps) {
     <Box
       component="header"
       sx={{
-        position: 'relative',
-        paddingTop: { xs: fluid(76, 82), md: desktopScaled(104) },
+        paddingTop: { xs: fluid(76, 82), md: fluidDesktop(64, 104) },
         paddingLeft: { md: desktopScaled(DESKTOP.margin) },
+        paddingRight: { md: desktopScaled(DESKTOP.margin) },
       }}
     >
-      <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+      {/* Řádek hlavičky – desktop: logo, tlačítko a menu v jedné ose; mobil: logo uprostřed, menu ukotvené k řádku */}
+      <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' } }}>
         <Link to="/" aria-label={content.brand.name} style={{ display: 'block', lineHeight: 0 }}>
           <Box
             component="img"
@@ -38,65 +39,66 @@ export function Header({ action = 'reservation' }: HeaderProps) {
             sx={{ height: { xs: fluid(69, 74), md: desktopType(102) }, width: 'auto', display: 'block' }}
           />
         </Link>
-      </Box>
 
-      {/* Desktop: tlačítko rezervovat / zpět na web */}
-      <ButtonBase
-        component={isBack ? Link : 'a'}
-        {...(isBack ? { to: button.href } : { href: button.href, target: '_blank', rel: 'noopener' })}
-        sx={{
-          ...frostedButtonSx,
-          display: { xs: 'none', md: 'flex' },
-          position: 'absolute',
-          top: desktopScaled(125),
-          right: desktopScaled(DESKTOP.width - 1642),
-          minWidth: desktopScaled(210),
-          alignItems: 'center',
-          // Mezera mezi textem a šipkou jen při zmenšení (na 1920 px ji pohltí auto margin)
-          gap: 'clamp(0px, calc((1920px - 100vw) / 60), 8px)',
-          flexDirection: isBack ? 'row-reverse' : 'row',
-          paddingLeft: isBack ? desktopScaled(17) : 0,
-          paddingRight: isBack ? 0 : desktopScaled(17),
-        }}
-      >
-        <Typography
-          component="span"
+        {/* Desktop: tlačítko rezervovat / zpět na web */}
+        <ButtonBase
+          component={isBack ? Link : 'a'}
+          {...(isBack ? { to: button.href } : { href: button.href, target: '_blank', rel: 'noopener' })}
           sx={{
-            width: desktopScaled(162),
-            minWidth: 'max-content',
-            textAlign: 'center',
-            fontSize: fluidDesktop(14, 24),
-            lineHeight: desktopType(25),
-            fontWeight: 400,
-            fontStyle: 'italic',
+            ...frostedButtonSx,
+            // U breakpointu větší než sdílené prosklené tlačítko, na 1920 px stejné
+            height: fluidDesktop(52, 60),
+            borderRadius: fluidDesktop(35, 40),
+            display: { xs: 'none', md: 'flex' },
+            marginLeft: 'auto',
+            minWidth: desktopScaled(210),
+            alignItems: 'center',
+            // Mezera mezi textem a šipkou jen při zmenšení (na 1920 px ji pohltí auto margin)
+            gap: 'clamp(0px, calc((1920px - 100vw) / 60), 8px)',
+            flexDirection: isBack ? 'row-reverse' : 'row',
+            paddingLeft: fluidDesktop(14, 17),
+            paddingRight: fluidDesktop(14, 17),
+          }}
+        >
+          <Typography
+            component="span"
+            sx={{
+              textAlign: 'center',
+              fontSize: fluidDesktop(16, 24),
+              lineHeight: '25px',
+              fontWeight: 400,
+              fontStyle: 'italic',
+              color: COLORS.white,
+            }}
+          >
+            {button.label}
+          </Typography>
+          <Box sx={{ marginLeft: isBack ? 0 : 'auto', marginRight: isBack ? 'auto' : 0, transform: isBack ? 'scaleX(-1)' : 'none' }}>
+            <Icon src={button.icon} size={fluidDesktop(18, 27.8)} />
+          </Box>
+        </ButtonBase>
+
+        <ButtonBase
+          aria-label={content.header.openMenu}
+          onClick={open}
+          sx={{
+            // Mobil: ikona vpravo nad osou loga, poloha vztažená k řádku hlavičky
+            position: { xs: 'absolute', md: 'static' },
+            top: { xs: fluid(-26, -16) },
+            right: { xs: fluid(30, 34) },
+            marginLeft: { md: desktopScaled(78) },
+            padding: { xs: '6px', md: 0 },
+            borderRadius: '8px',
             color: COLORS.white,
           }}
         >
-          {button.label}
-        </Typography>
-        <Box sx={{ marginLeft: isBack ? 0 : 'auto', marginRight: isBack ? 'auto' : 0, transform: isBack ? 'scaleX(-1)' : 'none' }}>
-          <Icon src={button.icon} size={desktopType(27.8)} />
-        </Box>
-      </ButtonBase>
-
-      <ButtonBase
-        aria-label={content.header.openMenu}
-        onClick={open}
-        sx={{
-          position: 'absolute',
-          top: { xs: fluid(50, 66), md: desktopScaled(133) },
-          right: { xs: fluid(30, 34), md: desktopScaled(DESKTOP.margin) },
-          padding: { xs: '6px', md: 0 },
-          borderRadius: '8px',
-          color: COLORS.white,
-        }}
-      >
-        <Icon
-          src={content.header.menuIcon}
-          size={{ xs: fluid(40, 42), md: desktopType(60) }}
-          height={{ xs: fluid(40, 42), md: desktopType(43.1) }}
-        />
-      </ButtonBase>
+          <Icon
+            src={content.header.menuIcon}
+            size={{ xs: fluid(40, 42), md: desktopType(60) }}
+            height={{ xs: fluid(40, 42), md: desktopType(43.1) }}
+          />
+        </ButtonBase>
+      </Box>
     </Box>
   )
 }
