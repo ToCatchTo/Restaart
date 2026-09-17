@@ -116,7 +116,6 @@ export function Footer({ compact = false, embedded = false, rating = false }: Fo
     <PageBackground
       image={content.footer.image}
       minHeight={{ xs: fluid(811, 860), md: desktopScaled(799) }}
-      overlay={{ xs: 'rgba(0, 0, 0, 0.6)', md: 'rgba(0, 0, 0, 0.7)' }}
       position={{ xs: 'right top', md: '100% 39.6%' }}
       size={{ xs: 'cover', md: '368% auto' }}
     >

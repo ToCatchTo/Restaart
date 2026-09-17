@@ -31,7 +31,6 @@ export function EventDetailPage() {
       <PageBackground
         image={image}
         minHeight={{ xs: fluid(1594, 1650), md: desktopScaled(1581) }}
-        overlay={{ xs: 'rgba(0, 0, 0, 0.65)', md: 'rgba(0, 0, 0, 0.7)' }}
         position={{ xs: 'center top', md: '47.9% 40.5%' }}
         size={{ xs: 'cover', md: 'auto 459%' }}
       >

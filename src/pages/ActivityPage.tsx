@@ -32,7 +32,6 @@ export function ActivityPage() {
       <PageBackground
         image={activity?.backgroundImage ?? content.hero.image}
         minHeight={{ md: desktopScaled(2083) }}
-        overlay={{ xs: 'rgba(0, 0, 0, 0.6)', md: 'rgba(0, 0, 0, 0.7)' }}
         position={{ xs: 'center top', md: '50% 84.5%' }}
         size={{ xs: 'cover', md: '103.75% auto' }}
       >

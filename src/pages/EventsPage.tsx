@@ -22,7 +22,6 @@ export function EventsPage() {
         image={content.pages.events.image}
         minHeight={{ xs: fluid(1238, 1300), md: '0px' }}
         viewportHeight
-        overlay={{ xs: 'rgba(0, 0, 0, 0.65)', md: 'rgba(0, 0, 0, 0.7)' }}
         position={{ xs: 'center top', md: '47.9% 40.5%' }}
         size={{ xs: 'cover', md: 'auto 459%' }}
       >

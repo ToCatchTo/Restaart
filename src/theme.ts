@@ -22,7 +22,7 @@ export const COLORS = {
   grayLight: '#eaeaea',
   gray: '#707070',
   grayFrame: '#696969',
-  overlay: 'rgba(0, 0, 0, 0.55)',
+  overlay: 'rgba(0, 0, 0, 0.7)',
 } as const
 
 // Desktop: šířka návrhu a rozměry mřížky (okraj 140, obsahová hrana 278)

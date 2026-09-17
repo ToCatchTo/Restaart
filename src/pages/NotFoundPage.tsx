@@ -21,7 +21,6 @@ export function NotFoundPage() {
         image={content.hero.image}
         minHeight={{ xs: fluid(810, 860), md: '0px' }}
         viewportHeight
-        overlay={{ xs: COLORS.overlay, md: 'rgba(0, 0, 0, 0.7)' }}
         position={{ xs: 'center top', md: '50% 42.6%' }}
       >
         <Header />

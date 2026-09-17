@@ -50,7 +50,6 @@ export function ContactPage() {
         image={content.pages.contact.image}
         minHeight={{ xs: fluid(1621, 1700), md: '0px' }}
         viewportHeight
-        overlay={{ xs: 'rgba(0, 0, 0, 0.6)', md: 'rgba(0, 0, 0, 0.7)' }}
         position={{ xs: 'center top', md: '52.2% 34.3%' }}
         size={{ xs: 'cover', md: '237% auto' }}
       >

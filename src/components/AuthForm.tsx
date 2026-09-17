@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { fluid, fluidDesktop } from '../fluid'
 import { COLORS, FONT_SECONDARY, frostedButtonSx } from '../theme'
 import type { AuthField } from '../types'
+import FooterCredit from './FooterCredit'
 import Header from './Header'
 import Icon from './Icon'
 import PageBackground from './PageBackground'
@@ -66,7 +67,6 @@ export function AuthForm({ title, fields, submit, submitIcon, image, note }: Aut
       // Mobil: stránka nemá patičku, fotka proto vždy pokryje celou výšku okna
       minHeight={{ xs: `max(${fluid(812, 860)}, 100vh)`, md: '0px' }}
       viewportHeight
-      overlay="rgba(0, 0, 0, 0.7)"
       position={{ xs: 'center top', md: '50% 42.6%' }}
     >
       <Header action="backToWeb" />
@@ -82,7 +82,8 @@ export function AuthForm({ title, fields, submit, submitIcon, image, note }: Aut
           paddingTop: { xs: fluid(40, 60), md: fluidDesktop(90, 171) },
           paddingLeft: { xs: fluid(30, 34), md: 0 },
           paddingRight: { xs: fluid(30, 34), md: 0 },
-          paddingBottom: { xs: fluid(40, 44), md: fluidDesktop(50, 60) },
+          // Místo pro kredit autora webu u spodního okraje
+          paddingBottom: { xs: fluid(68, 68), md: fluidDesktop(70, 95) },
         }}
       >
         <Typography
@@ -167,6 +168,8 @@ export function AuthForm({ title, fields, submit, submitIcon, image, note }: Aut
           </Typography>
         </Box>
       </Box>
+
+      <FooterCredit />
     </PageBackground>
   )
 }

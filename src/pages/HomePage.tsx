@@ -24,7 +24,6 @@ export function HomePage() {
         image={content.hero.image}
         height={{ xs: fluid(812, 860), md: 'auto' }}
         viewportHeight
-        overlay={{ xs: 'rgba(0, 0, 0, 0.55)', md: 'rgba(0, 0, 0, 0.7)' }}
         position={{ xs: 'center top', md: '50% 42.6%' }}
       >
         <Header />
