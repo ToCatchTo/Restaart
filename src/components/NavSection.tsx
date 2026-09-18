@@ -6,7 +6,7 @@ import Collapse from '@mui/material/Collapse'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { fluid, fluidDesktop } from '../fluid'
-import { COLORS, FONT_BODY, FONT_SECONDARY } from '../theme'
+import { COLORS, hoverDimMenuSx } from '../theme'
 import type { NavSectionData } from '../types'
 
 interface NavSectionProps {
@@ -31,6 +31,9 @@ const headingSx = {
   textTransform: 'uppercase',
 } as const
 
+// Nadpis jako odkaz (bez rozbalení) se ztmavuje sám
+const headingLinkSx = { ...headingSx, ...hoverDimMenuSx } as const
+
 export function NavSection({ section, onNavigate, alwaysOpen = false, expanded, onToggle }: NavSectionProps) {
   // Bez řízení zvenčí si sekce drží vlastní stav rozbalení
   const [localExpanded, setLocalExpanded] = useState(alwaysOpen)
@@ -49,18 +52,18 @@ export function NavSection({ section, onNavigate, alwaysOpen = false, expanded, 
         <ButtonBase
           onClick={toggle}
           aria-expanded={isExpanded}
-          sx={{ display: 'block', textAlign: 'left' }}
+          sx={{ display: 'block', textAlign: 'left', ...hoverDimMenuSx }}
         >
           <Typography component="span" sx={headingSx}>
             {section.label}
           </Typography>
         </ButtonBase>
       ) : section.external ? (
-        <Typography component="a" href={section.href} sx={headingSx} onClick={onNavigate}>
+        <Typography component="a" href={section.href} sx={headingLinkSx} onClick={onNavigate}>
           {section.label}
         </Typography>
       ) : (
-        <Typography component={Link} to={section.href ?? '/'} sx={headingSx} onClick={onNavigate}>
+        <Typography component={Link} to={section.href ?? '/'} sx={headingLinkSx} onClick={onNavigate}>
           {section.label}
         </Typography>
       )}
@@ -71,7 +74,7 @@ export function NavSection({ section, onNavigate, alwaysOpen = false, expanded, 
             component="ul"
             sx={{ listStyle: 'none', margin: 0, padding: 0, paddingTop: { xs: fluid(14, 16), md: fluidDesktop(7, 9) } }}
           >
-            {items.map((item, index) => (
+            {items.map((item) => (
               <Box
                 component="li"
                 key={item.href}
@@ -88,11 +91,11 @@ export function NavSection({ section, onNavigate, alwaysOpen = false, expanded, 
                     display: { md: 'block' },
                     fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 25) },
                     lineHeight: { xs: fluid(26, 28), md: fluidDesktop(34, 40) },
-                    fontFamily: index < 4 ? FONT_SECONDARY : FONT_BODY,
-                    fontWeight: index < 4 ? 200 : 400,
+                    fontWeight: 400,
                     color: COLORS.white,
                     textDecoration: 'none',
                     letterSpacing: '0.02em',
+                    ...hoverDimMenuSx,
                   }}
                 >
                   {item.label}

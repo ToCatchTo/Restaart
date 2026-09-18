@@ -6,7 +6,7 @@ import InputBase from '@mui/material/InputBase'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { fluid, fluidDesktop } from '../fluid'
-import { COLORS, FONT_SECONDARY, frostedButtonSx } from '../theme'
+import { COLORS, frostedButtonSx } from '../theme'
 import type { AuthField } from '../types'
 import FooterCredit from './FooterCredit'
 import Header from './Header'
@@ -62,12 +62,11 @@ const fieldSx = {
   },
 } as const
 
-// Poznámka pod tlačítkem – Outfit 200
+// Poznámka pod tlačítkem
 const noteSx = {
   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 20) },
   lineHeight: { xs: fluid(20, 21), md: '20px' },
-  fontFamily: FONT_SECONDARY,
-  fontWeight: 200,
+  fontWeight: 400,
 } as const
 
 // Odkazy v textu souhlasu
@@ -202,8 +201,7 @@ export function AuthForm({ title, fields, submit, submitIcon, image, note, conse
               textAlign: 'center',
               fontSize: { xs: fluid(18, 19), md: fluidDesktop(18.5, 24) },
               lineHeight: { xs: fluid(22, 23), md: fluidDesktop(22, 25) },
-              fontFamily: FONT_SECONDARY,
-              fontWeight: 200,
+              fontWeight: 400,
               fontStyle: 'italic',
               color: COLORS.white,
             }}

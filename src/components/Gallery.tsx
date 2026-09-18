@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
-import { COLORS } from '../theme'
+import { COLORS, hoverDimSx } from '../theme'
 import Icon from './Icon'
 
 interface GalleryProps {
@@ -57,10 +57,10 @@ export function Gallery({ images, alt }: GalleryProps) {
           gap: { xs: fluid(28, 30), md: desktopScaled(64.3) },
         }}
       >
-        <ButtonBase aria-label={prevLabel} onClick={() => step(-1)} sx={{ borderRadius: '50%' }}>
+        <ButtonBase aria-label={prevLabel} onClick={() => step(-1)} sx={{ borderRadius: '50%', ...hoverDimSx() }}>
           <Icon src={prevIcon} size={{ xs: fluid(28, 30), md: desktopType(53.6) }} />
         </ButtonBase>
-        <ButtonBase aria-label={nextLabel} onClick={() => step(1)} sx={{ borderRadius: '50%' }}>
+        <ButtonBase aria-label={nextLabel} onClick={() => step(1)} sx={{ borderRadius: '50%', ...hoverDimSx() }}>
           <Icon src={nextIcon} size={{ xs: fluid(28, 30), md: desktopType(53.6) }} />
         </ButtonBase>
       </Box>

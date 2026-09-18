@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { fluid } from '../fluid'
-import { COLORS, FONT_SECONDARY } from '../theme'
+import { COLORS } from '../theme'
 import ActivitiesDropdown from './ActivitiesDropdown'
 import CloseMark from './CloseMark'
 import Icon from './Icon'
@@ -43,7 +43,7 @@ function QuickNavItem({ label, icon, active = false, href, external, onClick }: 
   const inner: ReactNode = (
     <>
       {active ? <CloseMark size={fluid(44, 50)} markSize={fluid(16, 17)} /> : <Icon src={icon} size={fluid(44, 50)} />}
-      <Typography component="span" sx={{ fontSize: fluid(12, 13), lineHeight: fluid(14, 15), fontFamily: FONT_SECONDARY, fontWeight: 200, letterSpacing: '0.02em' }}>
+      <Typography component="span" sx={{ fontSize: fluid(12, 13), lineHeight: fluid(14, 15), fontWeight: 400, letterSpacing: '0.02em' }}>
         {label}
       </Typography>
     </>

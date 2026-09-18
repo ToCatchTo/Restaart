@@ -2,7 +2,7 @@
 import Typography from '@mui/material/Typography'
 import type { SxProps, Theme } from '@mui/material/styles'
 import type { ElementType } from 'react'
-import { COLORS, FONT_SECONDARY } from '../theme'
+import { COLORS } from '../theme'
 
 interface RichTextProps {
   html: string
@@ -10,12 +10,12 @@ interface RichTextProps {
   sx?: SxProps<Theme>
 }
 
-// Zachované řádkování z dat; tloušťka 200 se vykreslí písmem Outfit
+// Zachované řádkování z dat; inline tloušťka 200 z dat se přepíše na 400
 const baseSx = {
   whiteSpace: 'pre-line',
   color: COLORS.white,
   '& [style*="font-weight: 200"], & [style*="font-weight:200"]': {
-    fontFamily: FONT_SECONDARY,
+    fontWeight: '400 !important',
   },
 } as const
 

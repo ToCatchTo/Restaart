@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { localBusinessJsonLd, SEO } from '../seo'
-import { COLORS, DESKTOP, FONT_SECONDARY } from '../theme'
+import { COLORS, DESKTOP, hoverDimSx } from '../theme'
 import ContactInfo from '../components/ContactInfo'
 import Footer from '../components/Footer'
 import FooterCredit from '../components/FooterCredit'
@@ -22,8 +22,7 @@ const textSx = {
   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 20) },
   lineHeight: { xs: fluid(20, 21), md: fluidDesktop(22, 25) },
   color: COLORS.white,
-  fontFamily: FONT_SECONDARY,
-  fontWeight: 200,
+  fontWeight: 400,
   letterSpacing: '0.02em',
 } as const
 
@@ -99,7 +98,7 @@ export function ContactPage() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={item.label}
-                sx={{ borderRadius: '50%' }}
+                sx={{ borderRadius: '50%', ...hoverDimSx() }}
               >
                 <Icon src={item.icon} size={{ xs: fluid(46, 48), md: fluidDesktop(34, 45) }} />
               </ButtonBase>

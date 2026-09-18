@@ -4,7 +4,7 @@ import { DESKTOP_BREAKPOINT, fluidDesktop } from './fluid'
 
 // Rodiny písem – Safiro je lokální (public/fonts), ostatní z Google Fonts
 export const FONT_BODY = "'Safiro', 'Helvetica Neue', Arial, sans-serif"
-// Outfit – lehké texty pod tloušťku 400 a Google widget
+// Outfit – jen Google widget
 export const FONT_SECONDARY = "'Outfit', 'Helvetica Neue', Arial, sans-serif"
 export const FONT_LABEL = "'Gantari', 'Helvetica Neue', Arial, sans-serif"
 export const FONT_SCRIPT = "'Permanent Marker', 'Comic Sans MS', cursive"
@@ -40,6 +40,18 @@ export const hoverDarkenSx = (opacity = 0.25) =>
       '&:hover': { boxShadow: `inset 0 0 0 100vmax rgba(0, 0, 0, ${opacity})` },
     },
   }) as const
+
+// Ztmavení prvku bez pozadí (textová a ikonová tlačítka) při najetí; zdvojený selektor přebije obecné pravidlo pro odkazy
+export const hoverDimSx = (brightness = 0.6) =>
+  ({
+    transition: 'filter 0.2s ease',
+    '@media (hover: hover)': {
+      '&&:hover': { filter: `brightness(${brightness})` },
+    },
+  }) as const
+
+// Jemnější varianta pro prvky hlavního menu (hamburger, zavření, položky)
+export const hoverDimMenuSx = hoverDimSx(0.85)
 
 // Prosklené tlačítko – průhledná výplň s rozostřeným pozadím
 export const frostedButtonSx = {

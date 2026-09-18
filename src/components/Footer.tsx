@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
-import { COLORS, DESKTOP, FONT_SECONDARY } from '../theme'
+import { COLORS, DESKTOP } from '../theme'
 import ContactInfo from './ContactInfo'
 import FooterCredit from './FooterCredit'
 import GoogleRating from './GoogleRating'
@@ -27,8 +27,7 @@ const smallSx = (compact: boolean) =>
     fontSize: { xs: fluid(12, 13), md: fluidDesktop(12.5, compact ? 20 : 16) },
     lineHeight: { xs: fluid(15, 16), md: fluidDesktop(16, compact ? 25 : 20) },
     color: COLORS.white,
-    fontFamily: FONT_SECONDARY,
-    fontWeight: 200,
+    fontWeight: 400,
   }) as const
 
 const linkSx = {

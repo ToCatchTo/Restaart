@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
-import { COLORS, FONT_SECONDARY } from '../theme'
+import { COLORS } from '../theme'
 
 interface OpeningHoursProps {
   // Desktop: bloky pod sebou v jednom sloupci (stránka Kontakt)
@@ -15,8 +15,7 @@ const textSx = {
   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 20) },
   lineHeight: { xs: fluid(20, 21), md: fluidDesktop(22, 30) },
   color: COLORS.white,
-  fontFamily: FONT_SECONDARY,
-  fontWeight: 200,
+  fontWeight: 400,
 } as const
 
 export function OpeningHours({ column = false }: OpeningHoursProps) {

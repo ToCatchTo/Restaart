@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { fadeInUpSx } from '../animations'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
-import { COLORS, FONT_SECONDARY } from '../theme'
+import { COLORS } from '../theme'
 import { useInView } from '../hooks/useInView'
 import type { PriceRow } from '../types'
 
@@ -23,8 +23,7 @@ const durationSx = {
 const priceSx = {
   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 24) },
   lineHeight: { xs: fluid(20, 21), md: fluidDesktop(21, 25) },
-  fontFamily: FONT_SECONDARY,
-  fontWeight: 200,
+  fontWeight: 400,
   color: COLORS.white,
 } as const
 

@@ -6,7 +6,7 @@ import { fadeInUpSx } from '../animations'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { ACTIVITIES_LABEL, NOT_FOUND_SEO, SEO, breadcrumbJsonLd, seoForActivity } from '../seo'
-import { COLORS, DESKTOP, FONT_SECONDARY } from '../theme'
+import { COLORS, DESKTOP } from '../theme'
 import type { Activity } from '../types'
 import { useFetch } from '../hooks/useFetch'
 import ClassListAccordion from '../components/ClassListAccordion'
@@ -77,8 +77,7 @@ export function ActivityPage() {
                   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 30) },
                   lineHeight: { xs: fluid(25, 30), md: fluidDesktop(26, 35) },
                   color: COLORS.white,
-                  fontFamily: FONT_SECONDARY,
-                  fontWeight: 200,
+                  fontWeight: 400,
                   letterSpacing: '0.02em',
                   ...fadeInUpSx(),
                 }}

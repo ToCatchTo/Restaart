@@ -6,7 +6,7 @@ import Collapse from '@mui/material/Collapse'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
-import { COLORS, DESKTOP, FONT_SECONDARY, columnSx, hoverDarkenSx } from '../theme'
+import { COLORS, DESKTOP, columnSx, hoverDarkenSx } from '../theme'
 import type { ActivityClass } from '../types'
 import Icon from './Icon'
 import RichText from './RichText'
@@ -56,8 +56,7 @@ export function ClassListAccordion({ classes }: ClassListAccordionProps) {
             sx={{
               fontSize: { xs: fluid(20, 21), md: fluidDesktop(20.4, 20) },
               lineHeight: { xs: fluid(24, 25), md: desktopType(25) },
-              fontFamily: { md: FONT_SECONDARY },
-              fontWeight: { xs: 500, md: 300 },
+              fontWeight: { xs: 500, md: 400 },
               color: COLORS.white,
             }}
           >
@@ -65,7 +64,7 @@ export function ClassListAccordion({ classes }: ClassListAccordionProps) {
           </Typography>
           <Icon
             src={open ? closeIcon : openIcon}
-            size={open ? { xs: fluid(44, 46), md: fluidDesktop(26, 32.8) } : { xs: fluid(34, 36), md: fluidDesktop(26, 32.8) }}
+            size={{ xs: fluid(34, 36), md: fluidDesktop(26, 32.8) }}
           />
         </ButtonBase>
       </Box>
@@ -91,8 +90,7 @@ export function ClassListAccordion({ classes }: ClassListAccordionProps) {
                 sx={{
                   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 20) },
                   lineHeight: { xs: fluid(28, 30), md: fluidDesktop(27, 30) },
-                  fontFamily: { md: FONT_SECONDARY },
-                  fontWeight: { xs: 700, md: 200 },
+                  fontWeight: { xs: 700, md: 400 },
                   color: COLORS.white,
                 }}
               >
@@ -105,8 +103,7 @@ export function ClassListAccordion({ classes }: ClassListAccordionProps) {
                   margin: 0,
                   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 20) },
                   lineHeight: { xs: fluid(28, 30), md: fluidDesktop(27, 30) },
-                  fontFamily: { md: FONT_SECONDARY },
-                  fontWeight: { md: 200 },
+                  fontWeight: { md: 400 },
                 }}
               />
             </Box>

@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
-import { COLORS, DESKTOP, DESKTOP_MQ } from '../theme'
+import { COLORS, DESKTOP, DESKTOP_MQ, hoverDimMenuSx } from '../theme'
 import Icon from './Icon'
 import { useMenu } from './MenuContext'
 import NavSection from './NavSection'
@@ -115,6 +115,7 @@ export function MenuOverlay() {
             top: { xs: fluid(52, 56), md: fluidDesktop(75, 104) },
             right: { xs: fluid(28, 32), md: desktopScaled(DESKTOP.margin) },
             borderRadius: '50%',
+            ...hoverDimMenuSx,
           }}
         >
           <Box sx={{ display: { xs: 'block', md: 'none' } }}>

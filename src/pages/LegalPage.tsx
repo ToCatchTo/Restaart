@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
 import { SEO } from '../seo'
-import { COLORS, DESKTOP, FONT_BODY, FONT_SECONDARY, columnSx } from '../theme'
+import { COLORS, DESKTOP, columnSx } from '../theme'
 import Header from '../components/Header'
 import PageTitle from '../components/PageTitle'
 import QuickNav from '../components/QuickNav'
@@ -31,8 +31,7 @@ const paragraphSx = {
   paddingTop: { xs: fluid(12, 14), md: desktopScaled(14) },
   fontSize: { xs: fluid(15, 16), md: fluidDesktop(15.4, 16) },
   lineHeight: { xs: fluid(24, 26), md: desktopType(25) },
-  fontFamily: { xs: FONT_SECONDARY, md: FONT_BODY },
-  fontWeight: { xs: 200, md: 400 },
+  fontWeight: 400,
   letterSpacing: { xs: '0.02em', md: 0 },
   color: COLORS.white,
 } as const

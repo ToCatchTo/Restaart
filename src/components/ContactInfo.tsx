@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { fluid, fluidDesktop } from '../fluid'
-import { COLORS, FONT_SECONDARY } from '../theme'
+import { COLORS } from '../theme'
 
 interface ContactInfoProps {
   size?: 'small' | 'large'
@@ -18,8 +18,7 @@ export function ContactInfo({ size = 'small' }: ContactInfoProps) {
     color: COLORS.white,
     textDecoration: 'none',
     whiteSpace: 'nowrap',
-    fontFamily: FONT_SECONDARY,
-    fontWeight: 200,
+    fontWeight: 400,
     '&:hover': { textDecoration: 'underline' },
   } as const
 
