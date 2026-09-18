@@ -10,7 +10,7 @@ interface RichTextProps {
   sx?: SxProps<Theme>
 }
 
-// Základní styl: zachované řádkování z dat a Outfit pro tloušťku 200, kterou Safiro nemá
+// Zachované řádkování z dat; tloušťka 200 se vykreslí písmem Outfit
 const baseSx = {
   whiteSpace: 'pre-line',
   color: COLORS.white,

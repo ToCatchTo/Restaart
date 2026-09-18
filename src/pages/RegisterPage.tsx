@@ -1,4 +1,4 @@
-// Registrace – /registrace (statická podoba registrace do rezervačního systému, bez funkčního odeslání)
+// Registrace – /registrace (statická podoba bez odeslání)
 import { content } from '../content'
 import { usePageTitle } from '../hooks/usePageTitle'
 import AuthForm from '../components/AuthForm'

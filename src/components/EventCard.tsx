@@ -16,7 +16,15 @@ export function EventCard({ event }: EventCardProps) {
     <ButtonBase
       component={Link}
       to={`/akce/${event.slug}`}
-      sx={{ display: 'block', width: '100%', position: 'relative', textAlign: 'left' }}
+      sx={{
+        display: 'block',
+        width: '100%',
+        position: 'relative',
+        textAlign: 'left',
+        // Při najetí ztmavne jen fotka, štítek s datem zůstává
+        '& > img': { transition: 'filter 0.2s ease' },
+        '@media (hover: hover)': { '&:hover > img': { filter: 'brightness(0.75)' } },
+      }}
     >
       <Box
         component="img"

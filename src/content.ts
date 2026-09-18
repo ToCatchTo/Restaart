@@ -1,30 +1,30 @@
-// Všechny statické texty aplikace (žádné texty přímo v komponentách)
+// Všechny statické texty a cesty k assetům aplikace
 import type { AuthField, NavSectionData } from './types'
 
 // Externí rezervační systém
 const RESERVATION_URL = 'https://rezervace.restaart.cz/login'
 
-// Pomocná funkce pro tvorbu odkazu na detail aktivity
+// Odkaz na detail aktivity
 const activity = (label: string, slug: string) => ({ label, href: `/aktivity/${slug}` })
-// Pomocná funkce pro tvorbu odkazu na službu (zatím bez navržené stránky)
+// Odkaz na službu (stránka zatím není navržená)
 const service = (label: string, slug: string) => ({ label, href: `/sluzby/${slug}` })
 
 export const content = {
   brand: {
     name: 'Restaart',
     logoAlt: 'Restaart – sportovní centrum',
-    logo: '/icons/logo_restaart.svg',
+    logo: '/icons/brand_logo.svg',
   },
 
   header: {
     openMenu: 'Otevřít menu',
     closeMenu: 'Zavřít menu',
     menuLabel: 'Hlavní menu',
-    menuIcon: '/icons/menu_bars.svg',
-    // Desktop: tlačítko v hlavičce vedoucí na rezervační systém
-    reservation: { label: 'rezervovat', icon: '/icons/arrow_right_cyan.svg', href: RESERVATION_URL },
-    // Desktop: varianta tlačítka na stránce přihlášení
-    backToWeb: { label: 'zpět na web', icon: '/icons/arrow_right_cyan.svg', href: '/' },
+    menuIcon: '/icons/header_menu.svg',
+    // Desktop: tlačítko v hlavičce – rezervační systém
+    reservation: { label: 'rezervovat', icon: '/icons/button_arrow.svg', href: RESERVATION_URL },
+    // Desktop: varianta tlačítka na stránkách účtu
+    backToWeb: { label: 'zpět na web', icon: '/icons/button_arrow.svg', href: '/' },
   },
 
   contact: {
@@ -38,8 +38,8 @@ export const content = {
     parkingTitle: 'Parkování',
     parkingLines: ['Podélné parkování před', 'a v okolí sportovního centra'],
     social: [
-      { label: 'Instagram', href: 'https://www.instagram.com/', icon: '/icons/instagram.svg' },
-      { label: 'Facebook', href: 'https://www.facebook.com/', icon: '/icons/facebook.svg' },
+      { label: 'Instagram', href: 'https://www.instagram.com/', icon: '/icons/social_instagram.svg' },
+      { label: 'Facebook', href: 'https://www.facebook.com/', icon: '/icons/social_facebook.svg' },
     ],
   },
 
@@ -51,42 +51,42 @@ export const content = {
   ],
 
   quickNav: {
-    reservation: { label: 'rezervace', icon: '/icons/bolt.svg' },
-    events: { label: 'akce', icon: '/icons/hand_peace.svg', href: '/akce' },
+    reservation: { label: 'rezervace', icon: '/icons/quick_nav_reservation.svg' },
+    events: { label: 'akce', icon: '/icons/quick_nav_events.svg', href: '/akce' },
     activities: {
       label: 'aktivity',
-      icon: '/icons/person_running.svg',
-      // Sekce navigace zobrazené v rozbalovacím panelu
+      icon: '/icons/quick_nav_activities.svg',
+      // Sekce navigace v rozbalovacím panelu
       sections: ['SPORT', 'REGENERACE'],
     },
-    reception: { label: 'recepce', icon: '/icons/phone_volume.svg' },
+    reception: { label: 'recepce', icon: '/icons/reception_call.svg' },
   },
 
   hero: {
     lines: ['sportovní centrum', 'pro celou rodinu'],
-    image: '/images/hero_home.webp',
-    // Desktop: ručně psaný nápis „akce“ v pravém dolním rohu hera
-    eventsLabel: { icon: '/icons/akce_label.svg', alt: 'akce', href: '/akce' },
+    image: '/images/home_hero.webp',
+    // Desktop: nápis „akce“ v pravém dolním rohu hera
+    eventsLabel: { icon: '/icons/hero_events_label.svg', alt: 'akce', href: '/akce' },
   },
 
   eventPill: {
-    // false = tlačítko se nevykreslí, ale jeho místo zůstane zachované
+    // false = tlačítko se nevykreslí, místo zůstane
     enabled: true,
     text: '28/9 Den otevřených dveří',
     href: '/akce/restaart-day',
-    arrowIcon: '/icons/arrow_right_dark_bg.svg',
+    arrowIcon: '/icons/event_pill_arrow.svg',
   },
 
   googleRating: {
-    logo: '/icons/google_g.svg',
+    logo: '/icons/google_rating_logo.svg',
     logoAlt: 'Google',
-    starIcon: '/icons/star.svg',
+    starIcon: '/icons/google_rating_star.svg',
     maxStars: 5,
     title: 'Recenze Google',
     buttonLabel: 'Zobrazit všechny recenze',
-    // Recenze provozovny na Google (place id provozovny)
+    // Recenze provozovny na Google
     reviewsUrl: 'https://search.google.com/local/reviews?placeid=ChIJk98cpq3MDUcRiaNaKGW8I78',
-    // Náhradní hodnoty, dokud se nenačtou živá data z Google Places API
+    // Náhradní hodnoty do načtení dat z Places API
     fallbackRating: 4.7,
     fallbackCount: 19517,
   },
@@ -103,18 +103,18 @@ export const content = {
     premisesLines: ['Přerovská 503, 530 06 Pardubice'],
     terms: { label: 'Obchodní podmínky', href: '/obchodni-podminky' },
     privacy: { label: 'Zásady ochrany osobních údajů', href: '/ochrana-osobnich-udaju' },
-    credit: { label: 'Tvoříme weby s radostí', href: 'https://matfix.cz', logo: '/icons/matfix_logo.svg', logoAlt: 'Matfix', logoIcon: '/icons/footer_icon.svg', logoIconAlt: 'Matfix – ikona' },
+    credit: { label: 'Tvoříme weby s radostí', href: 'https://matfix.cz', logo: '/icons/footer_credit_logo.svg', logoAlt: 'Matfix', logoIcon: '/icons/footer_credit_icon.svg', logoIconAlt: 'Matfix – ikona' },
   },
 
   menu: {
     closeIcon: '/icons/menu_close.svg',
-    closeIconDesktop: '/icons/menu_close_circle.svg',
-    phoneIcon: '/icons/phone_volume.svg',
+    closeIconDesktop: '/icons/menu_close_desktop.svg',
+    phoneIcon: '/icons/reception_call.svg',
     callReception: 'Volat na recepci',
     callNote: 'Na telefonu jsme v otevíračce',
   },
 
-  // Struktura navigace (hamburger menu + rozbalovací seznam aktivit)
+  // Struktura navigace (menu a rozbalovací seznam aktivit)
   navSections: [
     {
       label: 'SPORT',
@@ -160,7 +160,7 @@ export const content = {
     { label: 'KONTAKT', href: '/kontakt' },
   ] satisfies NavSectionData[],
 
-  // Titulky karty prohlížeče: „Restaart - …“ (stránky s vlastním názvem ho použijí přímo)
+  // Titulky karty prohlížeče „Restaart - …“
   titles: {
     separator: ' - ',
     home: 'Sport a relax centrum Pardubice',
@@ -173,30 +173,30 @@ export const content = {
 
   pages: {
     events: { title: 'akce', image: '/images/events_bg.webp' },
-    eventDetail: { back: 'zpět na výpis', backIcon: '/icons/arrow_left_white_bg.svg', image: '/images/events_bg.webp' },
+    eventDetail: { back: 'zpět na výpis', backIcon: '/icons/back_link_arrow.svg', image: '/images/events_bg.webp' },
     activity: {
       classListButton: 'Popis všech cvičení',
-      openIcon: '/icons/arrow_down_white_bg.svg',
-      closeIcon: '/icons/close.svg',
-      prevIcon: '/icons/arrow_left_white_bg.svg',
-      nextIcon: '/icons/arrow_right_white_bg.svg',
+      openIcon: '/icons/class_list_open.svg',
+      closeIcon: '/icons/class_list_close.svg',
+      prevIcon: '/icons/gallery_prev.svg',
+      nextIcon: '/icons/gallery_next.svg',
       prevLabel: 'Předchozí fotka',
       nextLabel: 'Další fotka',
     },
     contact: { image: '/images/contact_bg.webp' },
-    // Statická stránka přihlášení (vzhled rezervačního systému, bez funkčního přihlášení)
+    // Statická stránka přihlášení
     login: {
       title: 'přihlášení',
       emailLabel: 'Email',
       passwordLabel: 'Heslo',
       submit: 'přihlásit',
-      submitIcon: '/icons/arrow_right_cyan.svg',
+      submitIcon: '/icons/button_arrow.svg',
       noAccount: 'Nemáte účet?',
       register: 'Registrovat',
       registerHref: '/registrace',
-      image: '/images/hero_home.webp',
+      image: '/images/home_hero.webp',
     },
-    // Statická stránka registrace (stejný vzhled jako přihlášení)
+    // Statická stránka registrace
     register: {
       title: 'registrace',
       fields: [
@@ -207,7 +207,7 @@ export const content = {
         { type: 'password', name: 'password', label: 'Heslo', autoComplete: 'new-password' },
         { type: 'password', name: 'passwordConfirm', label: 'Heslo znovu', autoComplete: 'new-password' },
       ] satisfies AuthField[],
-      // Souhlas s podmínkami – text je rozdělený kolem dvou odkazů
+      // Souhlas s podmínkami – text rozdělený kolem dvou odkazů
       consent: {
         before: 'Souhlasím s ',
         termsLabel: 'obchodními podmínkami',
@@ -219,11 +219,11 @@ export const content = {
         ariaLabel: 'Souhlas s obchodními podmínkami a zpracováním osobních údajů',
       },
       submit: 'registrovat',
-      submitIcon: '/icons/arrow_right_cyan.svg',
+      submitIcon: '/icons/button_arrow.svg',
       haveAccount: 'Máte účet?',
       login: 'Přihlásit',
       loginHref: '/prihlaseni',
-      image: '/images/hero_home.webp',
+      image: '/images/home_hero.webp',
     },
     notFound: { title: 'Stránka se připravuje', back: 'Zpět na úvod' },
     loading: 'Načítání…',
@@ -231,7 +231,7 @@ export const content = {
     notFoundItem: 'Položka nebyla nalezena.',
   },
 
-  // Právní stránky – zástupné texty, nahradí je finální znění od provozovatele
+  // Právní stránky – zástupné texty do dodání finálního znění
   legal: {
     terms: {
       title: 'Obchodní podmínky',
@@ -365,11 +365,11 @@ export const content = {
     },
   },
 
-  // Cesty k mock datům (později nahradí API)
+  // Cesty k datům (mock JSON, později API)
   api: {
     activities: '/activities.json',
     events: '/events.json',
-    // Serverless funkce (api/google-rating.ts) – hodnocení Google s cache
+    // Serverless funkce api/google-rating.ts
     googleRating: '/api/google-rating',
   },
 }

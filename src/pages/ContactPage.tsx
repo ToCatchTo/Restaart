@@ -28,10 +28,10 @@ const textSx = {
 // Mobilní okraje bloků (mimo patičku, která má vlastní)
 const gutterSx = { paddingLeft: { xs: fluid(30, 34), md: 0 }, paddingRight: { xs: fluid(30, 34), md: 0 } } as const
 
-// Užší desktop: třetí sloupec (provozovatel) je pod prvními dvěma a ty se roztáhnou od kraje ke kraji obsahu
+// Užší desktop: provozovatel pod prvními dvěma sloupci
 const TWO_COLUMN_MQ = '@media (min-width: 600px) and (max-width: 1199.95px)'
 
-// Desktop: sloupec široký 552 px (rozestup 278 → 830 → 1382), ale nikdy užší než jeho obsah
+// Desktop: sloupec 552 px (x = 278, 830, 1382), nikdy užší než obsah
 const columnItemSx = {
   width: { md: desktopScaled(552) },
   minWidth: { md: 'max-content' },
@@ -56,7 +56,7 @@ export function ContactPage() {
         <Header />
         <QuickNav />
 
-        {/* Mobil: bloky pod sebou, desktop: dva řádky sloupců na x = 278, 830 a 1382; sloupce se při nedostatku místa zalomí */}
+        {/* Mobil: bloky pod sebou; desktop: dva řádky sloupců, které se při nedostatku místa zalomí */}
         <Box
           sx={{
             display: 'flex',
@@ -65,7 +65,7 @@ export function ContactPage() {
             alignItems: { md: 'flex-start' },
             paddingTop: { xs: fluid(102, 122), md: fluidDesktop(110, 236) },
             paddingLeft: { md: desktopScaled(DESKTOP.content) },
-            // Místo pro kredit autora webu u spodního okraje
+            // Místo pro kredit u spodního okraje
             paddingBottom: { md: fluidDesktop(70, 95) },
             [TWO_COLUMN_MQ]: {
               display: 'grid',

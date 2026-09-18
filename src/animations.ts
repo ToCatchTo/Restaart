@@ -6,7 +6,7 @@ const fadeInUp = keyframes`
   to { opacity: 1; transform: translateY(0); }
 `
 
-// Styl pro prvek, který se po vykreslení zjeví zdola; delayMs posouvá start (stagger)
+// Prvek se po vykreslení zjeví zdola; delayMs posouvá start
 export const fadeInUpSx = (delayMs = 0) =>
   ({
     opacity: 0,

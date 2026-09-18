@@ -17,11 +17,10 @@ interface FetchResult<T> {
 // Základní URL – prázdná env proměnná znamená lokální mock data
 const BASE_URL = import.meta.env.VITE_API_URL || '/data'
 
-// Absolutní URL (http/https) a lokální serverless funkce (/api/…) se používají beze změny,
-// ostatní relativní cesty se připojí k základní URL
+// Absolutní URL a /api/… beze změny, ostatní cesty se připojí k základní URL
 const resolveUrl = (path: string) => (/^https?:\/\//.test(path) || path.startsWith('/api/') ? path : `${BASE_URL}${path}`)
 
-// Cesta null znamená, že se nic nenačítá (např. chybí konfigurace)
+// Cesta null = nic se nenačítá
 export function useFetch<T>(path: string | null): FetchState<T> {
   const [result, setResult] = useState<FetchResult<T>>({ path: null, data: null, error: null })
 
@@ -37,7 +36,7 @@ export function useFetch<T>(path: string | null): FetchState<T> {
       })
       .then((data) => setResult({ path, data, error: null }))
       .catch((error: unknown) => {
-        // Zrušený požadavek (odmontovaná komponenta) není chyba
+        // Zrušený požadavek není chyba
         if (error instanceof DOMException && error.name === 'AbortError') return
         setResult({ path, data: null, error: error instanceof Error ? error.message : String(error) })
       })

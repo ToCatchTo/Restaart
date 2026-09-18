@@ -1,4 +1,4 @@
-// E-mail a telefon (malá varianta v patičce, velká na stránce Kontakt); desktop: Safiro 30/50
+// E-mail a telefon – malá varianta v patičce, velká na stránce Kontakt
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
@@ -20,7 +20,6 @@ export function ContactInfo({ size = 'small' }: ContactInfoProps) {
     whiteSpace: 'nowrap',
     fontFamily: FONT_SECONDARY,
     fontWeight: 200,
-    // Podtržení při najetí myší
     '&:hover': { textDecoration: 'underline' },
   } as const
 

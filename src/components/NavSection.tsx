@@ -6,15 +6,15 @@ import Collapse from '@mui/material/Collapse'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { fluid, fluidDesktop } from '../fluid'
-import { COLORS, FONT_SECONDARY } from '../theme'
+import { COLORS, FONT_BODY, FONT_SECONDARY } from '../theme'
 import type { NavSectionData } from '../types'
 
 interface NavSectionProps {
   section: NavSectionData
   onNavigate?: () => void
-  // Trvale rozbalený seznam bez možnosti zavření (panel aktivit pod rychlou navigací)
+  // Trvale rozbalený seznam bez možnosti zavření
   alwaysOpen?: boolean
-  // Řízené rozbalení z nadřazené komponenty (hamburger menu – rozbalená je vždy jen jedna sekce)
+  // Rozbalení řízené nadřazenou komponentou
   expanded?: boolean
   onToggle?: () => void
 }
@@ -71,7 +71,7 @@ export function NavSection({ section, onNavigate, alwaysOpen = false, expanded, 
             component="ul"
             sx={{ listStyle: 'none', margin: 0, padding: 0, paddingTop: { xs: fluid(14, 16), md: fluidDesktop(7, 9) } }}
           >
-            {items.map((item) => (
+            {items.map((item, index) => (
               <Box
                 component="li"
                 key={item.href}
@@ -88,8 +88,8 @@ export function NavSection({ section, onNavigate, alwaysOpen = false, expanded, 
                     display: { md: 'block' },
                     fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 25) },
                     lineHeight: { xs: fluid(26, 28), md: fluidDesktop(34, 40) },
-                    fontFamily: FONT_SECONDARY,
-                    fontWeight: 200,
+                    fontFamily: index < 4 ? FONT_SECONDARY : FONT_BODY,
+                    fontWeight: index < 4 ? 200 : 400,
                     color: COLORS.white,
                     textDecoration: 'none',
                     letterSpacing: '0.02em',

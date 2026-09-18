@@ -59,8 +59,7 @@ export function EventDetailPage() {
                 {event.title}
               </PageTitle>
             </Box>
-            {/* Desktop od 1000 px: popis vlevo (812 px) a obrázek vpravo (620 px) v CSS gridu;
-                užší desktop: obal se rozpustí a pořadí je obrázek, nadpis, popis */}
+            {/* Od 1000 px: popis (812 px) a obrázek (620 px) vedle sebe; užší desktop: obrázek, nadpis, popis pod sebou */}
             <Box
               sx={{
                 display: { md: 'grid' },

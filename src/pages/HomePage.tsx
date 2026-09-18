@@ -1,4 +1,4 @@
-// Homepage – hlavička, rychlá navigace (mobil), úvodní nadpis, upoutávka na akci, hodnocení Google, patička
+// Homepage – hlavička, rychlá navigace, úvodní nadpis, upoutávka na akci, hodnocení Google a patička
 import Box from '@mui/material/Box'
 import { Link } from 'react-router-dom'
 import { content } from '../content'

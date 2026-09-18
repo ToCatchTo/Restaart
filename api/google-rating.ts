@@ -1,5 +1,4 @@
-// Serverless funkce (Vercel) – hodnocení podniku z Google Places API (New)
-// Klíč zůstává na serveru, odpověď se cachuje na CDN 24 h, takže se Google volá jen párkrát denně.
+// Serverless funkce (Vercel) – hodnocení podniku z Google Places API, klíč na serveru, odpověď cachovaná na CDN 24 h
 
 const PLACES_API_URL = 'https://places.googleapis.com/v1/places/'
 const CACHE_SECONDS = 60 * 60 * 24

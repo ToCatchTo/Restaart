@@ -1,4 +1,4 @@
-// Formulář účtu (přihlášení / registrace) – statická podoba rezervačního systému, bez funkčního odeslání
+// Formulář přihlášení / registrace – statická podoba bez odeslání
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import Checkbox from '@mui/material/Checkbox'
@@ -39,7 +39,7 @@ interface AuthFormProps {
 const TWO_COLUMN_MQ = '@media (min-width: 900px)'
 const FIELD_WIDTH = fluidDesktop(280, 316)
 
-// Pole formuláře – bílý rám 1 px, průhledné pozadí (mobilní hodnoty odvozené proporčně, návrh je jen desktopový)
+// Pole formuláře – bílý rám 1 px, průhledné pozadí
 const fieldSx = {
   width: '100%',
   height: { xs: fluid(56, 60), md: fluidDesktop(60, 80) },
@@ -53,7 +53,7 @@ const fieldSx = {
   lineHeight: { xs: fluid(20, 21), md: fluidDesktop(22, 25) },
   fontWeight: 600,
   '& input::placeholder': { color: COLORS.white, opacity: 1, fontWeight: 400 },
-  // Automatické vyplnění prohlížečem nesmí pole podbarvit (bílé pozadí Chrome)
+  // Automatické vyplnění prohlížečem nesmí pole podbarvit
   '& input:-webkit-autofill, & input:-webkit-autofill:hover, & input:-webkit-autofill:focus': {
     WebkitTextFillColor: COLORS.white,
     caretColor: COLORS.white,
@@ -62,7 +62,7 @@ const fieldSx = {
   },
 } as const
 
-// Text „Nemáte účet? Registrovat“ – Outfit 200
+// Poznámka pod tlačítkem – Outfit 200
 const noteSx = {
   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 20) },
   lineHeight: { xs: fluid(20, 21), md: '20px' },
@@ -83,7 +83,7 @@ export function AuthForm({ title, fields, submit, submitIcon, image, note, conse
   return (
     <PageBackground
       image={image}
-      // Mobil: stránka nemá patičku, fotka proto vždy pokryje celou výšku okna
+      // Mobil: bez patičky, fotka pokryje celou výšku okna
       minHeight={{ xs: `max(${fluid(812, 860)}, 100vh)`, md: '0px' }}
       viewportHeight
       position={{ xs: 'center top', md: '50% 42.6%' }}
@@ -145,7 +145,7 @@ export function AuthForm({ title, fields, submit, submitIcon, image, note, conse
             <Box
               component="label"
               sx={{
-                // Řádek přes celou šířku mřížky (obě sloupce)
+                // Řádek přes oba sloupce mřížky
                 gridColumn: '1 / -1',
                 display: 'flex',
                 alignItems: 'flex-start',

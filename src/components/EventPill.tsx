@@ -1,12 +1,11 @@
-// Tyrkysové tlačítko s upoutávkou na akci (odkaz na detail akce)
-// Obal má pevnou výšku, aby se při skrytém tlačítku obsah pod ním neposunul
+// Tyrkysové tlačítko s upoutávkou na akci – obal má pevnou výšku i při skrytém tlačítku
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
-import { COLORS } from '../theme'
+import { COLORS, hoverDarkenSx } from '../theme'
 import Icon from './Icon'
 
 export function EventPill() {
@@ -15,7 +14,7 @@ export function EventPill() {
   return (
     <Box
       sx={{
-        // Výška = horní odsazení + výška tlačítka (rezervované místo); desktop: nadpis začíná 131 px pod hlavičkou
+        // Mobil: výška = horní odsazení + výška tlačítka
         height: { xs: fluid(72, 110), md: 'auto' },
         boxSizing: 'border-box',
         paddingTop: { xs: fluid(25, 60), md: fluidDesktop(76, 86) },
@@ -40,6 +39,7 @@ export function EventPill() {
             paddingRight: { xs: fluid(10, 22), md: fluidDesktop(10, 12) },
             gap: fluid(14, 16),
             color: COLORS.black,
+            ...hoverDarkenSx(),
           }}
         >
           <Typography

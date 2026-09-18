@@ -1,5 +1,4 @@
-// Hamburger menu (tyrkysové pozadí) – mobil přes celou obrazovku, desktop jako pravý panel;
-// rozbalená je vždy nejvýše jedna sekce, po zavření se všechny zabalí, takže menu se vždy otevírá zabalené
+// Hlavní menu – mobil přes celou obrazovku, desktop jako pravý panel; rozbalená je nejvýše jedna sekce
 import { useEffect, useRef, useState } from 'react'
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
@@ -17,13 +16,13 @@ const MENU_TRANSITION_MS = 300
 
 export function MenuOverlay() {
   const { isOpen, close } = useMenu()
-  // Popisek právě rozbalené sekce; opětovné kliknutí ji zabalí
+  // Popisek právě rozbalené sekce
   const [expandedLabel, setExpandedLabel] = useState<string | null>(null)
   const panelRef = useRef<HTMLDivElement>(null)
   // Menu zůstává v DOM po dobu zavírací animace
   const [rendered, setRendered] = useState(isOpen)
 
-  // Otevření vykreslí menu hned (odvozený stav), zavření ho odstraní až po doběhnutí animace
+  // Otevření vykreslí menu hned, zavření ho odstraní až po animaci
   if (isOpen && !rendered) setRendered(true)
 
   useEffect(() => {
@@ -35,7 +34,7 @@ export function MenuOverlay() {
     return () => window.clearTimeout(timer)
   }, [isOpen])
 
-  // Otevřené menu zamkne scroll stránky; kliknutí mimo panel (desktop) menu zavře
+  // Otevřené menu zamkne scroll stránky; kliknutí mimo panel ho zavře
   useEffect(() => {
     if (!isOpen) return
     const previousOverflow = document.body.style.overflow
@@ -76,13 +75,12 @@ export function MenuOverlay() {
         transition: `opacity ${MENU_TRANSITION_MS}ms ease-in`,
         '@keyframes menuFadeIn': { from: { opacity: 0 }, to: { opacity: 1 } },
         '@keyframes menuSlideIn': { from: { transform: 'translateX(100%)' }, to: { transform: 'translateX(0)' } },
-        // Desktop: panel u pravého okraje okna, vyjíždí zprava a při zavírání zajíždí zpět
+        // Desktop: panel u pravého okraje, vyjíždí a zajíždí zprava
         [DESKTOP_MQ]: {
           left: 'auto',
-          // Návrh: 814 px na 1920 px; při zmenšování zabírá panel větší část okna (60 % na breakpointu)
           width: fluidDesktop(360, 814),
           maxWidth: '100%',
-          // Panel se nikdy nezúží pod šířku nejdelší položky menu
+          // Panel se nezúží pod šířku nejdelší položky
           minWidth: 'max-content',
           animation: `menuSlideIn ${MENU_TRANSITION_MS}ms ease-out`,
           opacity: 1,
@@ -100,7 +98,7 @@ export function MenuOverlay() {
           justifyContent: 'center',
         }}
       >
-        {/* Logo vede na úvod a zavře menu (na desktopu zůstává vidět logo hlavičky pod panelem) */}
+        {/* Logo vede na úvod a zavře menu; na desktopu je vidět logo hlavičky */}
         <Link to="/" aria-label={content.brand.name} onClick={close} style={{ display: 'block', lineHeight: 0 }}>
           <Box
             component="img"
@@ -155,7 +153,7 @@ export function MenuOverlay() {
           paddingTop: fluid(80, 90),
           paddingLeft: fluid(78, 84),
           minHeight: fluid(200, 210),
-          // Desktopový návrh blok s telefonem nemá
+          // Blok s telefonem je jen na mobilu
           display: { xs: 'block', md: 'none' },
         }}
       >

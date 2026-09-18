@@ -6,13 +6,13 @@ export interface PriceRow {
   price: string
 }
 
-// Popis jednotlivé lekce (rozbalovací seznam na detailu aktivity)
+// Lekce v rozbalovacím seznamu na detailu aktivity
 export interface ActivityClass {
   name: string
   text: string
 }
 
-// Aktivita (sport / regenerace) zobrazená na univerzální detailové stránce
+// Aktivita (sport / regenerace) na detailové stránce
 export interface Activity {
   slug: string
   title: string
@@ -25,7 +25,7 @@ export interface Activity {
   classes?: ActivityClass[]
 }
 
-// Akce (událost) v seznamu i detailu
+// Akce v seznamu i detailu
 export interface Event {
   slug: string
   title: string

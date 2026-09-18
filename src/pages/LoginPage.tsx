@@ -1,4 +1,4 @@
-// Přihlášení – /prihlaseni (statická podoba přihlášení do rezervačního systému, bez funkčního odeslání)
+// Přihlášení – /prihlaseni (statická podoba bez odeslání)
 import { content } from '../content'
 import { usePageTitle } from '../hooks/usePageTitle'
 import AuthForm from '../components/AuthForm'

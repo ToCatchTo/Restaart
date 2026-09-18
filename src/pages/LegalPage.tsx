@@ -1,4 +1,4 @@
-// Právní stránka (obchodní podmínky / zásady ochrany osobních údajů) – jen text na šedém pozadí, bez fotky a patičky
+// Právní stránka (obchodní podmínky / ochrana osobních údajů) – text na šedém pozadí bez fotky a patičky
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
@@ -13,7 +13,7 @@ interface LegalPageProps {
   page: keyof typeof content.legal
 }
 
-// Desktop nemá vlastní návrh – text v sloupci 812 px od obsahové hrany, písmo jako popis akce (16/25)
+// Desktop: text ve sloupci 812 px od obsahové hrany, písmo 16/25
 const headingSx = {
   display: 'block',
   margin: 0,
@@ -36,7 +36,7 @@ const paragraphSx = {
   color: COLORS.white,
 } as const
 
-// Mobilní okraje, desktop: text od obsahové hrany 278 v šířce 812
+// Mobilní okraje; desktop: sloupec 812 px od obsahové hrany
 const gutterSx = {
   paddingLeft: { xs: fluid(30, 34), md: desktopScaled(DESKTOP.content) },
   paddingRight: { xs: fluid(30, 34), md: 0 },

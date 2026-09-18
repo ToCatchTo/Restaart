@@ -1,5 +1,4 @@
-// Rychlá navigace – zaoblený pruh se čtyřmi ikonami (rezervace, akce, aktivity, recepce)
-// Pruh leží ve fixní vrstvě nad obsahem; rozbalený panel aktivit obsah překrývá, neposouvá ho.
+// Rychlá navigace (mobil) – fixní pruh se čtyřmi ikonami a rozbalovacím panelem aktivit
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
@@ -21,11 +20,11 @@ interface QuickNavItemProps {
   onClick?: () => void
 }
 
-// Odsazení pruhu od horního okraje: horní odsazení hlavičky + výška loga + mezera pod hlavičkou
+// Odsazení pruhu od horního okraje (hlavička + logo + mezera)
 const BAR_TOP = fluid(183, 198)
 const BAR_HEIGHT = fluid(94, 100)
 const BAR_GAP = fluid(38, 42)
-// Panel aktivit začíná ve svislém středu pilulky, jeho horní část je schovaná za ní
+// Panel aktivit začíná ve svislém středu pilulky
 const PANEL_OVERLAP = `calc(${BAR_HEIGHT} / 2)`
 const PANEL_COLOR = 'rgba(54, 105, 106, 0.92)'
 
@@ -105,10 +104,9 @@ export function QuickNav() {
           left: 0,
           right: 0,
           zIndex: (theme) => theme.zIndex.appBar,
-          // Na desktopu rychlá navigace není (nahrazuje ji tlačítko v hlavičce a hamburger)
           display: { xs: 'flex', md: 'none' },
           justifyContent: 'center',
-          // Okraje mimo mobilní sloupec propouštějí kliknutí na obsah pod nimi
+          // Vrstva propouští kliknutí na obsah, kliká se jen na pruh
           pointerEvents: 'none',
         }}
       >
@@ -150,7 +148,7 @@ export function QuickNav() {
             <QuickNavItem label={reception.label} icon={reception.icon} href={content.contact.phoneHref} external />
           </Box>
 
-          {/* Panel aktivit – vysouvá se zpod pilulky, horní část je schovaná za ní */}
+          {/* Panel aktivit – horní část je schovaná za pilulkou */}
           {activitiesOpen && (
             <Box
               sx={{
@@ -166,7 +164,7 @@ export function QuickNav() {
                 backdropFilter: 'blur(30px)',
                 '@keyframes quickNavFadeIn': { from: { opacity: 0 }, to: { opacity: 1 } },
                 animation: 'quickNavFadeIn 200ms ease-out',
-                // Panel se vejde na obrazovku, delší seznam se posouvá uvnitř bez viditelného scrollbaru
+                // Delší seznam se posouvá uvnitř panelu bez viditelného scrollbaru
                 maxHeight: `calc(100vh - ${BAR_TOP} - ${PANEL_OVERLAP} - 16px)`,
                 overflowY: 'auto',
                 scrollbarWidth: 'none',

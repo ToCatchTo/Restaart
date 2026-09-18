@@ -1,5 +1,4 @@
-// Mřížka akcí (CSS grid) – mobil dva sloupce, desktop pět karet 207 px v centrovaném bloku 1088 px;
-// při zmenšování okna karet na řádku ubývá, aby zůstaly dostatečně velké
+// Mřížka akcí – mobil dva sloupce, desktop až pět karet v centrovaném bloku
 import Box from '@mui/material/Box'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import type { Event } from '../types'
@@ -9,7 +8,7 @@ interface EventsGridProps {
   events: Event[]
 }
 
-// Desktop: nejmenší šířka karty (na 1920 px se do bloku vejde právě pět karet)
+// Desktop: nejmenší šířka karty (na 1920 px právě pět karet v řádku)
 const CARD_MIN_WIDTH = fluidDesktop(150, 200)
 
 export function EventsGrid({ events }: EventsGridProps) {

@@ -1,5 +1,4 @@
-// Hlavička stránky – mobil: logo uprostřed a hamburger vpravo;
-// desktop: logo vlevo, tlačítko „rezervovat“ a hamburger vpravo
+// Hlavička stránky – logo, tlačítko rezervace (desktop) a ikona menu
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
@@ -29,7 +28,7 @@ export function Header({ action = 'reservation' }: HeaderProps) {
         paddingRight: { md: desktopScaled(DESKTOP.margin) },
       }}
     >
-      {/* Řádek hlavičky – desktop: logo, tlačítko a menu v jedné ose; mobil: logo uprostřed, menu ukotvené k řádku */}
+      {/* Řádek hlavičky – mobil: logo uprostřed, desktop: vše v jedné ose */}
       <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' } }}>
         <Link to="/" aria-label={content.brand.name} style={{ display: 'block', lineHeight: 0 }}>
           <Box
@@ -46,14 +45,14 @@ export function Header({ action = 'reservation' }: HeaderProps) {
           {...(isBack ? { to: button.href } : { href: button.href, target: '_blank', rel: 'noopener' })}
           sx={{
             ...frostedButtonSx,
-            // U breakpointu větší než sdílené prosklené tlačítko, na 1920 px stejné
+            // Na malém desktopu vyšší než sdílené prosklené tlačítko
             height: fluidDesktop(52, 60),
             borderRadius: fluidDesktop(35, 40),
             display: { xs: 'none', md: 'flex' },
             marginLeft: 'auto',
             minWidth: desktopScaled(210),
             alignItems: 'center',
-            // Mezera mezi textem a šipkou jen při zmenšení (na 1920 px ji pohltí auto margin)
+            // Mezera mezi textem a šipkou jen při zmenšení
             gap: 'clamp(0px, calc((1920px - 100vw) / 60), 8px)',
             flexDirection: isBack ? 'row-reverse' : 'row',
             paddingLeft: fluidDesktop(14, 17),
@@ -82,7 +81,7 @@ export function Header({ action = 'reservation' }: HeaderProps) {
           aria-label={content.header.openMenu}
           onClick={open}
           sx={{
-            // Mobil: ikona vpravo nad osou loga, poloha vztažená k řádku hlavičky
+            // Mobil: ikona menu vpravo nad osou loga
             position: { xs: 'absolute', md: 'static' },
             top: { xs: fluid(-26, -16) },
             right: { xs: fluid(30, 34) },

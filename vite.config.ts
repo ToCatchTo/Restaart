@@ -2,7 +2,7 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig, loadEnv, type Plugin } from 'vite'
 
-// Lokální obsluha serverless funkcí z adresáře api/ (na Vercelu je spouští platforma)
+// Lokální obsluha serverless funkcí z api/ při vývoji
 function localApi(): Plugin {
   return {
     name: 'local-api',
@@ -19,7 +19,7 @@ function localApi(): Plugin {
 }
 
 export default defineConfig(({ mode }) => {
-  // Proměnné z .env* pro lokální běh serverless funkcí (Vite je do process.env sám nedává)
+  // Proměnné z .env* do process.env pro lokální běh serverless funkcí
   Object.assign(process.env, loadEnv(mode, process.cwd(), ''))
 
   return {

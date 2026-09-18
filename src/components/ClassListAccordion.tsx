@@ -6,7 +6,7 @@ import Collapse from '@mui/material/Collapse'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
-import { COLORS, DESKTOP, FONT_SECONDARY, columnSx } from '../theme'
+import { COLORS, DESKTOP, FONT_SECONDARY, columnSx, hoverDarkenSx } from '../theme'
 import type { ActivityClass } from '../types'
 import Icon from './Icon'
 import RichText from './RichText'
@@ -47,7 +47,8 @@ export function ClassListAccordion({ classes }: ClassListAccordionProps) {
             marginX: { md: 'auto' },
             paddingLeft: { xs: fluid(24, 26), md: desktopScaled(41) },
             paddingRight: { xs: fluid(24, 26), md: desktopScaled(25) },
-            transition: 'background-color 200ms',
+            ...hoverDarkenSx(),
+            transition: 'background-color 200ms, box-shadow 200ms ease',
           }}
         >
           <Typography
@@ -70,7 +71,7 @@ export function ClassListAccordion({ classes }: ClassListAccordionProps) {
       </Box>
 
       <Collapse in={open}>
-        {/* Desktop: seznam lekcí přes šířku obsahu (od obsahové hrany 278 px na obou stranách) */}
+        {/* Desktop: seznam lekcí mezi obsahovými hranami */}
         <Box
           component="dl"
           sx={{

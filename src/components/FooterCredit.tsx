@@ -1,4 +1,4 @@
-// Kredit autora webu – vycentrovaný u spodního okraje sekce s patičkou
+// Kredit autora webu u spodního okraje sekce
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'

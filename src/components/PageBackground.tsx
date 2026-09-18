@@ -1,5 +1,4 @@
-// Sekce s fotkou na pozadí a tmavým překryvem (hlavička každé stránky, patička)
-// Pozadí jde přes celou šířku, obsah sedí v centrovaném sloupci (mobil 480, desktop 1920)
+// Sekce s fotkou přes celou šířku, tmavým překryvem a centrovaným sloupcem obsahu
 import type { ReactNode } from 'react'
 import Box from '@mui/material/Box'
 import type { ResponsiveStyleValue } from '@mui/system'
@@ -9,7 +8,7 @@ interface PageBackgroundProps {
   image: string
   children: ReactNode
   minHeight?: ResponsiveStyleValue<string>
-  // Pevná výška sekce – obsah, který přesahuje, zůstává viditelný (např. karta přes okraj)
+  // Pevná výška sekce, přesahující obsah zůstává viditelný
   height?: ResponsiveStyleValue<string>
   overlay?: ResponsiveStyleValue<string>
   // Výřez fotky (hodnota background-position), výchozí je střed nahoře
@@ -37,12 +36,12 @@ export function PageBackground({
         position: 'relative',
         minHeight,
         height,
-        // Sekce s pevnou výškou leží nad následující sekcí, aby přesahující obsah nebyl překrytý
+        // Sekce s pevnou výškou leží nad následující sekcí kvůli přesahujícímu obsahu
         zIndex: height || viewportHeight ? 1 : undefined,
         ...(viewportHeight && {
           [DESKTOP_MQ]: { minHeight: '100vh', '@supports (height: 100dvh)': { minHeight: '100dvh' } },
         }),
-        // Sloupec obsahu se roztáhne na výšku sekce (prvky ukotvené ke spodnímu okraji)
+        // Sloupec obsahu se roztáhne na výšku sekce
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: COLORS.dark,

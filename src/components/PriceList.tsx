@@ -1,5 +1,4 @@
-// Ceník – jedna prosklená karta, řádky „délka | cena“ ve skupinách
-// Desktop: šedá karta 673×419 vedle popisu aktivity (šířku určuje nadřazený sloupec)
+// Ceník – prosklená karta s řádky „délka | cena“ ve skupinách
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { fadeInUpSx } from '../animations'
@@ -12,7 +11,7 @@ interface PriceListProps {
   groups: PriceRow[][]
 }
 
-// Délka lekce – tučně hlavním písmem
+// Délka lekce
 const durationSx = {
   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 24) },
   lineHeight: { xs: fluid(20, 21), md: fluidDesktop(21, 25) },
@@ -20,7 +19,7 @@ const durationSx = {
   color: COLORS.white,
 } as const
 
-// Cena – lehkým písmem (desktop: Safiro Regular)
+// Cena – lehkým písmem
 const priceSx = {
   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 24) },
   lineHeight: { xs: fluid(20, 21), md: fluidDesktop(21, 25) },
@@ -29,12 +28,11 @@ const priceSx = {
   color: COLORS.white,
 } as const
 
-// Rozestup mezi řádky (i mezi skupinami); desktop: rozteč řádků 60 při výšce řádku 25
+// Rozestup mezi řádky i skupinami
 const ROW_GAP = { xs: fluid(25, 27), md: fluidDesktop(22, 35) }
 
 export function PriceList({ groups }: PriceListProps) {
-  // Karta se zjeví po najetí do viewportu; animuje se přímo prvek s backdrop-filter,
-  // protože animace průhlednosti na nadřazeném obalu by rozostření pozadí vypnula
+  // Karta se zjeví po najetí do viewportu; animace na obalu by vypnula backdrop-filter
   const { ref, inView } = useInView<HTMLDivElement>(0.5)
 
   return (

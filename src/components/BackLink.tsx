@@ -3,7 +3,7 @@ import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
-import { COLORS, DESKTOP } from '../theme'
+import { COLORS, DESKTOP, hoverDarkenSx } from '../theme'
 import MaskIcon from './MaskIcon'
 
 interface BackLinkProps {
@@ -28,9 +28,10 @@ export function BackLink({ to, label, icon }: BackLinkProps) {
         alignItems: 'center',
         boxSizing: 'border-box',
         gap: { xs: fluid(10, 11), md: fluidDesktop(10, 16.6) },
-        // Desktop: obsah je vycentrovaný v šířce 180 px, odsazení drží okraje i po zmenšení
+        // Desktop: odsazení drží obsah uvnitř i po zmenšení
         paddingLeft: { xs: fluid(6, 7), md: fluidDesktop(12, 14) },
         paddingRight: { xs: fluid(16, 17), md: fluidDesktop(16, 14) },
+        ...hoverDarkenSx(),
       }}
     >
       <MaskIcon src={icon} size={{ xs: fluid(24, 25), md: fluidDesktop(20, 23.7) }} color={COLORS.dark} />

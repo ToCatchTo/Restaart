@@ -1,10 +1,10 @@
-// MUI téma – barvy a písma podle XD návrhu (Restaart_web)
+// MUI téma – barvy, písma a sdílené styly podle návrhu
 import { createTheme } from '@mui/material/styles'
 import { DESKTOP_BREAKPOINT, fluidDesktop } from './fluid'
 
-// Rodiny písem – Safiro je lokální (public/fonts), ostatní jsou náhrady z Google Fonts
+// Rodiny písem – Safiro je lokální (public/fonts), ostatní z Google Fonts
 export const FONT_BODY = "'Safiro', 'Helvetica Neue', Arial, sans-serif"
-// Outfit – lehké texty (tloušťka pod 400, Safiro ji nemá) a Google widget
+// Outfit – lehké texty pod tloušťku 400 a Google widget
 export const FONT_SECONDARY = "'Outfit', 'Helvetica Neue', Arial, sans-serif"
 export const FONT_LABEL = "'Gantari', 'Helvetica Neue', Arial, sans-serif"
 export const FONT_SCRIPT = "'Permanent Marker', 'Comic Sans MS', cursive"
@@ -29,31 +29,29 @@ export const COLORS = {
 export const DESKTOP_MAX_WIDTH = 1920
 export const DESKTOP = { margin: 140, content: 278, width: DESKTOP_MAX_WIDTH } as const
 
-// Media query pro desktopovou strukturu (klíč do sx pro skupinové bloky)
+// Media query desktopové struktury (klíč do sx)
 export const DESKTOP_MQ = `@media (min-width: ${DESKTOP_BREAKPOINT}px)`
 
-// Prosklené tlačítko z desktopového návrhu (průhledná výplň + rozostření a zesvětlení pozadí)
+// Ztmavení pozadí tlačítka při najetí – vnitřní stín leží nad pozadím a pod obsahem
+export const hoverDarkenSx = (opacity = 0.25) =>
+  ({
+    transition: 'box-shadow 0.2s ease',
+    '@media (hover: hover)': {
+      '&:hover': { boxShadow: `inset 0 0 0 100vmax rgba(0, 0, 0, ${opacity})` },
+    },
+  }) as const
+
+// Prosklené tlačítko – průhledná výplň s rozostřeným pozadím
 export const frostedButtonSx = {
   height: fluidDesktop(45, 60),
   borderRadius: fluidDesktop(30, 40),
   backdropFilter: 'blur(30px) brightness(1.15)',
   backgroundColor: 'rgba(255, 255, 255, 0.08)',
   color: COLORS.white,
-  // Ztmavení při najetí přímo přes vlastnosti prvku – filter ani překryv nad backdrop-filter
-  // se nevykreslují spolehlivě (ztmavení ve dvou krocích, blikání)
-  transition: 'background-color 0.2s ease, backdrop-filter 0.2s ease',
-  '& > *': { transition: 'opacity 0.2s ease' },
-  '@media (hover: hover)': {
-    '&:hover': {
-      filter: 'none',
-      backdropFilter: 'blur(30px) brightness(1.05)',
-      backgroundColor: 'rgba(255, 255, 255, 0.03)',
-    },
-    '&:hover > *': { opacity: 0.9 },
-  },
+  ...hoverDarkenSx(0.12),
 } as const
 
-// Centrovaný sloupec obsahu: pod breakpointem plná šířka, nad ním nejvýše 1920 px
+// Centrovaný sloupec obsahu, na desktopu nejvýše 1920 px
 export const columnSx = {
   position: 'relative',
   width: '100%',
@@ -80,14 +78,14 @@ export const theme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
-        // Místo pro posuvník zůstává i při zamknutém scrollu (otevřené menu), stránka tak neposkočí
+        // Místo pro posuvník zůstává i při zamknutém scrollu, stránka neposkočí
         html: { scrollbarGutter: 'stable' },
         body: { backgroundColor: COLORS.dark, margin: 0 },
         a: { color: 'inherit' },
-        // Ztmavení odkazů a tlačítek při najetí myší (jen zařízení s kurzorem)
-        'a, button': { transition: 'filter 0.2s ease' },
+        // Ztmavení textových odkazů při najetí; tlačítka mají hoverDarkenSx
+        'a:not(.MuiButtonBase-root)': { transition: 'filter 0.2s ease' },
         '@media (hover: hover)': {
-          'a:hover, button:hover': { filter: 'brightness(0.75)' },
+          'a:not(.MuiButtonBase-root):hover': { filter: 'brightness(0.75)' },
         },
       },
     },

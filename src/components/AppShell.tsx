@@ -1,4 +1,4 @@
-// Obal aplikace – obsah přes celou šířku okna (pozadí sekcí full-bleed), stav menu
+// Obal aplikace – obsah přes celou šířku okna a stav hlavního menu
 import { useEffect, useState, type ReactNode } from 'react'
 import Box from '@mui/material/Box'
 import { useLocation } from 'react-router-dom'
@@ -14,7 +14,7 @@ export function AppShell({ children }: AppShellProps) {
   const [isOpen, setIsOpen] = useState(false)
   const { pathname } = useLocation()
 
-  // Změna stránky odscrolluje nahoru (menu se zavírá při kliknutí na odkaz)
+  // Změna stránky odscrolluje nahoru
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])

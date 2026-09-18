@@ -41,7 +41,7 @@ export function ActivityPage() {
         {activity ? (
           <>
             <PageTitle topDesktop={120}>{activity.title}</PageTitle>
-            {/* Desktop od 900 px: popis vlevo (674 px) a ceník vpravo (673 px) v CSS gridu; užší okna: pod sebou */}
+            {/* Od 900 px: popis (674 px) a ceník (673 px) vedle sebe, jinak pod sebou */}
             <Box
               sx={{
                 paddingTop: { md: desktopScaled(119) },

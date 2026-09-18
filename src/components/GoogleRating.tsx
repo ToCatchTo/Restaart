@@ -1,13 +1,11 @@
-// Karta s hodnocením Google (logo, název, známka, hvězdy, počet recenzí a odkaz na všechny recenze)
-// Data ze serverless funkce api/google-rating. Mobil: sloupec s tlačítkem přes celou šířku;
-// desktop: široká karta ukotvená na spodním okraji fotosekce, tlačítko vpravo
+// Karta s hodnocením Google – logo, známka, hvězdy, počet recenzí a odkaz na všechny recenze
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { fluid, fluidDesktop } from '../fluid'
 import { useFetch } from '../hooks/useFetch'
-import { COLORS, FONT_SECONDARY } from '../theme'
+import { COLORS, FONT_SECONDARY, hoverDarkenSx } from '../theme'
 import MaskIcon from './MaskIcon'
 
 const CARD_COLOR = '#f6f7fc'
@@ -18,7 +16,7 @@ const STAR_EMPTY_COLOR = '#c9cce0'
 const BUTTON_COLOR = '#0a7cff'
 const LOGO_SHADOW = '0 2px 8px rgba(0, 0, 0, 0.08)'
 
-// Desktop: hodnoty z návrhu (1920 px) se směrem k breakpointu zmenšují jen na 80 %, aby karta zůstala čitelná
+// Desktop: hodnoty z návrhu se k breakpointu zmenšují jen na 80 %
 const DESKTOP_MIN_RATIO = 0.8
 const mild = (px: number) => fluidDesktop(Math.round(px * DESKTOP_MIN_RATIO * 10) / 10, px)
 
@@ -39,7 +37,7 @@ const formatCount = (count: number) => count.toLocaleString('cs-CZ')
 interface GoogleRatingProps {
   // Stránky, které mají widget jen v desktopovém návrhu
   desktopOnly?: boolean
-  // Desktop: ukotvení karty – přesah přes spodní okraj fotosekce (výchozí), nebo pod horní hranou patičky
+  // Desktop: karta přesahuje spodní okraj fotosekce, nebo leží pod horní hranou patičky
   anchor?: 'section-bottom' | 'footer-top'
 }
 
@@ -57,7 +55,7 @@ export function GoogleRating({ desktopOnly = false, anchor = 'section-bottom' }:
         paddingTop: { xs: fluid(145, 100), md: 0 },
         display: { xs: desktopOnly ? 'none' : 'flex', md: 'flex' },
         justifyContent: 'center',
-        // Desktop: karta vodorovně uprostřed, pod horní hranou patičky (fotosekce má z-index nad patičkou)
+        // Desktop: karta vodorovně uprostřed, ukotvená k okraji sekce
         position: { md: 'absolute' },
         left: { md: '50%' },
         transform: { md: 'translateX(-50%)' },
@@ -82,7 +80,6 @@ export function GoogleRating({ desktopOnly = false, anchor = 'section-bottom' }:
           fontFamily: FONT_SECONDARY,
         }}
       >
-        {/* Levý blok: logo s názvem a pod nimi známka */}
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           {/* Logo v bílém čtverci a název */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: fluid(14, 15), md: mild(14) } }}>
@@ -157,7 +154,7 @@ export function GoogleRating({ desktopOnly = false, anchor = 'section-bottom' }:
           </Box>
         </Box>
 
-        {/* Tlačítko na všechny recenze – mobil přes celou šířku, desktop vpravo */}
+        {/* Odkaz na všechny recenze – mobil přes celou šířku, desktop vpravo */}
         <ButtonBase
           component="a"
           href={reviewsUrl}
@@ -178,6 +175,7 @@ export function GoogleRating({ desktopOnly = false, anchor = 'section-bottom' }:
             fontWeight: 700,
             color: COLORS.white,
             whiteSpace: 'nowrap',
+            ...hoverDarkenSx(),
           }}
         >
           {buttonLabel}

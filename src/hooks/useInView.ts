@@ -7,7 +7,7 @@ export function useInView<T extends HTMLElement>(threshold = 0.35) {
 
   useEffect(() => {
     const element = ref.current
-    // Bez IntersectionObserver (staré prohlížeče, testy) zobrazit rovnou
+    // Bez IntersectionObserver zobrazit rovnou
     if (!element || typeof IntersectionObserver === 'undefined') {
       setInView(true)
       return

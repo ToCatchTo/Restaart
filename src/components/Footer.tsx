@@ -1,5 +1,4 @@
-// Patička – fotka na pozadí, kontakt, otevírací doba, provozovatel a právní odkazy
-// Desktop: čtyři sloupce (kontakt | otevírací doba ve dvou sloupcích | provozovatel + odkazy)
+// Patička – kontakt, otevírací doba, provozovatel a právní odkazy na fotce; desktop ve sloupcích
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
@@ -13,15 +12,15 @@ import OpeningHours from './OpeningHours'
 import PageBackground from './PageBackground'
 
 interface FooterProps {
-  // Zkrácená varianta bez kontaktu a otevírací doby (stránka Kontakt je má v obsahu)
+  // Zkrácená varianta bez kontaktu a otevírací doby
   compact?: boolean
-  // Vykreslit bez vlastní fotky – patička je vložená do sekce stránky, která pozadí už má
+  // Bez vlastní fotky – patička je vložená do sekce, která pozadí už má
   embedded?: boolean
-  // Desktop: karta hodnocení Google pod horní hranou patičky (stránky, kde fotosekce nekončí patičkou)
+  // Desktop: karta hodnocení Google pod horní hranou patičky
   rating?: boolean
 }
 
-// Texty provozovatele; desktop: 16/20 v patičce, 20/25 na stránce Kontakt
+// Texty provozovatele – kompaktní varianta má větší písmo
 const smallSx = (compact: boolean) =>
   ({
     display: 'block',
@@ -52,8 +51,6 @@ function FooterContent({ compact, embedded }: { compact: boolean; embedded: bool
         paddingRight: { xs: fluid(30, 34), md: 0 },
         // Místo pro kredit autora webu u spodního okraje
         paddingBottom: { xs: fluid(68, 68), md: embedded ? 0 : fluidDesktop(70, 95) },
-        // Desktop: sloupce začínají na x = 278, 692, 968 a 1382 (kompaktní varianta je jen jeden sloupec);
-        // sloupce se při nedostatku místa zalomí pod sebe, aby se texty nepřekrývaly
         display: { md: compact ? 'block' : 'flex' },
         flexWrap: 'wrap',
         alignItems: 'flex-start',

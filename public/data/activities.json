@@ -39,7 +39,7 @@
       "/images/events_bg.webp",
       "/images/contact_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": true,
     "classes": [
       {
@@ -104,7 +104,7 @@
       "/images/contact_bg.webp",
       "/images/footer_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -145,9 +145,9 @@
     "gallery": [
       "/images/activity_gallery_1.webp",
       "/images/footer_bg.webp",
-      "/images/hero_home.webp"
+      "/images/home_hero.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -187,10 +187,10 @@
     ],
     "gallery": [
       "/images/activity_gallery_1.webp",
-      "/images/hero_home.webp",
+      "/images/home_hero.webp",
       "/images/events_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -233,7 +233,7 @@
       "/images/events_bg.webp",
       "/images/contact_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -276,7 +276,7 @@
       "/images/contact_bg.webp",
       "/images/footer_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -317,9 +317,9 @@
     "gallery": [
       "/images/activity_gallery_1.webp",
       "/images/footer_bg.webp",
-      "/images/hero_home.webp"
+      "/images/home_hero.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -359,10 +359,10 @@
     ],
     "gallery": [
       "/images/activity_gallery_1.webp",
-      "/images/hero_home.webp",
+      "/images/home_hero.webp",
       "/images/events_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -405,7 +405,7 @@
       "/images/events_bg.webp",
       "/images/contact_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -448,7 +448,7 @@
       "/images/contact_bg.webp",
       "/images/footer_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -489,9 +489,9 @@
     "gallery": [
       "/images/activity_gallery_1.webp",
       "/images/footer_bg.webp",
-      "/images/hero_home.webp"
+      "/images/home_hero.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -531,10 +531,10 @@
     ],
     "gallery": [
       "/images/activity_gallery_1.webp",
-      "/images/hero_home.webp",
+      "/images/home_hero.webp",
       "/images/events_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -577,7 +577,7 @@
       "/images/events_bg.webp",
       "/images/contact_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -620,7 +620,7 @@
       "/images/contact_bg.webp",
       "/images/footer_bg.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   },
   {
@@ -661,9 +661,9 @@
     "gallery": [
       "/images/activity_gallery_1.webp",
       "/images/footer_bg.webp",
-      "/images/hero_home.webp"
+      "/images/home_hero.webp"
     ],
-    "backgroundImage": "/images/activity_bg_sauna.webp",
+    "backgroundImage": "/images/activity_bg.webp",
     "hasClassList": false
   }
 ]

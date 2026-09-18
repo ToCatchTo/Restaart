@@ -1,4 +1,4 @@
-// Nadpis stránky (např. „soukromá sauna“, „akce“); desktop: Safiro Regular 100/90
+// Nadpis stránky (h1)
 import Typography from '@mui/material/Typography'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { COLORS, DESKTOP } from '../theme'
@@ -6,12 +6,12 @@ import { COLORS, DESKTOP } from '../theme'
 interface PageTitleProps {
   children: string
   align?: 'left' | 'center'
-  // Desktop: zarovnání a horní odsazení (px v návrhu 1920) – výchozí hodnoty odpovídají výpisu akcí
+  // Desktop: zarovnání a horní odsazení (px v návrhu)
   alignDesktop?: 'left' | 'center'
   topDesktop?: number
-  // Desktop: menší varianta (detail akce – SemiBold 50/60, podtržený)
+  // Desktop: menší podtržená varianta (detail akce)
   variantDesktop?: 'large' | 'small'
-  // Desktop: maximální šířka textu (px v návrhu 1920)
+  // Desktop: maximální šířka textu (px v návrhu)
   widthDesktop?: number
 }
 
