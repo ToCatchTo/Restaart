@@ -35,7 +35,7 @@ export const SEO: Record<string, SeoMeta> = {
   [content.footer.privacy.href]: { title: content.footer.privacy.label, description: 'Zásady ochrany osobních údajů sportovního centra Restaart Pardubice – jaké údaje zpracováváme a proč.' },
 }
 
-export const NOT_FOUND_SEO: SeoMeta = { title: 'Stránka nenalezena', description: 'Požadovaná stránka na webu Restaart neexistuje.' }
+export const NOT_FOUND_SEO: SeoMeta = { title: 'Stránka nenalezena', description: 'Požadovaná stránka na webu sportovního centra Restaart Pardubice neexistuje nebo byla přesunuta.' }
 
 export const formatTitle = (title?: string) => `${BRAND}${TITLE_SEPARATOR}${title ?? HOME_TITLE}`
 
