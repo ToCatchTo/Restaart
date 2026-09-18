@@ -61,7 +61,6 @@ export const LOCAL_BUSINESS = {
   city: 'Pardubice',
   postalCode: '530 06',
   region: 'Pardubický kraj',
-  geo: { latitude: 50.0432, longitude: 15.7156 },
 } as const
 
 // Otevírací doba pro schema.org (odpovídá content.openingHours)
@@ -73,12 +72,16 @@ const OPENING_HOURS = [
   { dayOfWeek: ['Sunday'], opens: '15:00', closes: '21:00' },
 ]
 
-export const localBusinessJsonLd = (rating?: { value: number; count: number }): Record<string, unknown> => ({
+// Odkazy na sítě mají smysl v sameAs, jen pokud vedou na konkrétní profil, ne na placeholder domény
+const socialSameAs = content.contact.social.filter((item) => new URL(item.href).pathname !== '/').map((item) => item.href)
+
+export const localBusinessJsonLd = (): Record<string, unknown> => ({
   '@type': 'SportsActivityLocation',
+  '@id': `${SITE_ORIGIN}/#business`,
   name: LOCAL_BUSINESS.name,
   legalName: LOCAL_BUSINESS.legalName,
   url: SITE_ORIGIN,
-  logo: `${SITE_ORIGIN}${content.brand.logo}`,
+  logo: `${SITE_ORIGIN}/icons/apple_touch_icon.png`,
   image: `${SITE_ORIGIN}${DEFAULT_OG_IMAGE}`,
   telephone: content.contact.phone,
   email: content.contact.email,
@@ -90,10 +93,8 @@ export const localBusinessJsonLd = (rating?: { value: number; count: number }): 
     addressRegion: LOCAL_BUSINESS.region,
     addressCountry: 'CZ',
   },
-  geo: { '@type': 'GeoCoordinates', ...LOCAL_BUSINESS.geo },
   openingHoursSpecification: OPENING_HOURS.map((row) => ({ '@type': 'OpeningHoursSpecification', ...row })),
-  sameAs: content.contact.social.map((item) => item.href),
-  ...(rating && { aggregateRating: { '@type': 'AggregateRating', ratingValue: rating.value, reviewCount: rating.count } }),
+  ...(socialSameAs.length > 0 && { sameAs: socialSameAs }),
 })
 
 // Popisek úvodní stránky v drobečkové navigaci

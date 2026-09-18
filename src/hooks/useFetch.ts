@@ -20,6 +20,12 @@ const BASE_URL = import.meta.env.VITE_API_URL || '/data'
 // Absolutní URL a /api/… beze změny, ostatní cesty se připojí k základní URL
 const resolveUrl = (path: string) => (/^https?:\/\//.test(path) || path.startsWith('/api/') ? path : `${BASE_URL}${path}`)
 
+// Mezipaměť úspěšných odpovědí podle výsledné URL, sdílená napříč komponentami
+const cache = new Map<string, unknown>()
+
+// Vyprázdní mezipaměť fetchů (pro testy)
+export const clearFetchCache = () => cache.clear()
+
 // Cesta null = nic se nenačítá
 export function useFetch<T>(path: string | null): FetchState<T> {
   const [result, setResult] = useState<FetchResult<T>>({ path: null, data: null, error: null })
@@ -27,14 +33,22 @@ export function useFetch<T>(path: string | null): FetchState<T> {
   useEffect(() => {
     if (path === null) return
 
+    const url = resolveUrl(path)
+
+    // Data už jsou v mezipaměti – žádný požadavek, výsledek se čte přímo při renderu níže
+    if (cache.has(url)) return
+
     const controller = new AbortController()
 
-    fetch(resolveUrl(path), { signal: controller.signal })
+    fetch(url, { signal: controller.signal })
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`)
         return response.json() as Promise<T>
       })
-      .then((data) => setResult({ path, data, error: null }))
+      .then((data) => {
+        cache.set(url, data)
+        setResult({ path, data, error: null })
+      })
       .catch((error: unknown) => {
         // Zrušený požadavek není chyba
         if (error instanceof DOMException && error.name === 'AbortError') return
@@ -45,6 +59,10 @@ export function useFetch<T>(path: string | null): FetchState<T> {
   }, [path])
 
   if (path === null) return { data: null, loading: false, error: null }
+
+  // Cesta už je v mezipaměti – vrátit rovnou bez čekání na efekt
+  const url = resolveUrl(path)
+  if (cache.has(url)) return { data: cache.get(url) as T, loading: false, error: null }
 
   // Dokud výsledek nepatří k aktuální cestě, data se teprve načítají
   const isCurrent = result.path === path

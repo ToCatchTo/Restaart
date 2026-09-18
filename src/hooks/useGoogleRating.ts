@@ -1,4 +1,4 @@
-// Hodnocení Google ze serverless funkce s náhradními hodnotami; live = načtená skutečná data
+// Hodnocení Google ze serverless funkce s náhradními hodnotami, dokud se nenačtou skutečná data
 import { content } from '../content'
 import { useFetch } from './useFetch'
 
@@ -13,7 +13,6 @@ export function useGoogleRating() {
   return {
     rating: data?.rating ?? fallbackRating,
     count: data?.userRatingCount ?? fallbackCount,
-    live: data?.rating !== undefined && data?.userRatingCount !== undefined,
   }
 }
 

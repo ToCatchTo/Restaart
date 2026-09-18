@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import { useParams } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
-import { SEO, breadcrumbJsonLd, eventJsonLd, seoForEvent } from '../seo'
+import { NOT_FOUND_SEO, SEO, breadcrumbJsonLd, eventJsonLd, seoForEvent } from '../seo'
 import { COLORS, DESKTOP } from '../theme'
 import type { Event } from '../types'
 import { useFetch } from '../hooks/useFetch'
@@ -26,11 +26,19 @@ export function EventDetailPage() {
   const { data, loading, error } = useFetch<Event[]>(content.api.events)
   const event = data?.find((item) => item.slug === slug) ?? null
   const { back, backIcon, image } = content.pages.eventDetail
-  const meta = event ? seoForEvent(event) : SEO['/akce']
+  // Po dokončení načítání bez nalezené akce jde o soft-404 – neindexovat
+  const notFound = !loading && !event
+  const meta = event ? seoForEvent(event) : notFound ? NOT_FOUND_SEO : SEO['/akce']
 
   return (
     <>
-      <Seo path={`/akce/${slug}`} title={event?.title ?? SEO['/akce'].title} description={meta.description} ogImage={event?.image} />
+      <Seo
+        path={`/akce/${slug}`}
+        title={event?.title ?? (notFound ? NOT_FOUND_SEO.title : SEO['/akce'].title)}
+        description={meta.description}
+        ogImage={event?.image}
+        noindex={notFound}
+      />
       {event && <JsonLd data={eventJsonLd(event, `/akce/${slug}`)} />}
       {event && <JsonLd data={breadcrumbJsonLd([{ name: SEO['/akce'].title!, path: '/akce' }, { name: event.title, path: `/akce/${slug}` }])} />}
       <PageBackground

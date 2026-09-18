@@ -1,4 +1,5 @@
 // SEO hlavička stránky přes nativní document metadata Reactu 19 (titulek, popis, canonical, OG)
+import { useEffect } from 'react'
 import { DEFAULT_OG_IMAGE, SITE_ORIGIN, formatTitle } from '../seo'
 
 interface SeoProps {
@@ -14,6 +15,11 @@ interface SeoProps {
 export function Seo({ path, title, description, ogImage = DEFAULT_OG_IMAGE, noindex = false }: SeoProps) {
   const fullTitle = formatTitle(title)
   const url = SITE_ORIGIN + path
+
+  // Statické značky v index.html sloužily robotům bez JS, po naskočení Reactu je nahradí ty hoistnuté níže
+  useEffect(() => {
+    document.head.querySelectorAll('[data-seo-static]').forEach((el) => el.remove())
+  }, [])
 
   return (
     <>

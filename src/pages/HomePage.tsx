@@ -3,7 +3,6 @@ import Box from '@mui/material/Box'
 import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid } from '../fluid'
-import { useGoogleRating } from '../hooks/useGoogleRating'
 import { localBusinessJsonLd, SEO } from '../seo'
 import { DESKTOP } from '../theme'
 import EventPill from '../components/EventPill'
@@ -19,12 +18,11 @@ import Seo from '../components/Seo'
 
 export function HomePage() {
   const { eventsLabel } = content.hero
-  const { rating, count, live } = useGoogleRating()
 
   return (
     <>
       <Seo path="/" description={SEO['/'].description} />
-      <JsonLd data={localBusinessJsonLd(live ? { value: rating, count } : undefined)} />
+      <JsonLd data={localBusinessJsonLd()} />
       <PageBackground
         image={content.hero.image}
         height={{ xs: fluid(812, 860), md: 'auto' }}

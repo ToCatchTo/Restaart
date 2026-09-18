@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { fadeInUpSx } from '../animations'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
-import { ACTIVITIES_LABEL, SEO, breadcrumbJsonLd, seoForActivity } from '../seo'
+import { ACTIVITIES_LABEL, NOT_FOUND_SEO, SEO, breadcrumbJsonLd, seoForActivity } from '../seo'
 import { COLORS, DESKTOP, FONT_SECONDARY } from '../theme'
 import type { Activity } from '../types'
 import { useFetch } from '../hooks/useFetch'
@@ -28,13 +28,22 @@ export function ActivityPage() {
   const { slug } = useParams<{ slug: string }>()
   const { data, loading, error } = useFetch<Activity[]>(content.api.activities)
   const activity = data?.find((item) => item.slug === slug) ?? null
-  const meta = activity ? seoForActivity(activity) : SEO['/']
+  // Po dokončení načítání bez nalezené aktivity jde o soft-404 – neindexovat
+  const notFound = !loading && !activity
+  const meta = activity ? seoForActivity(activity) : notFound ? NOT_FOUND_SEO : SEO['/']
   return (
     <>
-      <Seo path={`/aktivity/${slug}`} title={activity?.title} description={meta.description} ogImage={activity?.backgroundImage} />
+      <Seo
+        path={`/aktivity/${slug}`}
+        title={activity?.title ?? (notFound ? NOT_FOUND_SEO.title : undefined)}
+        description={meta.description}
+        ogImage={activity?.backgroundImage}
+        noindex={notFound}
+      />
       {activity && <JsonLd data={breadcrumbJsonLd([{ name: ACTIVITIES_LABEL, path: '/' }, { name: activity.title, path: `/aktivity/${slug}` }])} />}
       <PageBackground
         image={activity?.backgroundImage ?? content.hero.image}
+        preload={Boolean(activity)}
         minHeight={{ md: desktopScaled(2083) }}
         position={{ xs: 'center top', md: '50% 84.5%' }}
         size={{ xs: 'cover', md: '103.75% auto' }}
