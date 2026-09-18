@@ -4,7 +4,7 @@ import { usePageTitle } from '../hooks/usePageTitle'
 import AuthForm from '../components/AuthForm'
 
 export function RegisterPage() {
-  const { title, fields, submit, submitIcon, haveAccount, login, loginHref, image } = content.pages.register
+  const { title, fields, consent, submit, submitIcon, haveAccount, login, loginHref, image } = content.pages.register
   usePageTitle(content.titles.register)
 
   return (
@@ -15,6 +15,7 @@ export function RegisterPage() {
       submitIcon={submitIcon}
       image={image}
       note={{ text: haveAccount, linkLabel: login, href: loginHref }}
+      consent={consent}
     />
   )
 }

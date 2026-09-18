@@ -39,6 +39,18 @@ export const frostedButtonSx = {
   backdropFilter: 'blur(30px) brightness(1.15)',
   backgroundColor: 'rgba(255, 255, 255, 0.08)',
   color: COLORS.white,
+  // Ztmavení při najetí přímo přes vlastnosti prvku – filter ani překryv nad backdrop-filter
+  // se nevykreslují spolehlivě (ztmavení ve dvou krocích, blikání)
+  transition: 'background-color 0.2s ease, backdrop-filter 0.2s ease',
+  '& > *': { transition: 'opacity 0.2s ease' },
+  '@media (hover: hover)': {
+    '&:hover': {
+      filter: 'none',
+      backdropFilter: 'blur(30px) brightness(1.05)',
+      backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    },
+    '&:hover > *': { opacity: 0.9 },
+  },
 } as const
 
 // Centrovaný sloupec obsahu: pod breakpointem plná šířka, nad ním nejvýše 1920 px
@@ -72,6 +84,11 @@ export const theme = createTheme({
         html: { scrollbarGutter: 'stable' },
         body: { backgroundColor: COLORS.dark, margin: 0 },
         a: { color: 'inherit' },
+        // Ztmavení odkazů a tlačítek při najetí myší (jen zařízení s kurzorem)
+        'a, button': { transition: 'filter 0.2s ease' },
+        '@media (hover: hover)': {
+          'a:hover, button:hover': { filter: 'brightness(0.75)' },
+        },
       },
     },
     MuiButtonBase: {

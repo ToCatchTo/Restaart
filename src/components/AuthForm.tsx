@@ -1,6 +1,7 @@
 // Formulář účtu (přihlášení / registrace) – statická podoba rezervačního systému, bez funkčního odeslání
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
+import Checkbox from '@mui/material/Checkbox'
 import InputBase from '@mui/material/InputBase'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
@@ -21,6 +22,17 @@ interface AuthFormProps {
   image: string
   // Poznámka pod tlačítkem s odkazem na druhý formulář
   note: { text: string; linkLabel: string; href: string }
+  // Povinný souhlas s podmínkami pod poli (jen registrace)
+  consent?: {
+    before: string
+    termsLabel: string
+    termsHref: string
+    between: string
+    privacyLabel: string
+    privacyHref: string
+    after: string
+    ariaLabel: string
+  }
 }
 
 // Od této šířky jsou pole delšího formuláře ve dvou sloupcích
@@ -58,7 +70,14 @@ const noteSx = {
   fontWeight: 200,
 } as const
 
-export function AuthForm({ title, fields, submit, submitIcon, image, note }: AuthFormProps) {
+// Odkazy v textu souhlasu
+const consentLinkSx = {
+  color: COLORS.cyanLabel,
+  textDecoration: 'none',
+  '&:hover': { textDecoration: 'underline' },
+} as const
+
+export function AuthForm({ title, fields, submit, submitIcon, image, note, consent }: AuthFormProps) {
   const twoColumns = fields.length > 2
 
   return (
@@ -121,6 +140,43 @@ export function AuthForm({ title, fields, submit, submitIcon, image, note }: Aut
               sx={fieldSx}
             />
           ))}
+
+          {consent && (
+            <Box
+              component="label"
+              sx={{
+                // Řádek přes celou šířku mřížky (obě sloupce)
+                gridColumn: '1 / -1',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: { xs: fluid(8, 9), md: fluidDesktop(8, 10) },
+                cursor: 'pointer',
+              }}
+            >
+              <Checkbox
+                required
+                name="consent"
+                slotProps={{ input: { 'aria-label': consent.ariaLabel } }}
+                sx={{
+                  padding: 0,
+                  color: COLORS.white,
+                  '&.Mui-checked': { color: COLORS.cyanLabel },
+                  '& .MuiSvgIcon-root': { fontSize: { xs: fluid(20, 21), md: fluidDesktop(20, 24) } },
+                }}
+              />
+              <Typography component="span" sx={{ ...noteSx, color: COLORS.white }}>
+                {consent.before}
+                <Box component={Link} to={consent.termsHref} sx={consentLinkSx}>
+                  {consent.termsLabel}
+                </Box>
+                {consent.between}
+                <Box component={Link} to={consent.privacyHref} sx={consentLinkSx}>
+                  {consent.privacyLabel}
+                </Box>
+                {consent.after}
+              </Typography>
+            </Box>
+          )}
         </Box>
 
         <ButtonBase

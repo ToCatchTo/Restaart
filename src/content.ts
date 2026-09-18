@@ -82,7 +82,10 @@ export const content = {
     logoAlt: 'Google',
     starIcon: '/icons/star.svg',
     maxStars: 5,
-    reviewsLabel: 'recenzí',
+    title: 'Recenze Google',
+    buttonLabel: 'Zobrazit všechny recenze',
+    // Recenze provozovny na Google (place id provozovny)
+    reviewsUrl: 'https://search.google.com/local/reviews?placeid=ChIJk98cpq3MDUcRiaNaKGW8I78',
     // Náhradní hodnoty, dokud se nenačtou živá data z Google Places API
     fallbackRating: 4.7,
     fallbackCount: 19517,
@@ -204,6 +207,17 @@ export const content = {
         { type: 'password', name: 'password', label: 'Heslo', autoComplete: 'new-password' },
         { type: 'password', name: 'passwordConfirm', label: 'Heslo znovu', autoComplete: 'new-password' },
       ] satisfies AuthField[],
+      // Souhlas s podmínkami – text je rozdělený kolem dvou odkazů
+      consent: {
+        before: 'Souhlasím s ',
+        termsLabel: 'obchodními podmínkami',
+        termsHref: '/obchodni-podminky',
+        between: ' a zpracováním ',
+        privacyLabel: 'osobních údajů',
+        privacyHref: '/ochrana-osobnich-udaju',
+        after: '.',
+        ariaLabel: 'Souhlas s obchodními podmínkami a zpracováním osobních údajů',
+      },
       submit: 'registrovat',
       submitIcon: '/icons/arrow_right_cyan.svg',
       haveAccount: 'Máte účet?',

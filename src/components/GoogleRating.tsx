@@ -1,18 +1,30 @@
-// Bílá karta s hodnocením Google (logo, známka, hvězdy, počet recenzí) – data ze serverless funkce api/google-rating
-// Desktop: široká karta ukotvená na spodním okraji fotosekce, přesahující do patičky
+// Karta s hodnocením Google (logo, název, známka, hvězdy, počet recenzí a odkaz na všechny recenze)
+// Data ze serverless funkce api/google-rating. Mobil: sloupec s tlačítkem přes celou šířku;
+// desktop: široká karta ukotvená na spodním okraji fotosekce, tlačítko vpravo
 import Box from '@mui/material/Box'
+import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
-import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
+import { fluid, fluidDesktop } from '../fluid'
 import { useFetch } from '../hooks/useFetch'
 import { COLORS, FONT_SECONDARY } from '../theme'
 import MaskIcon from './MaskIcon'
 
-const STAR_COLOR = '#f4b400'
-const STAR_EMPTY_COLOR = '#dadce0'
-const REVIEWS_COLOR = '#1a73e8'
+const CARD_COLOR = '#f6f7fc'
+const TITLE_COLOR = '#1b1f4a'
+const COUNT_COLOR = '#7c80a6'
+const STAR_COLOR = '#f6b400'
+const STAR_EMPTY_COLOR = '#c9cce0'
+const BUTTON_COLOR = '#0a7cff'
+const LOGO_SHADOW = '0 2px 8px rgba(0, 0, 0, 0.08)'
 
-// Desktop: odstup karty od horní hrany patičky
+// Desktop: hodnoty z návrhu (1920 px) se směrem k breakpointu zmenšují jen na 80 %, aby karta zůstala čitelná
+const DESKTOP_MIN_RATIO = 0.8
+const mild = (px: number) => fluidDesktop(Math.round(px * DESKTOP_MIN_RATIO * 10) / 10, px)
+
+// Desktop: rozměry karty a odstup od horní hrany patičky
+const CARD_WIDTH = fluidDesktop(540, 1226)
+const CARD_HEIGHT = mild(121)
 const FOOTER_OFFSET = fluidDesktop(70, 130)
 
 // Odpověď serverless funkce (pole z Places API)
@@ -32,7 +44,7 @@ interface GoogleRatingProps {
 }
 
 export function GoogleRating({ desktopOnly = false, anchor = 'section-bottom' }: GoogleRatingProps) {
-  const { logo, logoAlt, starIcon, maxStars, reviewsLabel, fallbackRating, fallbackCount } = content.googleRating
+  const { logo, logoAlt, starIcon, maxStars, title, buttonLabel, reviewsUrl, fallbackRating, fallbackCount } = content.googleRating
   const { data } = useFetch<PlaceDetails>(content.api.googleRating)
 
   const rating = data?.rating ?? fallbackRating
@@ -45,83 +57,131 @@ export function GoogleRating({ desktopOnly = false, anchor = 'section-bottom' }:
         paddingTop: { xs: fluid(145, 100), md: 0 },
         display: { xs: desktopOnly ? 'none' : 'flex', md: 'flex' },
         justifyContent: 'center',
-        // Desktop: karta 1226×121 leží pod horní hranou patičky (fotosekce má z-index nad patičkou)
+        // Desktop: karta vodorovně uprostřed, pod horní hranou patičky (fotosekce má z-index nad patičkou)
         position: { md: 'absolute' },
-        left: { md: desktopScaled(347) },
-        bottom: { md: anchor === 'section-bottom' ? `calc(-1 * (${FOOTER_OFFSET} + ${desktopType(121)}))` : 'auto' },
+        left: { md: '50%' },
+        transform: { md: 'translateX(-50%)' },
+        bottom: { md: anchor === 'section-bottom' ? `calc(-1 * (${FOOTER_OFFSET} + ${CARD_HEIGHT}))` : 'auto' },
         top: { md: anchor === 'footer-top' ? FOOTER_OFFSET : 'auto' },
       }}
     >
       <Box
         sx={{
-          width: { xs: fluid(258, 270), md: desktopScaled(1226) },
-          minHeight: { xs: fluid(156, 162), md: 0 },
-          height: { md: desktopType(121) },
-          borderRadius: { xs: fluid(34, 36), md: desktopType(34) },
-          backgroundColor: COLORS.white,
+          width: { xs: fluid(280, 300), md: CARD_WIDTH },
+          height: { md: CARD_HEIGHT },
+          borderRadius: { xs: fluid(16, 18), md: mild(18) },
+          backgroundColor: CARD_COLOR,
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: { xs: 'center', md: 'flex-start' },
-          paddingTop: { xs: fluid(24, 26), md: 0 },
+          flexDirection: { xs: 'column', md: 'row' },
+          alignItems: { md: 'center' },
+          paddingTop: { xs: fluid(20, 22), md: 0 },
+          paddingBottom: { xs: fluid(20, 22), md: 0 },
+          paddingLeft: { xs: fluid(20, 22), md: mild(30) },
+          paddingRight: { xs: fluid(20, 22), md: mild(30) },
           boxSizing: 'border-box',
+          fontFamily: FONT_SECONDARY,
         }}
       >
-        {/* Desktop: obsah v bloku 198×120 odsazeném 122 px od levého okraje karty */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            marginLeft: { md: desktopScaled(122) },
-            width: { md: desktopType(198) },
-            height: { md: desktopType(120) },
-            justifyContent: { md: 'center' },
-          }}
-        >
-          <Box
-            component="img"
-            src={logo}
-            alt={logoAlt}
-            sx={{ width: { xs: fluid(30, 32), md: desktopType(24) }, height: { xs: fluid(30, 32), md: desktopType(24) }, display: 'block' }}
-          />
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: fluid(8, 9), md: desktopScaled(7) }, paddingTop: { xs: fluid(14, 16), md: desktopScaled(8) } }}>
+        {/* Levý blok: logo s názvem a pod nimi známka */}
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          {/* Logo v bílém čtverci a název */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: fluid(14, 15), md: mild(14) } }}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                width: { xs: fluid(40, 42), md: mild(40) },
+                height: { xs: fluid(40, 42), md: mild(40) },
+                borderRadius: { xs: fluid(8, 9), md: mild(10) },
+                backgroundColor: COLORS.white,
+                boxShadow: LOGO_SHADOW,
+              }}
+            >
+              <Box
+                component="img"
+                src={logo}
+                alt={logoAlt}
+                sx={{ width: { xs: fluid(28, 30), md: mild(26) }, height: { xs: fluid(28, 30), md: mild(26) }, display: 'block' }}
+              />
+            </Box>
             <Typography
               component="span"
               sx={{
-                fontSize: { xs: fluid(26, 28), md: fluidDesktop(16, 21) },
-                lineHeight: { xs: fluid(30, 32), md: desktopType(24) },
+                fontSize: { xs: fluid(20, 21), md: mild(26) },
+                lineHeight: { xs: fluid(24, 25), md: mild(30) },
                 fontFamily: FONT_SECONDARY,
                 fontWeight: 700,
-                color: COLORS.black,
+                color: TITLE_COLOR,
+                // Mobil: název ve dvou řádcích vedle loga
+                maxWidth: { xs: '6em', md: 'none' },
+                whiteSpace: { md: 'nowrap' },
+              }}
+            >
+              {title}
+            </Typography>
+          </Box>
+
+          {/* Známka, hvězdy a počet recenzí */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: fluid(10, 11), md: mild(10) }, paddingTop: { xs: fluid(14, 15), md: mild(6) } }}>
+            <Typography
+              component="span"
+              sx={{
+                fontSize: { xs: fluid(17, 18), md: mild(20) },
+                lineHeight: { xs: fluid(20, 21), md: mild(24) },
+                fontFamily: FONT_SECONDARY,
+                fontWeight: 700,
+                color: TITLE_COLOR,
               }}
             >
               {formatRating(rating)}
             </Typography>
-            <Box sx={{ display: 'flex', gap: { xs: fluid(2, 3), md: desktopScaled(2) } }} aria-hidden>
+            <Box sx={{ display: 'flex', gap: { xs: fluid(3, 4), md: mild(3) } }} aria-hidden>
               {Array.from({ length: maxStars }, (_, index) => (
-                <MaskIcon
-                  key={index}
-                  src={starIcon}
-                  size={{ xs: fluid(20, 21), md: desktopType(16) }}
-                  color={index < filledStars ? STAR_COLOR : STAR_EMPTY_COLOR}
-                />
+                <MaskIcon key={index} src={starIcon} size={{ xs: fluid(16, 17), md: mild(18) }} color={index < filledStars ? STAR_COLOR : STAR_EMPTY_COLOR} />
               ))}
             </Box>
+            <Typography
+              component="span"
+              sx={{
+                fontSize: { xs: fluid(13, 14), md: mild(14) },
+                lineHeight: { xs: fluid(16, 17), md: mild(18) },
+                fontFamily: FONT_SECONDARY,
+                fontWeight: 500,
+                color: COUNT_COLOR,
+              }}
+            >
+              ({formatCount(count)})
+            </Typography>
           </Box>
-          <Typography
-            component="span"
-            sx={{
-              paddingTop: { xs: fluid(10, 11), md: desktopScaled(6) },
-              fontSize: { xs: fluid(13, 14), md: fluidDesktop(10, 11) },
-              lineHeight: { xs: fluid(16, 17), md: desktopType(13) },
-              fontFamily: FONT_SECONDARY,
-              fontWeight: 500,
-              color: REVIEWS_COLOR,
-            }}
-          >
-            {formatCount(count)} {reviewsLabel}
-          </Typography>
         </Box>
+
+        {/* Tlačítko na všechny recenze – mobil přes celou šířku, desktop vpravo */}
+        <ButtonBase
+          component="a"
+          href={reviewsUrl}
+          target="_blank"
+          rel="noopener"
+          sx={{
+            marginTop: { xs: fluid(22, 24), md: 0 },
+            marginLeft: { md: 'auto' },
+            width: { xs: '100%', md: 'auto' },
+            height: { xs: fluid(40, 42), md: mild(42) },
+            paddingLeft: { md: mild(22) },
+            paddingRight: { md: mild(22) },
+            borderRadius: { xs: fluid(8, 9), md: mild(8) },
+            backgroundColor: BUTTON_COLOR,
+            fontSize: { xs: fluid(14, 15), md: mild(15) },
+            lineHeight: 1,
+            fontFamily: FONT_SECONDARY,
+            fontWeight: 700,
+            color: COLORS.white,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {buttonLabel}
+        </ButtonBase>
       </Box>
     </Box>
   )
