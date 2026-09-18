@@ -160,17 +160,6 @@ export const content = {
     { label: 'KONTAKT', href: '/kontakt' },
   ] satisfies NavSectionData[],
 
-  // Titulky karty prohlížeče „Restaart - …“
-  titles: {
-    separator: ' - ',
-    home: 'Sport a relax centrum Pardubice',
-    activities: 'Aktivity',
-    contact: 'Kontakt',
-    events: 'Akce',
-    login: 'Přihlášení',
-    register: 'Registrace',
-  },
-
   pages: {
     events: { title: 'akce', image: '/images/events_bg.webp' },
     eventDetail: { back: 'zpět na výpis', backIcon: '/icons/back_link_arrow.svg', image: '/images/events_bg.webp' },

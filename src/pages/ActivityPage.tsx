@@ -5,10 +5,10 @@ import { useParams } from 'react-router-dom'
 import { fadeInUpSx } from '../animations'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
+import { SEO, seoForActivity } from '../seo'
 import { COLORS, DESKTOP, FONT_SECONDARY } from '../theme'
 import type { Activity } from '../types'
 import { useFetch } from '../hooks/useFetch'
-import { usePageTitle } from '../hooks/usePageTitle'
 import ClassListAccordion from '../components/ClassListAccordion'
 import DataStatus from '../components/DataStatus'
 import Footer from '../components/Footer'
@@ -18,6 +18,7 @@ import PageBackground from '../components/PageBackground'
 import PageTitle from '../components/PageTitle'
 import PriceList from '../components/PriceList'
 import QuickNav from '../components/QuickNav'
+import Seo from '../components/Seo'
 
 // Od této šířky je popis a ceník vedle sebe, pod ní pod sebou
 const SIDE_BY_SIDE_MQ = '@media (min-width: 900px)'
@@ -26,9 +27,10 @@ export function ActivityPage() {
   const { slug } = useParams<{ slug: string }>()
   const { data, loading, error } = useFetch<Activity[]>(content.api.activities)
   const activity = data?.find((item) => item.slug === slug) ?? null
-  usePageTitle(activity?.title ?? content.titles.activities)
+  const meta = activity ? seoForActivity(activity) : SEO['/']
   return (
     <>
+      <Seo path={`/aktivity/${slug}`} title={activity?.title} description={meta.description} ogImage={activity?.backgroundImage} />
       <PageBackground
         image={activity?.backgroundImage ?? content.hero.image}
         minHeight={{ md: desktopScaled(2083) }}

@@ -3,11 +3,12 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
+import { SEO } from '../seo'
 import { COLORS, DESKTOP, FONT_BODY, FONT_SECONDARY, columnSx } from '../theme'
-import { usePageTitle } from '../hooks/usePageTitle'
 import Header from '../components/Header'
 import PageTitle from '../components/PageTitle'
 import QuickNav from '../components/QuickNav'
+import Seo from '../components/Seo'
 
 interface LegalPageProps {
   page: keyof typeof content.legal
@@ -45,10 +46,11 @@ const gutterSx = {
 
 export function LegalPage({ page }: LegalPageProps) {
   const { title, updated, sections } = content.legal[page]
-  usePageTitle(title)
+  const path = page === 'terms' ? content.footer.terms.href : content.footer.privacy.href
 
   return (
     <Box sx={{ ...columnSx, minHeight: '100vh', backgroundColor: COLORS.dark }}>
+      <Seo path={path} title={SEO[path].title} description={SEO[path].description} />
       <Header />
       <QuickNav />
       <PageTitle alignDesktop="left" variantDesktop="small" topDesktop={78} widthDesktop={812}>

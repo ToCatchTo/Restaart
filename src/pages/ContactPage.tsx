@@ -4,8 +4,8 @@ import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
+import { SEO } from '../seo'
 import { COLORS, DESKTOP, FONT_SECONDARY } from '../theme'
-import { usePageTitle } from '../hooks/usePageTitle'
 import ContactInfo from '../components/ContactInfo'
 import Footer from '../components/Footer'
 import FooterCredit from '../components/FooterCredit'
@@ -14,6 +14,7 @@ import Icon from '../components/Icon'
 import OpeningHours from '../components/OpeningHours'
 import PageBackground from '../components/PageBackground'
 import QuickNav from '../components/QuickNav'
+import Seo from '../components/Seo'
 
 const textSx = {
   display: 'block',
@@ -42,10 +43,10 @@ const columnItemSx = {
 
 export function ContactPage() {
   const { addressTitle, addressLines, mapUrl, parkingTitle, parkingLines, social } = content.contact
-  usePageTitle(content.titles.contact)
 
   return (
     <>
+      <Seo path="/kontakt" title={SEO['/kontakt'].title} description={SEO['/kontakt'].description} />
       <PageBackground
         image={content.pages.contact.image}
         minHeight={{ xs: fluid(1621, 1700), md: '0px' }}

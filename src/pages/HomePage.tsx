@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid } from '../fluid'
-import { usePageTitle } from '../hooks/usePageTitle'
+import { SEO } from '../seo'
 import { DESKTOP } from '../theme'
 import EventPill from '../components/EventPill'
 import Footer from '../components/Footer'
@@ -13,13 +13,14 @@ import Hero from '../components/Hero'
 import Icon from '../components/Icon'
 import PageBackground from '../components/PageBackground'
 import QuickNav from '../components/QuickNav'
+import Seo from '../components/Seo'
 
 export function HomePage() {
-  usePageTitle(content.titles.home)
   const { eventsLabel } = content.hero
 
   return (
     <>
+      <Seo path="/" description={SEO['/'].description} />
       <PageBackground
         image={content.hero.image}
         height={{ xs: fluid(812, 860), md: 'auto' }}

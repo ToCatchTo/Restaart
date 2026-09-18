@@ -1,22 +1,24 @@
 // Náhradní stránka pro zatím nenavržené cesty (SLUŽBY, 404)
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
+import { NOT_FOUND_SEO } from '../seo'
 import { COLORS, DESKTOP } from '../theme'
-import { usePageTitle } from '../hooks/usePageTitle'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import PageBackground from '../components/PageBackground'
 import PageTitle from '../components/PageTitle'
 import QuickNav from '../components/QuickNav'
+import Seo from '../components/Seo'
 
 export function NotFoundPage() {
-  usePageTitle(content.pages.notFound.title)
+  const location = useLocation()
 
   return (
     <>
+      <Seo path={location.pathname} title={NOT_FOUND_SEO.title} description={NOT_FOUND_SEO.description} noindex />
       <PageBackground
         image={content.hero.image}
         minHeight={{ xs: fluid(810, 860), md: '0px' }}

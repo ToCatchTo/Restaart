@@ -3,10 +3,10 @@ import Box from '@mui/material/Box'
 import { useParams } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
+import { SEO, seoForEvent } from '../seo'
 import { COLORS, DESKTOP } from '../theme'
 import type { Event } from '../types'
 import { useFetch } from '../hooks/useFetch'
-import { usePageTitle } from '../hooks/usePageTitle'
 import BackLink from '../components/BackLink'
 import DataStatus from '../components/DataStatus'
 import Footer from '../components/Footer'
@@ -15,6 +15,7 @@ import PageBackground from '../components/PageBackground'
 import PageTitle from '../components/PageTitle'
 import QuickNav from '../components/QuickNav'
 import RichText from '../components/RichText'
+import Seo from '../components/Seo'
 
 // Užší desktop: obrázek, nadpis a popis pod sebou
 const STACKED_MQ = '@media (min-width: 600px) and (max-width: 999.95px)'
@@ -24,10 +25,11 @@ export function EventDetailPage() {
   const { data, loading, error } = useFetch<Event[]>(content.api.events)
   const event = data?.find((item) => item.slug === slug) ?? null
   const { back, backIcon, image } = content.pages.eventDetail
-  usePageTitle(event?.title ?? content.titles.events)
+  const meta = event ? seoForEvent(event) : SEO['/akce']
 
   return (
     <>
+      <Seo path={`/akce/${slug}`} title={event?.title ?? SEO['/akce'].title} description={meta.description} ogImage={event?.image} />
       <PageBackground
         image={image}
         minHeight={{ xs: fluid(1594, 1650), md: desktopScaled(1581) }}
