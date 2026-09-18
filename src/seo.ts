@@ -95,3 +95,36 @@ export const localBusinessJsonLd = (rating?: { value: number; count: number }): 
   sameAs: content.contact.social.map((item) => item.href),
   ...(rating && { aggregateRating: { '@type': 'AggregateRating', ratingValue: rating.value, reviewCount: rating.count } }),
 })
+
+// Popisek úvodní stránky v drobečkové navigaci
+export const ACTIVITIES_LABEL = 'Aktivity'
+
+// Datum akce „D/M“ → ISO; rok = aktuální, nebo příští, pokud datum už proběhlo
+const eventStartDate = (date: string, now = new Date()) => {
+  const [day, month] = date.split('/').map(Number)
+  if (!day || !month) return undefined
+  let year = now.getFullYear()
+  if (new Date(year, month - 1, day) < new Date(now.getFullYear(), now.getMonth(), now.getDate())) year += 1
+  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+}
+
+export const eventJsonLd = (event: Event, path: string): Record<string, unknown> => ({
+  '@type': 'Event',
+  name: event.title,
+  description: clip(stripHtml(event.description), 300),
+  image: SITE_ORIGIN + event.image,
+  url: SITE_ORIGIN + path,
+  ...(eventStartDate(event.date) && { startDate: eventStartDate(event.date) }),
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  location: {
+    '@type': 'Place',
+    name: LOCAL_BUSINESS.name,
+    address: { '@type': 'PostalAddress', streetAddress: LOCAL_BUSINESS.street, addressLocality: LOCAL_BUSINESS.city, postalCode: LOCAL_BUSINESS.postalCode, addressCountry: 'CZ' },
+  },
+  organizer: { '@type': 'Organization', name: LOCAL_BUSINESS.name, url: SITE_ORIGIN },
+})
+
+export const breadcrumbJsonLd = (items: { name: string; path: string }[]): Record<string, unknown> => ({
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.name, item: SITE_ORIGIN + item.path })),
+})

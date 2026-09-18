@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import { useParams } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
-import { SEO, seoForEvent } from '../seo'
+import { SEO, breadcrumbJsonLd, eventJsonLd, seoForEvent } from '../seo'
 import { COLORS, DESKTOP } from '../theme'
 import type { Event } from '../types'
 import { useFetch } from '../hooks/useFetch'
@@ -11,6 +11,7 @@ import BackLink from '../components/BackLink'
 import DataStatus from '../components/DataStatus'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import JsonLd from '../components/JsonLd'
 import PageBackground from '../components/PageBackground'
 import PageTitle from '../components/PageTitle'
 import QuickNav from '../components/QuickNav'
@@ -30,6 +31,8 @@ export function EventDetailPage() {
   return (
     <>
       <Seo path={`/akce/${slug}`} title={event?.title ?? SEO['/akce'].title} description={meta.description} ogImage={event?.image} />
+      {event && <JsonLd data={eventJsonLd(event, `/akce/${slug}`)} />}
+      {event && <JsonLd data={breadcrumbJsonLd([{ name: SEO['/akce'].title!, path: '/akce' }, { name: event.title, path: `/akce/${slug}` }])} />}
       <PageBackground
         image={image}
         minHeight={{ xs: fluid(1594, 1650), md: desktopScaled(1581) }}

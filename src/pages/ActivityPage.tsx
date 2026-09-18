@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { fadeInUpSx } from '../animations'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
-import { SEO, seoForActivity } from '../seo'
+import { ACTIVITIES_LABEL, SEO, breadcrumbJsonLd, seoForActivity } from '../seo'
 import { COLORS, DESKTOP, FONT_SECONDARY } from '../theme'
 import type { Activity } from '../types'
 import { useFetch } from '../hooks/useFetch'
@@ -14,6 +14,7 @@ import DataStatus from '../components/DataStatus'
 import Footer from '../components/Footer'
 import Gallery from '../components/Gallery'
 import Header from '../components/Header'
+import JsonLd from '../components/JsonLd'
 import PageBackground from '../components/PageBackground'
 import PageTitle from '../components/PageTitle'
 import PriceList from '../components/PriceList'
@@ -31,6 +32,7 @@ export function ActivityPage() {
   return (
     <>
       <Seo path={`/aktivity/${slug}`} title={activity?.title} description={meta.description} ogImage={activity?.backgroundImage} />
+      {activity && <JsonLd data={breadcrumbJsonLd([{ name: ACTIVITIES_LABEL, path: '/' }, { name: activity.title, path: `/aktivity/${slug}` }])} />}
       <PageBackground
         image={activity?.backgroundImage ?? content.hero.image}
         minHeight={{ md: desktopScaled(2083) }}
