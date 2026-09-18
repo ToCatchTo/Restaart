@@ -4,7 +4,7 @@ import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { fluid, fluidDesktop } from '../fluid'
-import { useFetch } from '../hooks/useFetch'
+import { useGoogleRating } from '../hooks/useGoogleRating'
 import { COLORS, FONT_SECONDARY, hoverDarkenSx } from '../theme'
 import MaskIcon from './MaskIcon'
 
@@ -25,12 +25,6 @@ const CARD_WIDTH = fluidDesktop(540, 1226)
 const CARD_HEIGHT = mild(121)
 const FOOTER_OFFSET = fluidDesktop(70, 130)
 
-// Odpověď serverless funkce (pole z Places API)
-interface PlaceDetails {
-  rating?: number
-  userRatingCount?: number
-}
-
 const formatRating = (rating: number) => rating.toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
 const formatCount = (count: number) => count.toLocaleString('cs-CZ')
 
@@ -42,11 +36,8 @@ interface GoogleRatingProps {
 }
 
 export function GoogleRating({ desktopOnly = false, anchor = 'section-bottom' }: GoogleRatingProps) {
-  const { logo, logoAlt, starIcon, maxStars, title, buttonLabel, reviewsUrl, fallbackRating, fallbackCount } = content.googleRating
-  const { data } = useFetch<PlaceDetails>(content.api.googleRating)
-
-  const rating = data?.rating ?? fallbackRating
-  const count = data?.userRatingCount ?? fallbackCount
+  const { logo, logoAlt, starIcon, maxStars, title, buttonLabel, reviewsUrl } = content.googleRating
+  const { rating, count } = useGoogleRating()
   const filledStars = Math.round(rating)
 
   return (

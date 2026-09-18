@@ -63,3 +63,35 @@ export const LOCAL_BUSINESS = {
   region: 'Pardubický kraj',
   geo: { latitude: 50.0432, longitude: 15.7156 },
 } as const
+
+// Otevírací doba pro schema.org (odpovídá content.openingHours)
+const OPENING_HOURS = [
+  { dayOfWeek: ['Monday', 'Wednesday', 'Friday'], opens: '07:00', closes: '11:00' },
+  { dayOfWeek: ['Monday', 'Wednesday', 'Friday'], opens: '15:00', closes: '21:00' },
+  { dayOfWeek: ['Tuesday', 'Thursday'], opens: '15:00', closes: '21:00' },
+  { dayOfWeek: ['Saturday'], opens: '08:00', closes: '12:00' },
+  { dayOfWeek: ['Sunday'], opens: '15:00', closes: '21:00' },
+]
+
+export const localBusinessJsonLd = (rating?: { value: number; count: number }): Record<string, unknown> => ({
+  '@type': 'SportsActivityLocation',
+  name: LOCAL_BUSINESS.name,
+  legalName: LOCAL_BUSINESS.legalName,
+  url: SITE_ORIGIN,
+  logo: `${SITE_ORIGIN}${content.brand.logo}`,
+  image: `${SITE_ORIGIN}${DEFAULT_OG_IMAGE}`,
+  telephone: content.contact.phone,
+  email: content.contact.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: LOCAL_BUSINESS.street,
+    addressLocality: LOCAL_BUSINESS.city,
+    postalCode: LOCAL_BUSINESS.postalCode,
+    addressRegion: LOCAL_BUSINESS.region,
+    addressCountry: 'CZ',
+  },
+  geo: { '@type': 'GeoCoordinates', ...LOCAL_BUSINESS.geo },
+  openingHoursSpecification: OPENING_HOURS.map((row) => ({ '@type': 'OpeningHoursSpecification', ...row })),
+  sameAs: content.contact.social.map((item) => item.href),
+  ...(rating && { aggregateRating: { '@type': 'AggregateRating', ratingValue: rating.value, reviewCount: rating.count } }),
+})

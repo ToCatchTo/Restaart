@@ -4,13 +4,15 @@ import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
-import { SEO } from '../seo'
+import { useGoogleRating } from '../hooks/useGoogleRating'
+import { localBusinessJsonLd, SEO } from '../seo'
 import { COLORS, DESKTOP, FONT_SECONDARY } from '../theme'
 import ContactInfo from '../components/ContactInfo'
 import Footer from '../components/Footer'
 import FooterCredit from '../components/FooterCredit'
 import Header from '../components/Header'
 import Icon from '../components/Icon'
+import JsonLd from '../components/JsonLd'
 import OpeningHours from '../components/OpeningHours'
 import PageBackground from '../components/PageBackground'
 import QuickNav from '../components/QuickNav'
@@ -43,10 +45,12 @@ const columnItemSx = {
 
 export function ContactPage() {
   const { addressTitle, addressLines, mapUrl, parkingTitle, parkingLines, social } = content.contact
+  const { rating, count, live } = useGoogleRating()
 
   return (
     <>
       <Seo path="/kontakt" title={SEO['/kontakt'].title} description={SEO['/kontakt'].description} />
+      <JsonLd data={localBusinessJsonLd(live ? { value: rating, count } : undefined)} />
       <PageBackground
         image={content.pages.contact.image}
         minHeight={{ xs: fluid(1621, 1700), md: '0px' }}
