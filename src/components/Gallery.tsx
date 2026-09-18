@@ -33,6 +33,8 @@ export function Gallery({ images, alt }: GalleryProps) {
         component="img"
         src={images[index]}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         sx={{
           display: 'block',
           width: '100%',

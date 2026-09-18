@@ -30,6 +30,8 @@ export function EventCard({ event }: EventCardProps) {
         component="img"
         src={event.image}
         alt={event.title}
+        loading="lazy"
+        decoding="async"
         sx={{
           display: 'block',
           width: '100%',

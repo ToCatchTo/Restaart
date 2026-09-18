@@ -91,6 +91,8 @@ export function GoogleRating({ desktopOnly = false, anchor = 'section-bottom' }:
                 component="img"
                 src={logo}
                 alt={logoAlt}
+                loading="lazy"
+                decoding="async"
                 sx={{ width: { xs: fluid(28, 30), md: mild(26) }, height: { xs: fluid(28, 30), md: mild(26) }, display: 'block' }}
               />
             </Box>

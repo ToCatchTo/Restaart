@@ -50,12 +50,16 @@ export function FooterCredit() {
             component="img"
             src={logo}
             alt={logoAlt}
+            loading="lazy"
+            decoding="async"
             sx={{ display: 'block', width: 'auto', height: { xs: fluid(13, 14), md: fluidDesktop(13, 15) } }}
           />
           <Box
             component="img"
             src={logoIcon}
             alt={logoIconAlt}
+            loading="lazy"
+            decoding="async"
             sx={{ display: 'block', width: 'auto', height: { xs: fluid(13, 14), md: fluidDesktop(13, 15) } }}
           />
         </Box>

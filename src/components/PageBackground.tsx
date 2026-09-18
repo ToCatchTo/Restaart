@@ -17,6 +17,8 @@ interface PageBackgroundProps {
   size?: ResponsiveStyleValue<string>
   // Desktop: sekce vysoká alespoň jako okno prohlížeče
   viewportHeight?: boolean
+  // Preload fotky jako LCP prvku, vypnuto u druhé fotky na stránce (patička)
+  preload?: boolean
 }
 
 export function PageBackground({
@@ -28,6 +30,7 @@ export function PageBackground({
   position = 'center top',
   size = 'cover',
   viewportHeight = false,
+  preload = true,
 }: PageBackgroundProps) {
   return (
     <Box
@@ -56,6 +59,8 @@ export function PageBackground({
         },
       }}
     >
+      {/* Fotka je LCP prvek – preload ji stáhne dřív, než ji objeví CSS */}
+      {preload && <link rel="preload" as="image" href={image} fetchPriority="high" />}
       <Box sx={{ ...columnSx, flexGrow: 1 }}>{children}</Box>
     </Box>
   )

@@ -115,6 +115,7 @@ export function Footer({ compact = false, embedded = false, rating = false }: Fo
       minHeight={{ xs: fluid(811, 860), md: desktopScaled(799) }}
       position={{ xs: 'right top', md: '100% 39.6%' }}
       size={{ xs: 'cover', md: '368% auto' }}
+      preload={false}
     >
       {rating && <GoogleRating desktopOnly anchor="footer-top" />}
       <FooterContent compact={compact} embedded={false} />
