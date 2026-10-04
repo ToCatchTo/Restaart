@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { fadeInUpSx } from '../animations'
-import { desktopScaled, fluid, fluidDesktop } from '../fluid'
+import { fluid, fluidDesktop } from '../fluid'
 import { COLORS } from '../theme'
 import { useInView } from '../hooks/useInView'
 import type { LabelValue } from '../types'
@@ -50,7 +50,6 @@ export function PriceList({ rows }: PriceListProps) {
           backgroundColor: { xs: 'rgba(255, 255, 255, 0.16)', md: 'rgba(88, 88, 88, 0.6)' },
           backdropFilter: 'blur(8px)',
           width: { md: '100%' },
-          minHeight: { md: desktopScaled(419) },
           boxSizing: 'border-box',
           paddingTop: { xs: fluid(72, 62), md: fluidDesktop(32, 45) },
           paddingBottom: { xs: fluid(72, 62), md: fluidDesktop(32, 45) },
