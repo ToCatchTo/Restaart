@@ -4,6 +4,8 @@ import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { COLORS } from '../theme'
+import { useFetch } from '../hooks/useFetch'
+import type { OpeningHoursData } from '../types'
 
 interface OpeningHoursProps {
   // Desktop: bloky pod sebou v jednom sloupci (stránka Kontakt)
@@ -19,6 +21,11 @@ const textSx = {
 } as const
 
 export function OpeningHours({ column = false }: OpeningHoursProps) {
+  const { data } = useFetch<OpeningHoursData>(content.api.openingHours)
+
+  // Bez dnes platné otevírací doby (404) nebo při chybě se blok nevykreslí
+  if (!data) return null
+
   return (
     <Box
       component="dl"
@@ -31,23 +38,21 @@ export function OpeningHours({ column = false }: OpeningHoursProps) {
         rowGap: { md: column ? 0 : fluidDesktop(20, 39) },
       }}
     >
-      {content.openingHours.map((group, index) => (
+      {data.items.map((group, index) => (
         <Box
-          key={group.days}
+          key={`${index}-${group.label}`}
           sx={{
             // Odsazení mezi bloky podle pořadí v datech
             paddingTop: index === 0 ? 0 : { xs: fluid(24, 28), md: column ? fluidDesktop(18, 24) : 0 },
-            // Stránka Kontakt řadí NEDĚLE před SOBOTU
-            order: { md: column ? [0, 1, 3, 2][index] : 0 },
             paddingRight: { md: column || index % 2 === 1 ? 0 : fluidDesktop(28, 20) },
             boxSizing: 'border-box',
           }}
         >
           <Typography component="dt" sx={textSx}>
-            {group.days}
+            {group.label}
           </Typography>
           <Typography component="dd" sx={{ ...textSx, margin: 0 }}>
-            {group.hours}
+            {group.value}
           </Typography>
         </Box>
       ))}

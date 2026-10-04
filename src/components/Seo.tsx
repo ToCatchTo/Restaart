@@ -1,6 +1,6 @@
 // SEO hlavička stránky přes nativní document metadata Reactu 19 (titulek, popis, canonical, OG)
 import { useEffect } from 'react'
-import { DEFAULT_OG_IMAGE, SITE_ORIGIN, formatTitle } from '../seo'
+import { DEFAULT_OG_IMAGE, SITE_ORIGIN, absoluteUrl, formatTitle } from '../seo'
 
 interface SeoProps {
   // Cesta bez originu, např. /kontakt
@@ -31,10 +31,10 @@ export function Seo({ path, title, description, ogImage = DEFAULT_OG_IMAGE, noin
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
-      <meta property="og:image" content={SITE_ORIGIN + ogImage} />
+      <meta property="og:image" content={absoluteUrl(ogImage)} />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={SITE_ORIGIN + ogImage} />
+      <meta name="twitter:image" content={absoluteUrl(ogImage)} />
     </>
   )
 }

@@ -1,18 +1,18 @@
-// Ceník – prosklená karta s řádky „délka | cena“ ve skupinách
+// Ceník – prosklená karta s řádky „popisek | cena“
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { fadeInUpSx } from '../animations'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { COLORS } from '../theme'
 import { useInView } from '../hooks/useInView'
-import type { PriceRow } from '../types'
+import type { LabelValue } from '../types'
 
 interface PriceListProps {
-  groups: PriceRow[][]
+  rows: LabelValue[]
 }
 
-// Délka lekce
-const durationSx = {
+// Popisek položky
+const labelSx = {
   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 24) },
   lineHeight: { xs: fluid(20, 21), md: fluidDesktop(21, 25) },
   fontWeight: 500,
@@ -20,17 +20,17 @@ const durationSx = {
 } as const
 
 // Cena – lehkým písmem
-const priceSx = {
+const valueSx = {
   fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 24) },
   lineHeight: { xs: fluid(20, 21), md: fluidDesktop(21, 25) },
   fontWeight: 400,
   color: COLORS.white,
 } as const
 
-// Rozestup mezi řádky i skupinami
+// Rozestup mezi řádky
 const ROW_GAP = { xs: fluid(25, 27), md: fluidDesktop(22, 35) }
 
-export function PriceList({ groups }: PriceListProps) {
+export function PriceList({ rows }: PriceListProps) {
   // Karta se zjeví po najetí do viewportu; animace na obalu by vypnula backdrop-filter
   const { ref, inView } = useInView<HTMLDivElement>(0.5)
 
@@ -58,33 +58,28 @@ export function PriceList({ groups }: PriceListProps) {
           paddingRight: { xs: fluid(22, 24), md: fluidDesktop(28, 57) },
         }}
       >
-        {groups.map((rows, groupIndex) => (
-          <Box
-            component="ul"
-            key={groupIndex}
-            sx={{ listStyle: 'none', margin: 0, padding: 0, '& + &': { paddingTop: ROW_GAP } }}
-          >
-            {rows.map((row) => (
-              <Box
-                component="li"
-                key={`${row.duration}-${row.price}`}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  '& + &': { paddingTop: ROW_GAP },
-                }}
-              >
-                <Typography component="span" sx={durationSx}>
-                  {row.duration}
-                </Typography>
-                <Typography component="span" sx={priceSx}>
-                  {row.price}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-        ))}
+        <Box component="ul" sx={{ listStyle: 'none', margin: 0, padding: 0 }}>
+          {rows.map((row, index) => (
+            <Box
+              component="li"
+              key={`${index}-${row.label}`}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: fluid(16, 24),
+                '& + &': { paddingTop: ROW_GAP },
+              }}
+            >
+              <Typography component="span" sx={labelSx}>
+                {row.label}
+              </Typography>
+              <Typography component="span" sx={{ ...valueSx, textAlign: 'right' }}>
+                {row.value}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
       </Box>
     </Box>
   )

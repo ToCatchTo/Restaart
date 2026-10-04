@@ -2,7 +2,6 @@
 import { Route, Routes } from 'react-router-dom'
 import AppShell from './components/AppShell'
 import { content } from './content'
-import ActivityPage from './pages/ActivityPage'
 import ContactPage from './pages/ContactPage'
 import EventDetailPage from './pages/EventDetailPage'
 import EventsPage from './pages/EventsPage'
@@ -11,13 +10,15 @@ import LegalPage from './pages/LegalPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import NotFoundPage from './pages/NotFoundPage'
+import SubpagePage from './pages/SubpagePage'
 
 export function App() {
   return (
     <AppShell>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/aktivity/:slug" element={<ActivityPage />} />
+        <Route path="/aktivity/:slug" element={<SubpagePage />} />
+        <Route path="/sluzby/:slug" element={<SubpagePage />} />
         <Route path="/akce" element={<EventsPage />} />
         <Route path="/akce/:slug" element={<EventDetailPage />} />
         <Route path="/kontakt" element={<ContactPage />} />

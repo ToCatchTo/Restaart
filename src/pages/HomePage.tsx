@@ -5,6 +5,8 @@ import { content } from '../content'
 import { desktopScaled, desktopType, fluid } from '../fluid'
 import { localBusinessJsonLd, SEO } from '../seo'
 import { DESKTOP } from '../theme'
+import type { Homepage } from '../types'
+import { useFetch } from '../hooks/useFetch'
 import EventPill from '../components/EventPill'
 import Footer from '../components/Footer'
 import GoogleRating from '../components/GoogleRating'
@@ -18,20 +20,23 @@ import Seo from '../components/Seo'
 
 export function HomePage() {
   const { eventsLabel } = content.hero
+  const { data, loading } = useFetch<Homepage>(content.api.homepage)
+  // Do odpovědi API bez fotky, ať výchozí neproblikne před fotkou z administrace
+  const image = loading ? null : (data?.backgroundImage ?? content.hero.image)
 
   return (
     <>
       <Seo path="/" description={SEO['/'].description} />
       <JsonLd data={localBusinessJsonLd()} />
       <PageBackground
-        image={content.hero.image}
+        image={image}
         height={{ xs: fluid(812, 860), md: 'auto' }}
         viewportHeight
         position={{ xs: 'center top', md: '50% 42.6%' }}
       >
         <Header />
         <QuickNav />
-        <EventPill />
+        <EventPill event={data?.specialEvent ?? null} />
         <Hero />
         <GoogleRating />
         {/* Desktop: nápis „akce“ v pravém dolním rohu hera */}

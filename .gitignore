@@ -22,8 +22,12 @@ npm-debug.log*
 # Dokumentace a pracovní soubory
 docs
 superpowers
+DOC.md
 
 # Testy
 **/*.test.ts
 **/*.test.tsx
 src/test
+
+# Lokální mock API pro vývoj
+mocks

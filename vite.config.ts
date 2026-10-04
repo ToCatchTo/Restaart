@@ -18,12 +18,36 @@ function localApi(): Plugin {
   }
 }
 
+// Lokální mock API administrace místo proxy (MOCK_API=true)
+function mockApi(): Plugin {
+  return {
+    name: 'mock-api',
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        const path = new URL(req.url ?? '/', 'http://localhost').pathname
+        if (!path.startsWith('/api/') || path === '/api/google-rating') return next()
+        const { resolveMock } = (await server.ssrLoadModule('/mocks/api.ts')) as { resolveMock: (path: string) => unknown }
+        const body = resolveMock(path)
+        res.statusCode = body === undefined ? 404 : 200
+        res.setHeader('Content-Type', 'application/json')
+        res.end(JSON.stringify(body ?? { error: 'Not found' }))
+      })
+    },
+  }
+}
+
 export default defineConfig(({ mode }) => {
   // Proměnné z .env* do process.env pro lokální běh serverless funkcí
   Object.assign(process.env, loadEnv(mode, process.cwd(), ''))
 
   return {
-    plugins: [react(), localApi()],
+    plugins: [react(), localApi(), ...(process.env.MOCK_API === 'true' ? [mockApi()] : [])],
+    // Lokální vývoj: API administrace přes proxy kvůli CORS
+    server: {
+      proxy: {
+        '/api': { target: 'https://admin.restaart.cz', changeOrigin: true },
+      },
+    },
     test: {
       environment: 'jsdom',
       globals: true,

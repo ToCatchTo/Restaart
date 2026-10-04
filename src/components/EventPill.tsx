@@ -5,11 +5,35 @@ import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
+import { SITE_ORIGIN } from '../seo'
 import { COLORS, hoverDarkenSx } from '../theme'
+import type { SpecialEvent } from '../types'
 import Icon from './Icon'
 
-export function EventPill() {
-  const { enabled, text, href, arrowIcon } = content.eventPill
+interface EventPillProps {
+  // null = tlačítko se nevykreslí, místo zůstane
+  event: SpecialEvent | null
+}
+
+// Doména webu bez www
+const SITE_HOST = new URL(SITE_ORIGIN).hostname.replace(/^www\./, '')
+
+// Cesta v rámci webu, nebo null u odkazu jinam
+const internalPath = (url: string) => {
+  try {
+    const target = new URL(url, window.location.origin)
+    const isOwn = target.origin === window.location.origin || target.hostname.replace(/^www\./, '') === SITE_HOST
+    return isOwn ? target.pathname + target.search + target.hash : null
+  } catch {
+    return null
+  }
+}
+
+export function EventPill({ event }: EventPillProps) {
+  const { arrowIcon } = content.eventPill
+  const path = event ? internalPath(event.url) : null
+  // Odkaz v rámci webu přes router, jinak běžný odkaz v novém panelu
+  const linkProps = path !== null ? { component: Link, to: path } : { component: 'a', href: event?.url, target: '_blank', rel: 'noopener noreferrer' }
 
   return (
     <Box
@@ -22,10 +46,9 @@ export function EventPill() {
         paddingRight: { xs: fluid(30, 34), md: 0 },
       }}
     >
-      {enabled && (
+      {event && (
         <ButtonBase
-          component={Link}
-          to={href}
+          {...linkProps}
           sx={{
             width: { xs: '100%', md: fluidDesktop(320, 532) },
             minWidth: { md: 'max-content' },
@@ -54,7 +77,7 @@ export function EventPill() {
               color: COLORS.black,
             }}
           >
-            {text}
+            {event.title}
           </Typography>
           <Icon src={arrowIcon} size={{ xs: fluid(28, 15), md: fluidDesktop(24, 27.8) }} />
         </ButtonBase>

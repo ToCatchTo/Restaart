@@ -1,11 +1,13 @@
 // Detail akce – /akce/:slug
 import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import { useParams } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
+import { formatFileSize } from '../format'
 import { NOT_FOUND_SEO, SEO, breadcrumbJsonLd, eventJsonLd, seoForEvent } from '../seo'
 import { COLORS, DESKTOP } from '../theme'
-import type { Event } from '../types'
+import type { EventDetail } from '../types'
 import { useFetch } from '../hooks/useFetch'
 import BackLink from '../components/BackLink'
 import DataStatus from '../components/DataStatus'
@@ -21,22 +23,36 @@ import Seo from '../components/Seo'
 // Užší desktop: obrázek, nadpis a popis pod sebou
 const STACKED_MQ = '@media (min-width: 600px) and (max-width: 999.95px)'
 
+// Písmo popisu, přílohy a odkazu
+const textSx = {
+  fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.4, 16) },
+  lineHeight: { xs: fluid(28, 30), md: fluidDesktop(24, 25) },
+} as const
+
+const linkSx = {
+  ...textSx,
+  display: 'block',
+  width: 'fit-content',
+  color: COLORS.white,
+  fontWeight: 500,
+  textDecoration: 'underline',
+  '& + &': { marginTop: fluid(8, 10) },
+} as const
+
 export function EventDetailPage() {
   const { slug } = useParams<{ slug: string }>()
-  const { data, loading, error } = useFetch<Event[]>(content.api.events)
-  const event = data?.find((item) => item.slug === slug) ?? null
-  const { back, backIcon, image } = content.pages.eventDetail
-  // Po dokončení načítání bez nalezené akce jde o soft-404 – neindexovat
-  const notFound = !loading && !event
+  const { data: event, loading, error, notFound } = useFetch<EventDetail>(slug ? content.api.event(slug) : null)
+  const { back, backIcon, image, attachmentLabel, linkLabel } = content.pages.eventDetail
   const meta = event ? seoForEvent(event) : notFound ? NOT_FOUND_SEO : SEO['/akce']
 
   return (
     <>
+      {/* Neexistující akce je soft-404 – neindexovat */}
       <Seo
         path={`/akce/${slug}`}
         title={event?.title ?? (notFound ? NOT_FOUND_SEO.title : SEO['/akce'].title)}
         description={meta.description}
-        ogImage={event?.image}
+        ogImage={event?.image ?? undefined}
         noindex={notFound}
       />
       {event && <JsonLd data={eventJsonLd(event, `/akce/${slug}`)} />}
@@ -99,7 +115,7 @@ export function EventDetailPage() {
               >
                 <Box
                   component="img"
-                  src={event.image}
+                  src={event.image ?? content.pages.events.image}
                   alt={event.title}
                   sx={{
                     display: 'block',
@@ -112,26 +128,40 @@ export function EventDetailPage() {
                   }}
                 />
               </Box>
-              <RichText
-                html={event.description}
+              <Box
                 sx={{
                   paddingTop: { xs: fluid(42, 54), md: fluidDesktop(36, 58) },
                   paddingLeft: { xs: fluid(30, 34), md: 0 },
                   paddingRight: { xs: fluid(30, 34), md: 0 },
                   paddingBottom: { xs: fluid(110, 54), md: fluidDesktop(80, 120) },
-                  fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.4, 16) },
-                  lineHeight: { xs: fluid(28, 30), md: fluidDesktop(24, 25) },
                   [STACKED_MQ]: {
                     order: 3,
                     paddingLeft: desktopScaled(DESKTOP.content),
                     paddingRight: desktopScaled(DESKTOP.content),
                   },
                 }}
-              />
+              >
+                {event.text && <RichText html={event.text} sx={textSx} />}
+                {(event.attachment || event.link) && (
+                  <Box sx={{ paddingTop: event.text ? fluid(24, 32) : 0 }}>
+                    {event.attachment && (
+                      <Typography component="a" href={event.attachment.url} target="_blank" rel="noopener noreferrer" sx={linkSx}>
+                        {event.attachment.name ?? attachmentLabel}
+                        {event.attachment.size !== null && ` (${formatFileSize(event.attachment.size)})`}
+                      </Typography>
+                    )}
+                    {event.link && (
+                      <Typography component="a" href={event.link.url} target="_blank" rel="noopener noreferrer" sx={linkSx}>
+                        {event.link.label ?? linkLabel}
+                      </Typography>
+                    )}
+                  </Box>
+                )}
+              </Box>
             </Box>
           </Box>
         ) : (
-          <DataStatus loading={loading} error={error} notFound={!loading && !error} />
+          <DataStatus loading={loading} error={notFound ? null : error} notFound={notFound} />
         )}
       </PageBackground>
       <Footer rating />

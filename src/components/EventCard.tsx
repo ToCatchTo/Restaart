@@ -3,19 +3,22 @@ import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
+import { content } from '../content'
 import { fluid, fluidDesktop } from '../fluid'
+import { formatEventDate } from '../format'
+import { eventPath } from '../paths'
 import { COLORS, FONT_BODY, FONT_LABEL } from '../theme'
-import type { Event } from '../types'
+import type { EventSummary } from '../types'
 
 interface EventCardProps {
-  event: Event
+  event: EventSummary
 }
 
 export function EventCard({ event }: EventCardProps) {
   return (
     <ButtonBase
       component={Link}
-      to={`/akce/${event.slug}`}
+      to={eventPath(event.slug)}
       sx={{
         display: 'block',
         width: '100%',
@@ -28,7 +31,7 @@ export function EventCard({ event }: EventCardProps) {
     >
       <Box
         component="img"
-        src={event.image}
+        src={event.image ?? content.pages.events.image}
         alt={event.title}
         loading="lazy"
         decoding="async"
@@ -49,10 +52,12 @@ export function EventCard({ event }: EventCardProps) {
           top: '0px',
           left: '0px',
           height: { xs: fluid(41, 38), md: fluidDesktop(42, 58) },
-          width: { md: fluidDesktop(90, 123) },
+          // Desktop: šířka z návrhu, rozsah dat štítek roztáhne
+          minWidth: { md: fluidDesktop(90, 123) },
+          whiteSpace: 'nowrap',
           boxSizing: 'border-box',
-          paddingLeft: { xs: fluid(16, 17), md: 0 },
-          paddingRight: { xs: fluid(16, 17), md: 0 },
+          paddingLeft: { xs: fluid(16, 17), md: fluidDesktop(12, 18) },
+          paddingRight: { xs: fluid(16, 17), md: fluidDesktop(12, 18) },
           borderRadius: { xs: fluid(20, 19), md: fluidDesktop(16, 20) },
           backgroundColor: COLORS.white,
           display: 'flex',
@@ -66,7 +71,7 @@ export function EventCard({ event }: EventCardProps) {
           letterSpacing: { xs: '0.02em', md: 0 },
         }}
       >
-        {event.date}
+        {formatEventDate(event.dateFrom, event.dateTo)}
       </Typography>
     </ButtonBase>
   )

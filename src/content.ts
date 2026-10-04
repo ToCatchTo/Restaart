@@ -4,11 +4,6 @@ import type { AuthField, NavSectionData } from './types'
 // Externí rezervační systém
 const RESERVATION_URL = 'https://rezervace.restaart.cz/login'
 
-// Odkaz na detail aktivity
-const activity = (label: string, slug: string) => ({ label, href: `/aktivity/${slug}` })
-// Odkaz na službu (stránka zatím není navržená)
-const service = (label: string, slug: string) => ({ label, href: `/sluzby/${slug}` })
-
 export const content = {
   brand: {
     name: 'Restaart',
@@ -43,21 +38,14 @@ export const content = {
     ],
   },
 
-  openingHours: [
-    { days: 'PO, ST, PÁ', hours: '7:00 - 11:00, 15:00 - 21:00' },
-    { days: 'ÚT, ČT', hours: '15:00 - 21:00' },
-    { days: 'SOBOTA', hours: '8:00 - 12:00' },
-    { days: 'NEDĚLE', hours: '15:00 - 21:00' },
-  ],
-
   quickNav: {
     reservation: { label: 'rezervace', icon: '/icons/quick_nav_reservation.svg' },
     events: { label: 'akce', icon: '/icons/quick_nav_events.svg', href: '/akce' },
     activities: {
       label: 'aktivity',
       icon: '/icons/quick_nav_activities.svg',
-      // Sekce navigace v rozbalovacím panelu
-      sections: ['SPORT', 'REGENERACE'],
+      // Kategorie podstránek v rozbalovacím panelu
+      categories: ['sport', 'regenerace'],
     },
     reception: { label: 'recepce', icon: '/icons/reception_call.svg' },
   },
@@ -69,11 +57,8 @@ export const content = {
     eventsLabel: { icon: '/icons/hero_events_label.svg', alt: 'akce', href: '/akce' },
   },
 
+  // Text a odkaz upoutávky přichází z API (výjimečná událost)
   eventPill: {
-    // false = tlačítko se nevykreslí, místo zůstane
-    enabled: true,
-    text: '28/9 Den otevřených dveří',
-    href: '/akce/restaart-day',
     arrowIcon: '/icons/event_pill_arrow.svg',
   },
 
@@ -114,59 +99,25 @@ export const content = {
     callNote: 'Na telefonu jsme v otevíračce',
   },
 
-  // Struktura navigace (menu a rozbalovací seznam aktivit)
+  // Pevné sekce navigace; kategorie s podstránkami před ně doplní API
   navSections: [
-    {
-      label: 'SPORT',
-      items: [
-        activity('skupinová cvičení', 'skupinova-cviceni'),
-        activity('dětské kroužky', 'detske-krouzky'),
-        activity('squash', 'squash'),
-        activity('badminton', 'badminton'),
-        activity('stolní tenis', 'stolni-tenis'),
-        activity('posilovna', 'posilovna'),
-        activity('fitzóna', 'fitzona'),
-        activity('vacushape', 'vacushape'),
-      ],
-    },
-    {
-      label: 'REGENERACE',
-      items: [
-        activity('soukromá sauna', 'soukroma-sauna'),
-        activity('maderoterapie', 'maderoterapie'),
-        activity('BodyWraps', 'bodywraps'),
-        activity('lymfodrenáž', 'lymfodrenaz'),
-        activity('masáže', 'masaze'),
-        activity('tejpování', 'tejpovani'),
-        activity('výživa', 'vyziva'),
-      ],
-    },
-    {
-      label: 'SLUŽBY',
-      items: [
-        service('rezervační systém', 'rezervacni-system'),
-        service('pro firmy', 'pro-firmy'),
-        service('pro kluby', 'pro-kluby'),
-        service('pronájem prostor', 'pronajem-prostor'),
-        service('reklamní plochy / partneři', 'reklamni-plochy'),
-        service('dárkové poukazy', 'darkove-poukazy'),
-        service('věrnostní program', 'vernostni-program'),
-        service('platební možnosti', 'platebni-moznosti'),
-        service('ceník', 'cenik'),
-      ],
-    },
     { label: 'AKCE', href: '/akce' },
     { label: 'REZERVACE', href: RESERVATION_URL, external: true },
     { label: 'KONTAKT', href: '/kontakt' },
   ] satisfies NavSectionData[],
 
   pages: {
-    events: { title: 'akce', image: '/images/events_bg.webp' },
-    eventDetail: { back: 'zpět na výpis', backIcon: '/icons/back_link_arrow.svg', image: '/images/events_bg.webp' },
+    events: { title: 'akce', image: '/images/events_bg.webp', empty: 'Momentálně nejsou naplánované žádné akce.' },
+    eventDetail: {
+      back: 'zpět na výpis',
+      backIcon: '/icons/back_link_arrow.svg',
+      image: '/images/events_bg.webp',
+      // Náhradní popisky přílohy a odkazu bez vlastního názvu
+      attachmentLabel: 'Příloha ke stažení',
+      linkLabel: 'Více informací',
+    },
     activity: {
-      classListButton: 'Popis všech cvičení',
-      openIcon: '/icons/class_list_open.svg',
-      closeIcon: '/icons/class_list_close.svg',
+      ctaIcon: '/icons/button_arrow.svg',
       prevIcon: '/icons/gallery_prev.svg',
       nextIcon: '/icons/gallery_next.svg',
       prevLabel: 'Předchozí fotka',
@@ -354,10 +305,14 @@ export const content = {
     },
   },
 
-  // Cesty k datům (mock JSON, později API)
+  // Endpointy API administrace
   api: {
-    activities: '/activities.json',
-    events: '/events.json',
+    homepage: '/api/homepage',
+    openingHours: '/api/opening-hours',
+    pageCategories: '/api/page-categories',
+    page: (slug: string) => `/api/pages/${encodeURIComponent(slug)}`,
+    events: '/api/events',
+    event: (slug: string) => `/api/events/${encodeURIComponent(slug)}`,
     // Serverless funkce api/google-rating.ts
     googleRating: '/api/google-rating',
   },

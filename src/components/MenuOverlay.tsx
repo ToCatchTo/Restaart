@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
 import { COLORS, DESKTOP, DESKTOP_MQ, hoverDimMenuSx } from '../theme'
+import { useNavSections } from '../hooks/useNavSections'
 import Icon from './Icon'
 import { useMenu } from './MenuContext'
 import NavSection from './NavSection'
@@ -16,6 +17,7 @@ const MENU_TRANSITION_MS = 300
 
 export function MenuOverlay() {
   const { isOpen, close } = useMenu()
+  const sections = useNavSections()
   // Popisek právě rozbalené sekce
   const [expandedLabel, setExpandedLabel] = useState<string | null>(null)
   const panelRef = useRef<HTMLDivElement>(null)
@@ -136,7 +138,7 @@ export function MenuOverlay() {
           paddingBottom: { md: fluidDesktop(40, 60) },
         }}
       >
-        {content.navSections.map((section) => (
+        {sections.map((section) => (
           <Box key={section.label} sx={{ '& + &': { paddingTop: { xs: fluid(26, 28), md: fluidDesktop(8, 10) } } }}>
             <NavSection
               section={section}

@@ -5,10 +5,12 @@ import ButtonBase from '@mui/material/ButtonBase'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
 import { COLORS, hoverDimSx } from '../theme'
+import type { GalleryImage } from '../types'
 import Icon from './Icon'
 
 interface GalleryProps {
-  images: string[]
+  images: GalleryImage[]
+  // Popis fotky bez vlastního názvu
   alt: string
 }
 
@@ -31,8 +33,8 @@ export function Gallery({ images, alt }: GalleryProps) {
     >
       <Box
         component="img"
-        src={images[index]}
-        alt={alt}
+        src={images[index].url}
+        alt={images[index].name ?? alt}
         loading="lazy"
         decoding="async"
         sx={{

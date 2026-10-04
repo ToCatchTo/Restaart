@@ -1,11 +1,11 @@
 // Mřížka akcí – mobil dva sloupce, desktop až pět karet v centrovaném bloku
 import Box from '@mui/material/Box'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
-import type { Event } from '../types'
+import type { EventSummary } from '../types'
 import EventCard from './EventCard'
 
 interface EventsGridProps {
-  events: Event[]
+  events: EventSummary[]
 }
 
 // Desktop: nejmenší šířka karty (na 1920 px právě pět karet v řádku)

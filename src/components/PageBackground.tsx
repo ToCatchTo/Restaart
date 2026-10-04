@@ -5,7 +5,8 @@ import type { ResponsiveStyleValue } from '@mui/system'
 import { COLORS, DESKTOP_MQ, columnSx } from '../theme'
 
 interface PageBackgroundProps {
-  image: string
+  // null = fotka ještě není známá, sekce zůstane tmavá
+  image: string | null
   children: ReactNode
   minHeight?: ResponsiveStyleValue<string>
   // Pevná výška sekce, přesahující obsah zůstává viditelný
@@ -48,7 +49,7 @@ export function PageBackground({
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: COLORS.dark,
-        backgroundImage: `url(${image})`,
+        backgroundImage: image ? `url("${image}")` : 'none',
         backgroundSize: size,
         backgroundPosition: position,
         '&::before': {
@@ -60,7 +61,7 @@ export function PageBackground({
       }}
     >
       {/* Fotka je LCP prvek – preload ji stáhne dřív, než ji objeví CSS */}
-      {preload && <link rel="preload" as="image" href={image} fetchPriority="high" />}
+      {preload && image && <link rel="preload" as="image" href={image} fetchPriority="high" />}
       <Box sx={{ ...columnSx, flexGrow: 1 }}>{children}</Box>
     </Box>
   )

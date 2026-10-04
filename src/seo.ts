@@ -1,6 +1,7 @@
 // SEO texty stránek – titulky, popisky a údaje o provozovně pro strukturovaná data
 import { content } from './content'
-import type { Activity, Event } from './types'
+import { formatEventDate } from './format'
+import type { EventDetail, PageDetail } from './types'
 
 export const SITE_ORIGIN = 'https://www.restaart.cz'
 export const BRAND = content.brand.name
@@ -39,18 +40,29 @@ export const NOT_FOUND_SEO: SeoMeta = { title: 'Stránka nenalezena', descriptio
 
 export const formatTitle = (title?: string) => `${BRAND}${TITLE_SEPARATOR}${title ?? HOME_TITLE}`
 
+// URL obrázku z API je absolutní, lokální cesta dostane origin webu
+export const absoluteUrl = (url: string) => (/^https?:\/\//.test(url) ? url : SITE_ORIGIN + url)
+
 // Odstraní HTML a zkrátí text na délku popisku
-const stripHtml = (html: string) => html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+const stripHtml = (html: string | null) =>
+  (html ?? '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/\s+/g, ' ')
+    .trim()
 const clip = (text: string, max = 155) => (text.length <= max ? text : `${text.slice(0, max - 1).replace(/\s+\S*$/, '')}…`)
 
-export const seoForActivity = (activity: Activity): SeoMeta => ({
-  title: activity.title,
-  description: clip(`${activity.title} v Restaart Pardubice. ${stripHtml(activity.description)}`),
+export const seoForPage = (page: PageDetail): SeoMeta => ({
+  title: page.title,
+  description: clip(`${page.title} v Restaart Pardubice. ${stripHtml(page.text)}`.trim()),
 })
 
-export const seoForEvent = (event: Event): SeoMeta => ({
+export const seoForEvent = (event: EventDetail): SeoMeta => ({
   title: event.title,
-  description: clip(`${event.title} (${event.date}) – akce ve sportovním centru Restaart Pardubice. ${stripHtml(event.description)}`),
+  description: clip(
+    `${event.title} (${formatEventDate(event.dateFrom, event.dateTo)}) – akce ve sportovním centru Restaart Pardubice. ${stripHtml(event.text)}`.trim(),
+  ),
 })
 
 // Údaje provozovny pro JSON-LD (LocalBusiness)
@@ -62,15 +74,6 @@ export const LOCAL_BUSINESS = {
   postalCode: '530 06',
   region: 'Pardubický kraj',
 } as const
-
-// Otevírací doba pro schema.org (odpovídá content.openingHours)
-const OPENING_HOURS = [
-  { dayOfWeek: ['Monday', 'Wednesday', 'Friday'], opens: '07:00', closes: '11:00' },
-  { dayOfWeek: ['Monday', 'Wednesday', 'Friday'], opens: '15:00', closes: '21:00' },
-  { dayOfWeek: ['Tuesday', 'Thursday'], opens: '15:00', closes: '21:00' },
-  { dayOfWeek: ['Saturday'], opens: '08:00', closes: '12:00' },
-  { dayOfWeek: ['Sunday'], opens: '15:00', closes: '21:00' },
-]
 
 // Odkazy na sítě mají smysl v sameAs, jen pokud vedou na konkrétní profil, ne na placeholder domény
 const socialSameAs = content.contact.social.filter((item) => new URL(item.href).pathname !== '/').map((item) => item.href)
@@ -93,29 +96,20 @@ export const localBusinessJsonLd = (): Record<string, unknown> => ({
     addressRegion: LOCAL_BUSINESS.region,
     addressCountry: 'CZ',
   },
-  openingHoursSpecification: OPENING_HOURS.map((row) => ({ '@type': 'OpeningHoursSpecification', ...row })),
   ...(socialSameAs.length > 0 && { sameAs: socialSameAs }),
 })
 
 // Popisek úvodní stránky v drobečkové navigaci
 export const ACTIVITIES_LABEL = 'Aktivity'
 
-// Datum akce „D/M“ → ISO; rok = aktuální, nebo příští, pokud datum už proběhlo
-const eventStartDate = (date: string, now = new Date()) => {
-  const [day, month] = date.split('/').map(Number)
-  if (!day || !month) return undefined
-  let year = now.getFullYear()
-  if (new Date(year, month - 1, day) < new Date(now.getFullYear(), now.getMonth(), now.getDate())) year += 1
-  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-}
-
-export const eventJsonLd = (event: Event, path: string): Record<string, unknown> => ({
+export const eventJsonLd = (event: EventDetail, path: string): Record<string, unknown> => ({
   '@type': 'Event',
   name: event.title,
-  description: clip(stripHtml(event.description), 300),
-  image: SITE_ORIGIN + event.image,
+  ...(event.text && { description: clip(stripHtml(event.text), 300) }),
+  ...(event.image && { image: absoluteUrl(event.image) }),
   url: SITE_ORIGIN + path,
-  ...(eventStartDate(event.date) && { startDate: eventStartDate(event.date) }),
+  startDate: event.dateFrom,
+  ...(event.dateTo && { endDate: event.dateTo }),
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
   location: {
     '@type': 'Place',
