@@ -117,7 +117,10 @@ export const content = {
       linkLabel: 'Více informací',
     },
     activity: {
-      ctaIcon: '/icons/button_arrow.svg',
+      // Popisek rozbalovacího tlačítka, když ho administrace nevyplní
+      ctaButton: 'Více informací',
+      openIcon: '/icons/class_list_open.svg',
+      closeIcon: '/icons/class_list_close.svg',
       prevIcon: '/icons/gallery_prev.svg',
       nextIcon: '/icons/gallery_next.svg',
       prevLabel: 'Předchozí fotka',
