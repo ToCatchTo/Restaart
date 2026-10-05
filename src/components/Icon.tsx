@@ -1,4 +1,4 @@
-// Hotová SVG ikona z /public/icons vykreslená jako obrázek (barvy jsou součástí souboru)
+// Hotová SVG ikona z /public/static-icons vykreslená jako obrázek (barvy jsou součástí souboru)
 import Box from '@mui/material/Box'
 
 import type { ResponsiveStyleValue } from '@mui/system'

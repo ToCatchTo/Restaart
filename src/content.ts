@@ -8,18 +8,18 @@ export const content = {
   brand: {
     name: 'Restaart',
     logoAlt: 'Restaart – sportovní centrum',
-    logo: '/icons/brand_logo.svg',
+    logo: '/static-icons/brand_logo.svg',
   },
 
   header: {
     openMenu: 'Otevřít menu',
     closeMenu: 'Zavřít menu',
     menuLabel: 'Hlavní menu',
-    menuIcon: '/icons/header_menu.svg',
+    menuIcon: '/static-icons/header_menu.svg',
     // Desktop: tlačítko v hlavičce – rezervační systém
-    reservation: { label: 'rezervovat', icon: '/icons/button_arrow.svg', href: RESERVATION_URL },
+    reservation: { label: 'rezervovat', icon: '/static-icons/button_arrow.svg', href: RESERVATION_URL },
     // Desktop: varianta tlačítka na stránkách účtu
-    backToWeb: { label: 'zpět na web', icon: '/icons/button_arrow.svg', href: '/' },
+    backToWeb: { label: 'zpět na web', icon: '/static-icons/button_arrow.svg', href: '/' },
   },
 
   contact: {
@@ -33,39 +33,39 @@ export const content = {
     parkingTitle: 'Parkování',
     parkingLines: ['Podélné parkování před', 'a v okolí sportovního centra'],
     social: [
-      { label: 'Instagram', href: 'https://www.instagram.com/', icon: '/icons/social_instagram.svg' },
-      { label: 'Facebook', href: 'https://www.facebook.com/', icon: '/icons/social_facebook.svg' },
+      { label: 'Instagram', href: 'https://www.instagram.com/', icon: '/static-icons/social_instagram.svg' },
+      { label: 'Facebook', href: 'https://www.facebook.com/', icon: '/static-icons/social_facebook.svg' },
     ],
   },
 
   quickNav: {
-    reservation: { label: 'rezervace', icon: '/icons/quick_nav_reservation.svg' },
-    events: { label: 'akce', icon: '/icons/quick_nav_events.svg', href: '/akce' },
+    reservation: { label: 'rezervace', icon: '/static-icons/quick_nav_reservation.svg' },
+    events: { label: 'akce', icon: '/static-icons/quick_nav_events.svg', href: '/akce' },
     activities: {
       label: 'aktivity',
-      icon: '/icons/quick_nav_activities.svg',
+      icon: '/static-icons/quick_nav_activities.svg',
       // Kategorie podstránek v rozbalovacím panelu
       categories: ['sport', 'regenerace'],
     },
-    reception: { label: 'recepce', icon: '/icons/reception_call.svg' },
+    reception: { label: 'recepce', icon: '/static-icons/reception_call.svg' },
   },
 
   hero: {
     lines: ['sportovní centrum', 'pro celou rodinu'],
     image: '/images/home_hero.webp',
     // Desktop: nápis „akce“ v pravém dolním rohu hera
-    eventsLabel: { icon: '/icons/hero_events_label.svg', alt: 'akce', href: '/akce' },
+    eventsLabel: { icon: '/static-icons/hero_events_label.svg', alt: 'akce', href: '/akce' },
   },
 
   // Text a odkaz upoutávky přichází z API (výjimečná událost)
   eventPill: {
-    arrowIcon: '/icons/event_pill_arrow.svg',
+    arrowIcon: '/static-icons/event_pill_arrow.svg',
   },
 
   googleRating: {
-    logo: '/icons/google_rating_logo.svg',
+    logo: '/static-icons/google_rating_logo.svg',
     logoAlt: 'Google',
-    starIcon: '/icons/google_rating_star.svg',
+    starIcon: '/static-icons/google_rating_star.svg',
     maxStars: 5,
     title: 'Recenze Google',
     buttonLabel: 'Zobrazit všechny recenze',
@@ -88,13 +88,13 @@ export const content = {
     premisesLines: ['Přerovská 503, 530 06 Pardubice'],
     terms: { label: 'Obchodní podmínky', href: '/obchodni-podminky' },
     privacy: { label: 'Zásady ochrany osobních údajů', href: '/ochrana-osobnich-udaju' },
-    credit: { label: 'Tvoříme weby s radostí', href: 'https://matfix.cz', logo: '/icons/footer_credit_logo.svg', logoAlt: 'Matfix', logoIcon: '/icons/footer_credit_icon.svg', logoIconAlt: 'Matfix – ikona' },
+    credit: { label: 'Tvoříme weby s radostí', href: 'https://matfix.cz', logo: '/static-icons/footer_credit_logo.svg', logoAlt: 'Matfix', logoIcon: '/static-icons/footer_credit_icon.svg', logoIconAlt: 'Matfix – ikona' },
   },
 
   menu: {
-    closeIcon: '/icons/menu_close.svg',
-    closeIconDesktop: '/icons/menu_close_desktop.svg',
-    phoneIcon: '/icons/reception_call.svg',
+    closeIcon: '/static-icons/menu_close.svg',
+    closeIconDesktop: '/static-icons/menu_close_desktop.svg',
+    phoneIcon: '/static-icons/reception_call.svg',
     callReception: 'Volat na recepci',
     callNote: 'Na telefonu jsme v otevíračce',
   },
@@ -110,7 +110,7 @@ export const content = {
     events: { title: 'akce', image: '/images/events_bg.webp', empty: 'Momentálně nejsou naplánované žádné akce.' },
     eventDetail: {
       back: 'zpět na výpis',
-      backIcon: '/icons/back_link_arrow.svg',
+      backIcon: '/static-icons/back_link_arrow.svg',
       image: '/images/events_bg.webp',
       // Náhradní popisky přílohy a odkazu bez vlastního názvu
       attachmentLabel: 'Příloha ke stažení',
@@ -119,10 +119,10 @@ export const content = {
     activity: {
       // Popisek rozbalovacího tlačítka, když ho administrace nevyplní
       ctaButton: 'Více informací',
-      openIcon: '/icons/class_list_open.svg',
-      closeIcon: '/icons/class_list_close.svg',
-      prevIcon: '/icons/gallery_prev.svg',
-      nextIcon: '/icons/gallery_next.svg',
+      openIcon: '/static-icons/class_list_open.svg',
+      closeIcon: '/static-icons/class_list_close.svg',
+      prevIcon: '/static-icons/gallery_prev.svg',
+      nextIcon: '/static-icons/gallery_next.svg',
       prevLabel: 'Předchozí fotka',
       nextLabel: 'Další fotka',
     },
@@ -133,7 +133,7 @@ export const content = {
       emailLabel: 'Email',
       passwordLabel: 'Heslo',
       submit: 'přihlásit',
-      submitIcon: '/icons/button_arrow.svg',
+      submitIcon: '/static-icons/button_arrow.svg',
       noAccount: 'Nemáte účet?',
       register: 'Registrovat',
       registerHref: '/registrace',
@@ -162,7 +162,7 @@ export const content = {
         ariaLabel: 'Souhlas s obchodními podmínkami a zpracováním osobních údajů',
       },
       submit: 'registrovat',
-      submitIcon: '/icons/button_arrow.svg',
+      submitIcon: '/static-icons/button_arrow.svg',
       haveAccount: 'Máte účet?',
       login: 'Přihlásit',
       loginHref: '/prihlaseni',
