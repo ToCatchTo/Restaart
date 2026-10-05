@@ -16,9 +16,6 @@ npm-debug.log*
 .idea
 .DS_Store
 
-# Env (šablona se neverzuje, .env s prázdnými hodnotami ano)
-.env.example
-
 # Dokumentace a pracovní soubory
 docs
 superpowers
