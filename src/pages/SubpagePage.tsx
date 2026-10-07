@@ -24,6 +24,9 @@ import Seo from '../components/Seo'
 
 // Od této šířky je popis a ceník vedle sebe, pod ní pod sebou
 const SIDE_BY_SIDE_MQ = '@media (min-width: 900px)'
+// Desktop: výška sekce s fotkou podle návrhu (s galerií) a bez galerie – mezera nad patičkou zhruba poloviční
+const PAGE_HEIGHT = 2083
+const PAGE_HEIGHT_NO_GALLERY = 1450
 
 export function SubpagePage() {
   const { slug } = useParams<{ slug: string }>()
@@ -32,6 +35,8 @@ export function SubpagePage() {
   // Cesta podle kategorie podstránky
   const path = page ? pagePath(page.category.slug, page.slug) : pathname
   const meta = page ? seoForPage(page) : notFound ? NOT_FOUND_SEO : SEO['/']
+  // Bez načtené stránky se počítá s galerií, aby sekce neposkočila
+  const hasGallery = page ? page.gallery.length > 0 : true
 
   // Podstránka otevřená pod prefixem jiné kategorie
   if (page && pathname !== path) return <Navigate to={path} replace />
@@ -57,7 +62,7 @@ export function SubpagePage() {
       <PageBackground
         image={page ? (page.backgroundImage ?? content.hero.image) : loading ? null : content.hero.image}
         preload={Boolean(page)}
-        minHeight={{ md: desktopScaled(2083) }}
+        minHeight={{ md: desktopScaled(hasGallery ? PAGE_HEIGHT : PAGE_HEIGHT_NO_GALLERY) }}
         position={{ xs: 'center top', md: '50% 84.5%' }}
         size={{ xs: 'cover', md: '103.75% auto' }}
       >
@@ -107,6 +112,8 @@ export function SubpagePage() {
               )}
             </Box>
             <Gallery images={page.gallery} alt={page.title} />
+            {/* Mobil: bez galerie drží odstup obsahu od patičky */}
+            {!hasGallery && <Box aria-hidden sx={{ paddingTop: { xs: fluid(100, 110), md: 0 } }} />}
           </>
         ) : (
           <DataStatus loading={loading} error={notFound ? null : error} notFound={notFound} />

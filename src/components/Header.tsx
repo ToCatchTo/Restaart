@@ -81,10 +81,11 @@ export function Header({ action = 'reservation' }: HeaderProps) {
           aria-label={content.header.openMenu}
           onClick={open}
           sx={{
-            // Mobil: ikona menu vpravo nad osou loga
-            position: { xs: 'absolute', md: 'static' },
-            top: { xs: fluid(-26, -16) },
+            // Mobil: ikona menu fixně vpravo nahoře, zůstává i při scrollu
+            position: { xs: 'fixed', md: 'static' },
+            top: { xs: fluid(50, 66) },
             right: { xs: fluid(30, 34) },
+            zIndex: { xs: (theme) => theme.zIndex.appBar, md: 'auto' },
             marginLeft: { md: desktopScaled(78) },
             padding: { xs: '6px', md: 0 },
             borderRadius: '8px',
