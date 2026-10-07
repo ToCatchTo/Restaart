@@ -1,4 +1,4 @@
-// Galerie – jedna zaoblená fotka, přepínání šipkami nebo swipem přes fotku; desktop: 1640×650 s rámem
+// Galerie – zaoblený výřez s pásem fotek, přejezd šipkami nebo swipem; desktop: 1640×650 s rámem
 import { useRef, useState, type TouchEvent } from 'react'
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
@@ -16,6 +16,8 @@ interface GalleryProps {
 
 // Minimální vodorovný posun prstu pro přepnutí fotky
 const SWIPE_MIN_PX = 40
+// Délka přejezdu na další fotku
+const SLIDE_MS = 400
 
 export function Gallery({ images, alt }: GalleryProps) {
   const [index, setIndex] = useState(0)
@@ -28,13 +30,13 @@ export function Gallery({ images, alt }: GalleryProps) {
 
   const step = (delta: number) => setIndex((value) => (value + delta + count) % count)
 
-  const handleTouchStart = (event: TouchEvent<HTMLImageElement>) => {
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     const touch = event.touches[0]
     touchStart.current = touch ? { x: touch.clientX, y: touch.clientY } : null
   }
 
   // Převážně vodorovný tah přepne fotku, svislý nechá scroll stránky
-  const handleTouchEnd = (event: TouchEvent<HTMLImageElement>) => {
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
     const start = touchStart.current
     const touch = event.changedTouches[0]
     touchStart.current = null
@@ -52,29 +54,47 @@ export function Gallery({ images, alt }: GalleryProps) {
         paddingRight: { xs: fluid(30, 34), md: desktopScaled(140) },
       }}
     >
+      {/* Výřez – uvnitř pás fotek, který se posouvá na aktuální fotku */}
       <Box
-        component="img"
-        src={images[index].url}
-        alt={images[index].name ?? alt}
-        loading="lazy"
-        decoding="async"
-        draggable={false}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         sx={{
-          display: 'block',
+          overflow: 'hidden',
           width: '100%',
           // Svislý posun zůstává prohlížeči, vodorovný tah přepíná fotky
           touchAction: 'pan-y',
           userSelect: 'none',
           aspectRatio: { xs: '1 / 1', md: '1640 / 650' },
-          objectFit: 'cover',
           borderRadius: { xs: fluid(31, 33), md: desktopScaled(71) },
           border: { md: `${desktopScaled(4)} solid ${COLORS.grayFrame}` },
           boxSizing: 'border-box',
           backgroundColor: COLORS.gray,
         }}
-      />
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            height: '100%',
+            transform: `translateX(${-index * 100}%)`,
+            transition: `transform ${SLIDE_MS}ms ease`,
+            '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
+          }}
+        >
+          {images.map((image, imageIndex) => (
+            <Box
+              key={`${imageIndex}-${image.url}`}
+              component="img"
+              src={image.url}
+              alt={image.name ?? alt}
+              aria-hidden={imageIndex !== index}
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+              sx={{ flex: '0 0 100%', width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            />
+          ))}
+        </Box>
+      </Box>
       <Box
         sx={{
           paddingTop: { xs: fluid(36, 38), md: fluidDesktop(40, 66) },

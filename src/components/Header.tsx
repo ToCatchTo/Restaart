@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
-import { COLORS, DESKTOP, frostedButtonSx, hoverDimMenuSx } from '../theme'
+import { COLORS, DESKTOP, frostedButtonSx, hoverDimMenuSx, theme } from '../theme'
 import Icon from './Icon'
 import { useMenu } from './MenuContext'
 
@@ -85,7 +85,7 @@ export function Header({ action = 'reservation' }: HeaderProps) {
             position: { xs: 'fixed', md: 'static' },
             top: { xs: fluid(50, 66) },
             right: { xs: fluid(30, 34) },
-            zIndex: { xs: (theme) => theme.zIndex.appBar, md: 'auto' },
+            zIndex: { xs: theme.zIndex.appBar, md: 'auto' },
             marginLeft: { md: desktopScaled(78) },
             padding: { xs: '6px', md: 0 },
             borderRadius: '8px',
