@@ -60,8 +60,8 @@ export function PageBackground({
         },
       }}
     >
-      {/* Fotka je LCP prvek – preload ji stáhne dřív, než ji objeví CSS */}
-      {preload && image && <link rel="preload" as="image" href={image} fetchPriority="high" />}
+      {/* Fotka je LCP prvek – preload ji stáhne dřív, než ji objeví CSS; karta na pozadí se nevykresluje, preload by zůstal nevyužitý */}
+      {preload && image && document.visibilityState !== 'hidden' && <link rel="preload" as="image" href={image} fetchPriority="high" />}
       <Box sx={{ ...columnSx, flexGrow: 1 }}>{children}</Box>
     </Box>
   )
