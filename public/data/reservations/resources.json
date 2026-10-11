@@ -1,0 +1,9 @@
+{
+  "items": [
+    { "slug": "skupinove-lekce", "name": "Skupinové lekce" },
+    { "slug": "sauna", "name": "Sauna" },
+    { "slug": "squash", "name": "Squash" },
+    { "slug": "badminton", "name": "Badminton" },
+    { "slug": "vacushape", "name": "Vacushape" }
+  ]
+}

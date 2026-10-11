@@ -30,6 +30,20 @@ export function ContactInfo({ size = 'small' }: ContactInfoProps) {
       <Typography component="a" href={content.contact.phoneHref} sx={linkSx}>
         {content.contact.phone}
       </Typography>
+      {/* Dovětek k telefonu */}
+      <Typography
+        component="p"
+        sx={{
+          margin: 0,
+          fontSize: { xs: large ? fluid(14, 15) : fluid(11, 12), md: fluidDesktop(large ? 14 : 11, large ? 18 : 15) },
+          lineHeight: { xs: large ? fluid(20, 21) : fluid(16, 17), md: fluidDesktop(large ? 20 : 16, large ? 26 : 22) },
+          color: COLORS.white,
+          fontWeight: 400,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {content.contact.phoneNote}
+      </Typography>
     </Box>
   )
 }

@@ -31,6 +31,7 @@ export const SEO: Record<string, SeoMeta> = {
     description: 'Kontakt a otevírací doba sportovního centra Restaart, Přerovská 503, Pardubice-Svítkov. Telefon +420 608 197 964, e-mail info@restaart.cz.',
   },
   '/prihlaseni': { title: 'Přihlášení', description: 'Přihlášení do rezervačního systému sportovního centra Restaart Pardubice.' },
+  '/vypis-rezervaci': { title: 'Výpis rezervací', description: 'Týdenní rozvrh lekcí a termínů sportovního centra Restaart Pardubice – skupinové lekce, sauna, squash, badminton a vacushape.' },
   '/registrace': { title: 'Registrace', description: 'Registrace nového účtu do rezervačního systému sportovního centra Restaart Pardubice.' },
   [content.footer.terms.href]: { title: content.footer.terms.label, description: 'Obchodní podmínky sportovního centra Restaart Pardubice – rezervace, platby, storno a provozní řád.' },
   [content.footer.privacy.href]: { title: content.footer.privacy.label, description: 'Zásady ochrany osobních údajů sportovního centra Restaart Pardubice – jaké údaje zpracováváme a proč.' },

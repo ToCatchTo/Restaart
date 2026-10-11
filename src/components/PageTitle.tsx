@@ -13,6 +13,8 @@ interface PageTitleProps {
   variantDesktop?: 'large' | 'small'
   // Desktop: maximální šířka textu (px v návrhu)
   widthDesktop?: number
+  // Desktop: sloupec dané šířky vycentrovaný místo zarovnání k obsahové hraně
+  centerDesktop?: boolean
 }
 
 export function PageTitle({
@@ -22,6 +24,7 @@ export function PageTitle({
   topDesktop = 14,
   variantDesktop = 'large',
   widthDesktop,
+  centerDesktop = false,
 }: PageTitleProps) {
   const small = variantDesktop === 'small'
 
@@ -31,8 +34,9 @@ export function PageTitle({
       sx={{
         margin: 0,
         paddingTop: { xs: fluid(48, 44), md: desktopScaled(topDesktop) },
-        paddingLeft: { xs: fluid(30, 34), md: desktopScaled(DESKTOP.content) },
-        paddingRight: { xs: fluid(30, 34), md: widthDesktop ? 0 : desktopScaled(DESKTOP.content) },
+        paddingLeft: { xs: fluid(30, 34), md: centerDesktop ? 0 : desktopScaled(DESKTOP.content) },
+        paddingRight: { xs: fluid(30, 34), md: widthDesktop || centerDesktop ? 0 : desktopScaled(DESKTOP.content) },
+        marginX: { md: centerDesktop ? 'auto' : 0 },
         maxWidth: { md: widthDesktop ? desktopScaled(widthDesktop) : 'none' },
         boxSizing: { md: 'content-box' },
         fontSize: { xs: fluid(40, 32), md: fluidDesktop(37, small ? 50 : 100) },

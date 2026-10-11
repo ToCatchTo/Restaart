@@ -23,6 +23,10 @@ export const COLORS = {
   gray: '#707070',
   grayFrame: '#696969',
   overlay: 'rgba(0, 0, 0, 0.7)',
+  // Výpis rezervací – aktivní záložka, karta rozvrhu a obsazený termín
+  tabActive: '#3f5c5b',
+  schedule: '#414852',
+  scheduleReserved: '#6d6e70',
 } as const
 
 // Desktop: šířka návrhu a rozměry mřížky (okraj 140, obsahová hrana 278)

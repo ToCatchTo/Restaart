@@ -112,3 +112,56 @@ export interface AuthField {
   label: string
   autoComplete?: string
 }
+
+// Zdroj rezervací (záložka rozvrhu)
+export interface ReservationResource {
+  slug: string
+  name: string
+}
+
+// Termín v buňce rozvrhu
+export interface ScheduleSlot {
+  label: string
+  color: string | null
+  reserved: boolean
+}
+
+// Den rozvrhu – termíny podle času („7:00“ → […])
+export interface ScheduleDay {
+  date: string
+  slots: Record<string, ScheduleSlot[]>
+}
+
+// Týdenní rozvrh zdroje
+export interface ReservationSchedule {
+  resource: string
+  weekFrom: string
+  weekTo: string
+  times: string[]
+  days: ScheduleDay[]
+}
+
+// Blok textu právní stránky; v textu lze použít **tučně** a [odkaz](url)
+export type LegalBlock =
+  | { type: 'paragraph'; lead?: string; text: string }
+  | { type: 'subheading'; text: string }
+  | { type: 'list'; items: { lead?: string; text: string }[] }
+  | { type: 'table'; head: [string, string]; rows: [string, string][] }
+  | { type: 'lines'; lines: string[] }
+
+// Sekce právní stránky; id slouží jako kotva pro obsah
+export interface LegalSection {
+  id?: string
+  heading: string
+  blocks: LegalBlock[]
+}
+
+// Právní dokument (obchodní podmínky / ochrana osobních údajů)
+export interface LegalDocument {
+  title: string
+  subtitle: string
+  // Obsah s odkazy na sekce a oddělovače mezi sekcemi
+  contents?: boolean
+  footer?: string
+  sections: LegalSection[]
+}

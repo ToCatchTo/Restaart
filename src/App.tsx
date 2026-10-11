@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage'
 import LegalPage from './pages/LegalPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import ReservationsPage from './pages/ReservationsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import SubpagePage from './pages/SubpagePage'
 
@@ -24,6 +25,7 @@ export function App() {
         <Route path="/kontakt" element={<ContactPage />} />
         <Route path="/prihlaseni" element={<LoginPage />} />
         <Route path="/registrace" element={<RegisterPage />} />
+        <Route path="/vypis-rezervaci" element={<ReservationsPage />} />
         <Route path={content.footer.terms.href} element={<LegalPage page="terms" />} />
         <Route path={content.footer.privacy.href} element={<LegalPage page="privacy" />} />
         <Route path="*" element={<NotFoundPage />} />
