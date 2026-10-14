@@ -27,6 +27,8 @@ export const COLORS = {
   tabActive: '#3f5c5b',
   schedule: '#414852',
   scheduleReserved: '#6d6e70',
+  // Chybová hláška a rám neplatného pole formuláře
+  error: '#ff7a7a',
 } as const
 
 // Desktop: šířka návrhu a rozměry mřížky (okraj 140, obsahová hrana 278)

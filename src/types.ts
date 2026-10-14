@@ -111,6 +111,10 @@ export interface AuthField {
   name: string
   label: string
   autoComplete?: string
+  // Minimální délka hodnoty (heslo)
+  minLength?: number
+  // Jméno pole, se kterým se musí hodnota shodovat (heslo znovu)
+  matches?: string
 }
 
 // Druhá část stránky přihlášení – text po řádcích a tlačítko s odkazem

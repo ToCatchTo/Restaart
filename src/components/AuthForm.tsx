@@ -1,5 +1,5 @@
-// Formulář přihlášení / registrace – statická podoba bez odeslání
-import { Fragment, type ReactNode } from 'react'
+// Formulář přihlášení / registrace – bez odeslání, jen kontrola polí na straně prohlížeče
+import { Fragment, useState, type FormEvent, type ReactNode } from 'react'
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import Checkbox from '@mui/material/Checkbox'
@@ -7,9 +7,11 @@ import InputBase from '@mui/material/InputBase'
 import Typography from '@mui/material/Typography'
 import type { ResponsiveStyleValue } from '@mui/system'
 import { Link } from 'react-router-dom'
+import { content } from '../content'
 import { desktopType, fluid, fluidBetween, fluidDesktop, round } from '../fluid'
 import { COLORS, DESKTOP_MAX_WIDTH, columnSx, frostedButtonSx } from '../theme'
 import type { AuthAside, AuthField } from '../types'
+import { validateFields, type FieldErrors, type FieldValues } from '../validation'
 import FooterCredit from './FooterCredit'
 import Header from './Header'
 import Icon from './Icon'
@@ -93,6 +95,16 @@ const fieldSx = {
     WebkitBackgroundClip: 'text',
     transition: 'background-color 9999s ease-in-out 0s',
   },
+} as const
+
+// Chybová hláška pod polem – zarovnaná s textem v poli
+const errorSx = {
+  paddingTop: { xs: fluid(6, 7), md: fluidDesktop(6, 8) },
+  paddingLeft: { xs: fluid(29, 30), md: fluidDesktop(30, 41) },
+  fontSize: { xs: fluid(13, 14), md: fluidDesktop(13, 15) },
+  lineHeight: { xs: fluid(16, 17), md: fluidDesktop(16, 18) },
+  fontWeight: 400,
+  color: COLORS.error,
 } as const
 
 // Poznámka pod tlačítkem
@@ -179,11 +191,34 @@ function ArrowButton({ label, icon, href, minWidth, textWidth, paddingLeft }: Ar
 
 export function AuthForm({ title, fields, submit, submitIcon, image, note, consent, aside }: AuthFormProps) {
   const twoColumns = fields.length > 2
+  const { authErrors } = content.pages
+  const [values, setValues] = useState<FieldValues>({})
+  const [errors, setErrors] = useState<FieldErrors>({})
+  const [consentChecked, setConsentChecked] = useState(false)
+  const [consentError, setConsentError] = useState('')
+
+  const changeValue = (name: string, value: string) => {
+    setValues((previous) => ({ ...previous, [name]: value }))
+    // Oprava pole hlášku hned schová, znovu se zkontroluje až při odeslání
+    setErrors(({ [name]: _removed, ...rest }) => rest)
+  }
+
+  // Odeslání nikam nevede – jen zkontroluje pole a zaměří první neplatné
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const nextErrors = validateFields(fields, values)
+    const nextConsentError = consent && !consentChecked ? authErrors.consent : ''
+    setErrors(nextErrors)
+    setConsentError(nextConsentError)
+    const firstInvalid = fields.find((field) => nextErrors[field.name])?.name ?? (nextConsentError ? 'consent' : null)
+    if (firstInvalid) (event.currentTarget.elements.namedItem(firstInvalid) as HTMLElement | null)?.focus()
+  }
 
   const form = (
     <Box
       component="form"
-      onSubmit={(event) => event.preventDefault()}
+      noValidate
+      onSubmit={handleSubmit}
       sx={{
         ...formSx,
         // Bez druhé části je u spodního okraje kredit autora webu
@@ -223,52 +258,77 @@ export function AuthForm({ title, fields, submit, submitIcon, image, note, conse
           ...(twoColumns && { [WIDE_MQ]: { gridTemplateColumns: `repeat(2, ${FIELD_WIDTH})` } }),
         }}
       >
-        {fields.map((field) => (
-          <InputBase
-            key={field.name}
-            type={field.type}
-            name={field.name}
-            placeholder={field.label}
-            autoComplete={field.autoComplete}
-            inputProps={{ 'aria-label': field.label }}
-            sx={fieldSx}
-          />
-        ))}
+        {fields.map((field) => {
+          const error = errors[field.name]
+          const errorId = `${field.name}-error`
+          return (
+            <Box key={field.name}>
+              <InputBase
+                type={field.type}
+                name={field.name}
+                placeholder={field.label}
+                autoComplete={field.autoComplete}
+                value={values[field.name] ?? ''}
+                onChange={(event) => changeValue(field.name, event.target.value)}
+                inputProps={{ 'aria-label': field.label, 'aria-invalid': Boolean(error), 'aria-describedby': error ? errorId : undefined }}
+                sx={{ ...fieldSx, ...(error && { borderColor: COLORS.error }) }}
+              />
+              {error && (
+                <Typography id={errorId} sx={errorSx}>
+                  {error}
+                </Typography>
+              )}
+            </Box>
+          )
+        })}
 
         {consent && (
-          <Box
-            component="label"
-            sx={{
-              // Řádek přes oba sloupce mřížky
-              gridColumn: '1 / -1',
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: { xs: fluid(8, 9), md: fluidDesktop(8, 10) },
-              cursor: 'pointer',
-            }}
-          >
-            <Checkbox
-              required
-              name="consent"
-              slotProps={{ input: { 'aria-label': consent.ariaLabel } }}
+          // Řádek přes oba sloupce mřížky
+          <Box sx={{ gridColumn: '1 / -1' }}>
+            <Box
+              component="label"
               sx={{
-                padding: 0,
-                color: COLORS.white,
-                '&.Mui-checked': { color: COLORS.cyanLabel },
-                '& .MuiSvgIcon-root': { fontSize: { xs: fluid(20, 21), md: fluidDesktop(20, 24) } },
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: { xs: fluid(8, 9), md: fluidDesktop(8, 10) },
+                cursor: 'pointer',
               }}
-            />
-            <Typography component="span" sx={{ ...noteSx, color: COLORS.white }}>
-              {consent.before}
-              <Box component={Link} to={consent.termsHref} sx={consentLinkSx}>
-                {consent.termsLabel}
-              </Box>
-              {consent.between}
-              <Box component={Link} to={consent.privacyHref} sx={consentLinkSx}>
-                {consent.privacyLabel}
-              </Box>
-              {consent.after}
-            </Typography>
+            >
+              <Checkbox
+                required
+                name="consent"
+                checked={consentChecked}
+                onChange={(event) => {
+                  setConsentChecked(event.target.checked)
+                  setConsentError('')
+                }}
+                slotProps={{
+                  input: { 'aria-label': consent.ariaLabel, 'aria-invalid': Boolean(consentError), 'aria-describedby': consentError ? 'consent-error' : undefined },
+                }}
+                sx={{
+                  padding: 0,
+                  color: consentError ? COLORS.error : COLORS.white,
+                  '&.Mui-checked': { color: COLORS.cyanLabel },
+                  '& .MuiSvgIcon-root': { fontSize: { xs: fluid(20, 21), md: fluidDesktop(20, 24) } },
+                }}
+              />
+              <Typography component="span" sx={{ ...noteSx, color: COLORS.white }}>
+                {consent.before}
+                <Box component={Link} to={consent.termsHref} sx={consentLinkSx}>
+                  {consent.termsLabel}
+                </Box>
+                {consent.between}
+                <Box component={Link} to={consent.privacyHref} sx={consentLinkSx}>
+                  {consent.privacyLabel}
+                </Box>
+                {consent.after}
+              </Typography>
+            </Box>
+            {consentError && (
+              <Typography id="consent-error" sx={{ ...errorSx, paddingLeft: 0 }}>
+                {consentError}
+              </Typography>
+            )}
           </Box>
         )}
       </Box>

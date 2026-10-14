@@ -130,6 +130,15 @@ export const content = {
       nextLabel: 'Další fotka',
     },
     contact: { image: '/images/contact_bg.webp' },
+    // Chyby formulářů přihlášení a registrace (jen kontrola na straně prohlížeče)
+    authErrors: {
+      required: 'Vyplňte toto pole.',
+      email: 'Zadejte platný e-mail.',
+      phone: 'Zadejte platné telefonní číslo.',
+      minLength: (length: number) => `Zadejte alespoň ${length} znaků.`,
+      match: 'Hesla se neshodují.',
+      consent: 'Pro registraci je potřeba souhlas s podmínkami.',
+    },
     // Statická stránka přihlášení – formulář a druhá část s odkazem na rozpis
     login: {
       title: 'online rezervace',
@@ -156,8 +165,8 @@ export const content = {
         { type: 'text', name: 'lastName', label: 'Příjmení', autoComplete: 'family-name' },
         { type: 'email', name: 'email', label: 'Email', autoComplete: 'email' },
         { type: 'tel', name: 'phone', label: 'Telefon', autoComplete: 'tel' },
-        { type: 'password', name: 'password', label: 'Heslo', autoComplete: 'new-password' },
-        { type: 'password', name: 'passwordConfirm', label: 'Heslo znovu', autoComplete: 'new-password' },
+        { type: 'password', name: 'password', label: 'Heslo', autoComplete: 'new-password', minLength: 8 },
+        { type: 'password', name: 'passwordConfirm', label: 'Heslo znovu', autoComplete: 'new-password', matches: 'password' },
       ] satisfies AuthField[],
       // Souhlas s podmínkami – text rozdělený kolem dvou odkazů
       consent: {
