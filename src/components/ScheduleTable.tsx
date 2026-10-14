@@ -123,7 +123,8 @@ export function ScheduleTable({ weekFrom, week, loading = false, error = null }:
       <Box
         sx={{
           width: scheduleCardWidth,
-          minHeight: { md: desktopScaled(562) },
+          // Výška z návrhu jen bez tabulky (načítání, chyba, prázdný týden), jinak karta sedí na tabulce
+          minHeight: { md: rows.length > 0 ? 0 : desktopScaled(562) },
           borderRadius: { xs: fluid(40, 44), md: desktopScaled(84) },
           backgroundColor: COLORS.schedule,
           boxSizing: 'border-box',
