@@ -121,32 +121,62 @@ export interface AuthAside {
   href: string
 }
 
-// Zdroj rezervací (záložka rozvrhu)
-export interface ReservationResource {
-  slug: string
+// Typ rezervací (záložka rozvrhu) – pevný seznam, API typy nevypisuje
+export type ReservationTypeSlug = 'skupinovky' | 'squash' | 'badminton' | 'sauna' | 'vacushape'
+
+export interface ReservationType {
+  slug: ReservationTypeSlug
   name: string
 }
 
-// Termín v buňce rozvrhu
-export interface ScheduleSlot {
-  label: string
+// Stav termínu: volno / obsazeno / úklid (sauna) / už začal
+export type SlotState = 'free' | 'full' | 'cleaning' | 'past'
+
+interface SlotBase {
+  // Začátek „07:00“
+  start: string
+  state: SlotState
+  capacity: number
+  occupied: number
+  // Cena v Kč bez slev, může chybět
+  price: number | null
+}
+
+// Skupinová lekce – bez konce, má název, trenéra a barvu
+export interface LessonSlot extends SlotBase {
+  id: number
+  name: string
+  label: string | null
+  trainer: string | null
   color: string | null
-  reserved: boolean
 }
 
-// Den rozvrhu – termíny podle času („7:00“ → […])
-export interface ScheduleDay {
+// Kurt nebo místnost – má konec, squash navíc jednotlivé kurty
+export interface CourtSlot extends SlotBase {
+  end: string
+  courts?: { name: string; state: SlotState }[]
+}
+
+export type ReservationSlot = LessonSlot | CourtSlot
+
+// Den rozvrhu; prázdné sloty = zavřeno nebo žádná lekce
+export interface ReservationDay {
   date: string
-  slots: Record<string, ScheduleSlot[]>
+  slots: ReservationSlot[]
 }
 
-// Týdenní rozvrh zdroje
-export interface ReservationSchedule {
-  resource: string
-  weekFrom: string
-  weekTo: string
-  times: string[]
-  days: ScheduleDay[]
+// Odpověď GET /api/reservations/{typ}
+export interface ReservationWeek {
+  type: ReservationTypeSlug
+  name: string
+  from: string
+  to: string
+  previous: { from: string; to: string }
+  next: { from: string; to: string }
+  slotMinutes: number | null
+  // Podmínky (storno apod.) jako HTML z editoru
+  note: string | null
+  days: ReservationDay[]
 }
 
 // Blok textu právní stránky; v textu lze použít **tučně** a [odkaz](url)
