@@ -7,8 +7,8 @@ import InputBase from '@mui/material/InputBase'
 import Typography from '@mui/material/Typography'
 import type { ResponsiveStyleValue } from '@mui/system'
 import { Link } from 'react-router-dom'
-import { desktopType, fluid, fluidBetween, fluidDesktop } from '../fluid'
-import { COLORS, columnSx, frostedButtonSx } from '../theme'
+import { desktopType, fluid, fluidBetween, fluidDesktop, round } from '../fluid'
+import { COLORS, DESKTOP_MAX_WIDTH, columnSx, frostedButtonSx } from '../theme'
 import type { AuthAside, AuthField } from '../types'
 import FooterCredit from './FooterCredit'
 import Header from './Header'
@@ -54,10 +54,18 @@ const XL_MQ = '@media (min-width: 1920px)'
 const FIELD_WIDTH = fluidDesktop(280, 316)
 
 // Desktop se druhou částí: levý panel s fotkou 1029 px z 1920, obsah vycentrovaný na x = 575 (vlevo) a 1364 (vpravo)
-const PHOTO_PANEL_WIDTH = '53.594%'
+const PHOTO_PANEL_WIDTH_PX = 1029
+const PHOTO_PANEL_WIDTH = `${round((PHOTO_PANEL_WIDTH_PX / DESKTOP_MAX_WIDTH) * 100)}%`
 // Nad 1920 px je sloupec obsahu vycentrovaný, hrana panelu zůstává 69 px za středem okna
-const PHOTO_PANEL_WIDTH_WIDE = 'calc(50% + 69px)'
-const FORM_OFFSET_LEFT = '11.76%'
+const PHOTO_PANEL_WIDTH_WIDE = `calc(50% + ${PHOTO_PANEL_WIDTH_PX - DESKTOP_MAX_WIDTH / 2}px)`
+// Formulář je vycentrovaný v panelu posunutém zleva o 11,76 % šířky panelu
+const FORM_OFFSET_RATIO = 0.1176
+const FORM_OFFSET_LEFT = `${FORM_OFFSET_RATIO * 100}%`
+// Kredit autora webu sdílí střed s formulářem – odsazení od okrajů sekce se počítá ze šířky vycentrovaného sloupce
+const COLUMN_WIDTH = `min(100%, ${DESKTOP_MAX_WIDTH}px)`
+const COLUMN_GUTTER = `(100% - ${COLUMN_WIDTH}) / 2`
+const CREDIT_OFFSET_LEFT = `calc(${COLUMN_GUTTER} + ${COLUMN_WIDTH} * ${round((PHOTO_PANEL_WIDTH_PX / DESKTOP_MAX_WIDTH) * FORM_OFFSET_RATIO)})`
+const CREDIT_OFFSET_RIGHT = `calc(${COLUMN_GUTTER} + ${COLUMN_WIDTH} * ${round(1 - PHOTO_PANEL_WIDTH_PX / DESKTOP_MAX_WIDTH)})`
 // Pravý odstup druhé části: 221 px z 1920 (24,8 % panelu), směrem k 900 px plynule mizí, obsah se posouvá do středu panelu
 const ASIDE_OFFSET_RIGHT = fluidBetween(0, 221, 900, 1920)
 // Překryv fotky: pod sebou tmavý jako jinde, vedle sebe o něco tmavší (multiply #404040)
@@ -403,8 +411,10 @@ export function AuthForm({ title, fields, submit, submitIcon, image, note, conse
         </Box>
       </Box>
 
-      {/* Vedle sebe: kredit vycentrovaný v levém panelu */}
-      <FooterCredit sx={{ [WIDE_MQ]: { right: `calc(100% - ${PHOTO_PANEL_WIDTH})` }, [XL_MQ]: { right: `calc(100% - ${PHOTO_PANEL_WIDTH_WIDE})` } }} />
+      {/* Vedle sebe: kredit na stejné ose jako formulář v levém panelu */}
+      <FooterCredit
+        sx={{ [WIDE_MQ]: { left: CREDIT_OFFSET_LEFT, right: CREDIT_OFFSET_RIGHT } }}
+      />
     </Box>
   )
 }

@@ -12,7 +12,7 @@ const MAX_VIEWPORT = 1920
 export const DESKTOP_BREAKPOINT = 600
 
 // Zaokrouhlení na 3 desetinná místa
-const round = (n: number) => Math.round(n * 1000) / 1000
+export const round = (n: number) => Math.round(n * 1000) / 1000
 
 // Obecná interpolace mezi dvěma šířkami viewportu
 export function fluidBetween(minPx: number, maxPx: number, fromVw: number, toVw: number): string {
