@@ -107,6 +107,8 @@ export function ScheduleTable({ weekFrom, week, loading = false, error = null }:
     return { date, label: `${name} ${formatDayMonth(date)}` }
   })
   const rows = useMemo(() => (week ? buildScheduleRows(week, weekFrom) : []), [week, weekFrom])
+  // Skupinové lekce mají vlastní barvy, legenda stavů je jen u kurtů a místností
+  const showLegend = week?.type !== 'skupinovky'
 
   return (
     <Box
@@ -193,44 +195,46 @@ export function ScheduleTable({ weekFrom, week, loading = false, error = null }:
               </tbody>
             </Box>
 
-            {/* Legenda zůstává při posunu vlevo */}
-            <Box
-              component="ul"
-              aria-label={legendLabel}
-              sx={{
-                position: 'sticky',
-                left: 0,
-                width: 'max-content',
-                maxWidth: '100%',
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                gap: { xs: '14px', md: fluidDesktop(14, 18) },
-                margin: 0,
-                padding: 0,
-                paddingTop: { xs: '12px', md: fluidDesktop(12, 13) },
-                paddingLeft: { xs: fluid(24, 26), md: fluidDesktop(60, 131) },
-                paddingRight: { xs: fluid(24, 26), md: fluidDesktop(60, 131) },
-                listStyle: 'none',
-              }}
-            >
-              {LEGEND_STATES.map((state) => (
-                <Box component="li" key={state} sx={{ display: 'flex', alignItems: 'center', gap: { xs: '6px', md: fluidDesktop(6, 6.5) } }}>
-                  <Box
-                    sx={{
-                      width: { xs: '14px', md: fluidDesktop(14, 14.5) },
-                      height: { xs: '14px', md: fluidDesktop(14, 14.5) },
-                      borderRadius: '50%',
-                      backgroundColor: stateColor(state, null),
-                      opacity: state === 'past' ? PAST_OPACITY : 1,
-                    }}
-                  />
-                  <Typography component="span" sx={{ fontSize: '12px', lineHeight: 1, fontWeight: 400, color: COLORS.white }}>
-                    {states[state]}
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
+            {/* Legenda jen u kurtů a místností (lekce mají vlastní barvy); při posunu zůstává vlevo */}
+            {showLegend && (
+              <Box
+                component="ul"
+                aria-label={legendLabel}
+                sx={{
+                  position: 'sticky',
+                  left: 0,
+                  width: 'max-content',
+                  maxWidth: '100%',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  alignItems: 'center',
+                  gap: { xs: '14px', md: fluidDesktop(14, 18) },
+                  margin: 0,
+                  padding: 0,
+                  paddingTop: { xs: '12px', md: fluidDesktop(12, 13) },
+                  paddingLeft: { xs: fluid(24, 26), md: fluidDesktop(60, 131) },
+                  paddingRight: { xs: fluid(24, 26), md: fluidDesktop(60, 131) },
+                  listStyle: 'none',
+                }}
+              >
+                {LEGEND_STATES.map((state) => (
+                  <Box component="li" key={state} sx={{ display: 'flex', alignItems: 'center', gap: { xs: '6px', md: fluidDesktop(6, 6.5) } }}>
+                    <Box
+                      sx={{
+                        width: { xs: '14px', md: fluidDesktop(14, 14.5) },
+                        height: { xs: '14px', md: fluidDesktop(14, 14.5) },
+                        borderRadius: '50%',
+                        backgroundColor: stateColor(state, null),
+                        opacity: state === 'past' ? PAST_OPACITY : 1,
+                      }}
+                    />
+                    <Typography component="span" sx={{ fontSize: '12px', lineHeight: 1, fontWeight: 400, color: COLORS.white }}>
+                      {states[state]}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+            )}
             <Box aria-hidden sx={{ height: { xs: '20px', md: fluidDesktop(20, 26) } }} />
           </>
         )}
