@@ -1,8 +1,8 @@
 // Všechny statické texty a cesty k assetům aplikace
-import type { AuthField, LegalDocument, NavSectionData } from './types'
+import type { AuthAside, AuthField, LegalDocument, NavSectionData } from './types'
 
-// Externí rezervační systém
-const RESERVATION_URL = 'https://rezervace.restaart.cz/login'
+// Rezervace vedou na stránku přihlášení
+const LOGIN_PATH = '/prihlaseni'
 // Dovětek u telefonního čísla
 const PHONE_NOTE = '(na tel jsme v otevírací době)'
 
@@ -18,8 +18,8 @@ export const content = {
     closeMenu: 'Zavřít menu',
     menuLabel: 'Hlavní menu',
     menuIcon: '/static-icons/header_menu.svg',
-    // Desktop: tlačítko v hlavičce – rezervační systém
-    reservation: { label: 'rezervovat', icon: '/static-icons/button_arrow.svg', href: RESERVATION_URL },
+    // Desktop: tlačítko v hlavičce – přihlášení k rezervacím
+    reservation: { label: 'rezervovat', icon: '/static-icons/button_arrow.svg', href: LOGIN_PATH },
     // Desktop: varianta tlačítka na stránkách účtu
     backToWeb: { label: 'zpět na web', icon: '/static-icons/button_arrow.svg', href: '/' },
   },
@@ -29,7 +29,7 @@ export const content = {
     phone: '+420 608 197 964',
     phoneHref: 'tel:+420608197964',
     phoneNote: PHONE_NOTE,
-    reservationUrl: RESERVATION_URL,
+    reservationHref: LOGIN_PATH,
     addressTitle: 'Adresa',
     addressLines: ['Přerovská 503', '530 06 Pardubice - Svítkov'],
     mapUrl: 'https://maps.google.com/?q=P%C5%99erovsk%C3%A1+503,+Pardubice',
@@ -105,7 +105,7 @@ export const content = {
   // Pevné sekce navigace; kategorie s podstránkami před ně doplní API
   navSections: [
     { label: 'AKCE', href: '/akce' },
-    { label: 'REZERVACE', href: RESERVATION_URL, external: true },
+    { label: 'REZERVACE', href: LOGIN_PATH },
     { label: 'KONTAKT', href: '/kontakt' },
   ] satisfies NavSectionData[],
 
@@ -130,9 +130,9 @@ export const content = {
       nextLabel: 'Další fotka',
     },
     contact: { image: '/images/contact_bg.webp' },
-    // Statická stránka přihlášení
+    // Statická stránka přihlášení – formulář a druhá část s odkazem na rozpis
     login: {
-      title: 'přihlášení',
+      title: 'online rezervace',
       emailLabel: 'Email',
       passwordLabel: 'Heslo',
       submit: 'přihlásit',
@@ -140,7 +140,13 @@ export const content = {
       noAccount: 'Nemáte účet?',
       register: 'Registrovat',
       registerHref: '/registrace',
-      image: '/images/home_hero.webp',
+      image: '/images/login_bg.webp',
+      schedule: {
+        lines: ['na rozpis cvičení', 'a volné termíny sauny a', 'sportovišť se můžete', 'kouknout i bez přihlášení'],
+        label: 'volné termíny',
+        icon: '/static-icons/button_arrow.svg',
+        href: '/vypis-rezervaci',
+      } satisfies AuthAside,
     },
     // Statická stránka registrace
     register: {

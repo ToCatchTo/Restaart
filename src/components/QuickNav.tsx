@@ -137,7 +137,7 @@ export function QuickNav() {
               backdropFilter: 'blur(30px)',
             }}
           >
-            <QuickNavItem label={reservation.label} icon={reservation.icon} href={content.contact.reservationUrl} external />
+            <QuickNavItem label={reservation.label} icon={reservation.icon} href={content.contact.reservationHref} />
             <QuickNavItem label={events.label} icon={events.icon} href={events.href} />
             <QuickNavItem
               label={activities.label}

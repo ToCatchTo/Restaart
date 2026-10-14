@@ -1,11 +1,11 @@
-// Přihlášení – /prihlaseni (statická podoba bez odeslání)
+// Přihlášení – /prihlaseni (statická podoba bez odeslání), vedle formuláře odkaz na veřejný rozpis
 import { content } from '../content'
 import { SEO } from '../seo'
 import AuthForm from '../components/AuthForm'
 import Seo from '../components/Seo'
 
 export function LoginPage() {
-  const { title, emailLabel, passwordLabel, submit, submitIcon, noAccount, register, registerHref, image } = content.pages.login
+  const { title, emailLabel, passwordLabel, submit, submitIcon, noAccount, register, registerHref, image, schedule } = content.pages.login
 
   return (
     <>
@@ -20,6 +20,7 @@ export function LoginPage() {
         submitIcon={submitIcon}
         image={image}
         note={{ text: noAccount, linkLabel: register, href: registerHref }}
+        aside={schedule}
       />
     </>
   )

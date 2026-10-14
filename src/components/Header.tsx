@@ -1,4 +1,4 @@
-// Hlavička stránky – logo, tlačítko rezervace (desktop) a ikona menu
+// Hlavička stránky – logo, tlačítko přihlášení k rezervacím / zpět na web (desktop) a ikona menu
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
@@ -41,8 +41,8 @@ export function Header({ action = 'reservation' }: HeaderProps) {
 
         {/* Desktop: tlačítko rezervovat / zpět na web */}
         <ButtonBase
-          component={isBack ? Link : 'a'}
-          {...(isBack ? { to: button.href } : { href: button.href, target: '_blank', rel: 'noopener' })}
+          component={Link}
+          to={button.href}
           sx={{
             ...frostedButtonSx,
             // Na malém desktopu vyšší než sdílené prosklené tlačítko

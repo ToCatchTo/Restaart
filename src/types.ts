@@ -113,6 +113,14 @@ export interface AuthField {
   autoComplete?: string
 }
 
+// Druhá část stránky přihlášení – text po řádcích a tlačítko s odkazem
+export interface AuthAside {
+  lines: string[]
+  label: string
+  icon: string
+  href: string
+}
+
 // Zdroj rezervací (záložka rozvrhu)
 export interface ReservationResource {
   slug: string

@@ -11,7 +11,6 @@ import { useFetch } from '../hooks/useFetch'
 import DataStatus from '../components/DataStatus'
 import Header from '../components/Header'
 import PageBackground from '../components/PageBackground'
-import QuickNav from '../components/QuickNav'
 import ResourceTabs from '../components/ResourceTabs'
 import ScheduleTable from '../components/ScheduleTable'
 import Seo from '../components/Seo'
@@ -46,7 +45,6 @@ export function ReservationsPage() {
       <Seo path="/vypis-rezervaci" title={SEO['/vypis-rezervaci'].title} description={SEO['/vypis-rezervaci'].description} noindex />
       <PageBackground image={image} minHeight={{ xs: '100vh', md: '0px' }} viewportHeight position={{ xs: 'center top', md: '50% 42.6%' }}>
         <Header />
-        <QuickNav />
         <Typography component="h1" sx={visuallyHiddenSx}>
           {title}
         </Typography>

@@ -26,8 +26,8 @@ export function ResourceTabs({ resources, active, onChange }: ResourceTabsProps)
         flexWrap: { md: 'wrap' },
         justifyContent: { md: 'center' },
         gap: { xs: fluid(12, 14), md: desktopScaled(35) },
-        // Desktop: na menších oknech větší mezera pod hlavičkou
-        paddingTop: { xs: fluid(48, 44), md: fluidDesktop(64, 40) },
+        // Mobil: hned pod hlavičkou; desktop: na menších oknech větší mezera
+        paddingTop: { xs: fluid(40, 44), md: fluidDesktop(64, 40) },
         paddingLeft: { xs: fluid(30, 34), md: desktopScaled(DESKTOP.margin) },
         paddingRight: { xs: fluid(30, 34), md: desktopScaled(DESKTOP.margin) },
       }}

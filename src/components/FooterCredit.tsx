@@ -1,23 +1,32 @@
 // Kredit autora webu u spodního okraje sekce
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import type { SxProps, Theme } from '@mui/material/styles'
 import { content } from '../content'
 import { fluid, fluidDesktop } from '../fluid'
 import { COLORS } from '../theme'
 
-export function FooterCredit() {
+interface FooterCreditProps {
+  // Úprava obalu – např. odsazení zprava, aby byl kredit vycentrovaný jen v části sekce (levý panel přihlášení)
+  sx?: SxProps<Theme>
+}
+
+export function FooterCredit({ sx }: FooterCreditProps) {
   const { label, href, logo, logoAlt, logoIcon, logoIconAlt } = content.footer.credit
 
   return (
     <Box
-      sx={{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: { xs: fluid(24, 24), md: fluidDesktop(24, 40) },
-        display: 'flex',
-        justifyContent: 'center',
-      }}
+      sx={[
+        {
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: { xs: fluid(24, 24), md: fluidDesktop(24, 40) },
+          display: 'flex',
+          justifyContent: 'center',
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
     >
       <Box
         component="a"
