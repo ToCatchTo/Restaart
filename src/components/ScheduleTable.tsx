@@ -6,7 +6,7 @@ import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { addDays, formatDayMonth } from '../format'
 import { TABLE_MIN_WIDTH, buildScheduleRows, scheduleCardWidth, scheduleGutter, type SchedulePill } from '../reservations'
-import { COLORS } from '../theme'
+import { COLORS, visuallyHiddenSx } from '../theme'
 import type { ReservationWeek, SlotState } from '../types'
 import DataStatus from './DataStatus'
 import Icon from './Icon'
@@ -85,15 +85,14 @@ const stateColor = (state: SlotState, color: string | null) => {
   return color ?? COLORS.teal
 }
 
+// Viditelný je jen krátký text, čtečka dostane celé podrobnosti (aria-label na span čtečky ignorují)
 function Pill({ pill }: { pill: SchedulePill }) {
   return (
-    <Typography
-      component="span"
-      aria-label={pill.detail}
-      title={pill.detail}
-      sx={{ ...pillSx, backgroundColor: stateColor(pill.state, pill.color), opacity: pill.state === 'past' ? PAST_OPACITY : 1 }}
-    >
-      {pill.text}
+    <Typography component="span" title={pill.detail} sx={{ ...pillSx, backgroundColor: stateColor(pill.state, pill.color), opacity: pill.state === 'past' ? PAST_OPACITY : 1 }}>
+      <span aria-hidden>{pill.text}</span>
+      <Box component="span" sx={visuallyHiddenSx}>
+        {pill.detail}
+      </Box>
     </Typography>
   )
 }

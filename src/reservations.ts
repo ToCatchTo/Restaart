@@ -27,7 +27,7 @@ export interface ScheduleRow {
   cells: SchedulePill[][]
 }
 
-export const isLessonSlot = (slot: ReservationSlot): slot is LessonSlot => 'name' in slot
+export const isLessonSlot = (slot: ReservationSlot): slot is LessonSlot => 'id' in slot
 
 // „07:00“ → „7:00“ (bez úvodní nuly jako v návrhu)
 export const formatTime = (hhmm: string) => {
@@ -40,13 +40,14 @@ const toMinutes = (hhmm: string) => {
   return hours * 60 + (minutes || 0)
 }
 
-export const formatPrice = (price: number) => `${price} Kč`
+export const formatPrice = (price: number) => `${price} ${content.pages.reservations.priceUnit}`
 
 const stateLabel = (state: SlotState) => content.pages.reservations.states[state]
 
 // „SQUASH I“ → „I“: do úzké pilulky jen číslo kurtu, celý název zůstává v podrobnostech
 const courtLabel = (name: string, typeName: string) => {
-  const short = name.replace(new RegExp(`^${typeName}\\s*`, 'i'), '').trim()
+  const matches = typeName !== '' && name.toLowerCase().startsWith(typeName.toLowerCase())
+  const short = matches ? name.slice(typeName.length).trim() : name
   return short || name
 }
 
@@ -59,7 +60,7 @@ export function slotPills(slot: ReservationSlot, typeName = ''): SchedulePill[] 
     return [
       {
         key: `lesson-${slot.id}`,
-        text: slot.label ?? slot.name,
+        text: slot.label || slot.name,
         color: slot.color,
         state: slot.state,
         detail: slot.state === 'free' ? detail : `${detail} – ${stateLabel(slot.state)}`,
@@ -92,8 +93,9 @@ export function slotPills(slot: ReservationSlot, typeName = ''): SchedulePill[] 
 export function buildScheduleRows(week: ReservationWeek, weekFrom: string): ScheduleRow[] {
   const dates = Array.from({ length: 7 }, (_, index) => addDays(weekFrom, index))
   const slotsByDate = new Map(week.days.map((day) => [day.date, day.slots]))
+  // Časy jen ze zobrazených dnů – den mimo týden by přidal prázdný řádek
   const times = new Set<string>()
-  week.days.forEach((day) => day.slots.forEach((slot) => times.add(formatTime(slot.start))))
+  dates.forEach((date) => (slotsByDate.get(date) ?? []).forEach((slot) => times.add(formatTime(slot.start))))
 
   return [...times]
     .sort((a, b) => toMinutes(a) - toMinutes(b))

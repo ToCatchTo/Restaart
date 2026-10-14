@@ -7,6 +7,7 @@ import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { addDays, formatDayMonth, mondayOf } from '../format'
 import { scheduleCardWidth, scheduleGutter } from '../reservations'
 import { SEO } from '../seo'
+import { visuallyHiddenSx } from '../theme'
 import type { ReservationTypeSlug, ReservationWeek } from '../types'
 import { useFetch } from '../hooks/useFetch'
 import Header from '../components/Header'
@@ -17,27 +18,14 @@ import ScheduleTable from '../components/ScheduleTable'
 import Seo from '../components/Seo'
 import WeekSwitcher from '../components/WeekSwitcher'
 
-// Nadpis jen pro čtečky – návrh viditelný titulek nemá
-const visuallyHiddenSx = {
-  position: 'absolute',
-  width: '1px',
-  height: '1px',
-  margin: '-1px',
-  padding: 0,
-  overflow: 'hidden',
-  clip: 'rect(0 0 0 0)',
-  whiteSpace: 'nowrap',
-  border: 0,
-} as const
-
-// Podmínky pod kartou ve sloupci stejné šířky jako karta
+// Podmínky pod kartou ve sloupci stejné šířky jako karta (vnější okraj stránky přidává obal)
 const noteSx = {
   width: scheduleCardWidth,
   boxSizing: 'border-box',
   marginX: 'auto',
   paddingTop: { xs: fluid(24, 28), md: desktopScaled(32) },
-  paddingLeft: { xs: `calc(${fluid(30, 34)} + ${fluid(24, 26)})`, md: fluidDesktop(60, 131) },
-  paddingRight: { xs: `calc(${fluid(30, 34)} + ${fluid(24, 26)})`, md: fluidDesktop(60, 131) },
+  paddingLeft: { xs: fluid(24, 26), md: fluidDesktop(60, 131) },
+  paddingRight: { xs: fluid(24, 26), md: fluidDesktop(60, 131) },
   fontSize: { xs: fluid(14, 15), md: fluidDesktop(14, 16) },
   lineHeight: { xs: fluid(20, 22), md: fluidDesktop(20, 24) },
 } as const

@@ -67,6 +67,19 @@ export const frostedButtonSx = {
   ...hoverDarkenSx(0.12),
 } as const
 
+// Text jen pro čtečky (vizuálně skrytý)
+export const visuallyHiddenSx = {
+  position: 'absolute',
+  width: '1px',
+  height: '1px',
+  margin: '-1px',
+  padding: 0,
+  overflow: 'hidden',
+  clip: 'rect(0 0 0 0)',
+  whiteSpace: 'nowrap',
+  border: 0,
+} as const
+
 // Centrovaný sloupec obsahu, na desktopu nejvýše 1920 px
 export const columnSx = {
   position: 'relative',

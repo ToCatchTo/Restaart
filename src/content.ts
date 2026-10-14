@@ -200,6 +200,7 @@ export const content = {
       // Texty stavů termínu – pilulky místností a legenda
       states: { free: 'volno', full: 'obsazeno', cleaning: 'úklid', past: 'proběhlo' } satisfies Record<SlotState, string>,
       legendLabel: 'Legenda',
+      priceUnit: 'Kč',
       empty: 'V tomto týdnu nejsou v rozvrhu žádné termíny.',
     },
     // Právní stránky – nadpis obsahu
