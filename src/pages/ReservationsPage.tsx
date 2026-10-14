@@ -1,17 +1,18 @@
-// Výpis rezervací – /vypis-rezervaci: záložky zdrojů, přepínač týdne a karta rozvrhu
+// Výpis rezervací – /vypis-rezervaci: záložky typů, přepínač týdne, karta rozvrhu a podmínky z API
 import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { content } from '../content'
-import { desktopScaled, fluid } from '../fluid'
+import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { addDays, formatDayMonth, mondayOf } from '../format'
+import { scheduleCardWidth, scheduleGutter } from '../reservations'
 import { SEO } from '../seo'
-import type { ItemsResponse, ReservationResource, ReservationSchedule } from '../types'
+import type { ReservationTypeSlug, ReservationWeek } from '../types'
 import { useFetch } from '../hooks/useFetch'
-import DataStatus from '../components/DataStatus'
 import Header from '../components/Header'
 import PageBackground from '../components/PageBackground'
 import ResourceTabs from '../components/ResourceTabs'
+import RichText from '../components/RichText'
 import ScheduleTable from '../components/ScheduleTable'
 import Seo from '../components/Seo'
 import WeekSwitcher from '../components/WeekSwitcher'
@@ -29,16 +30,25 @@ const visuallyHiddenSx = {
   border: 0,
 } as const
 
+// Podmínky pod kartou ve sloupci stejné šířky jako karta
+const noteSx = {
+  width: scheduleCardWidth,
+  boxSizing: 'border-box',
+  marginX: 'auto',
+  paddingTop: { xs: fluid(24, 28), md: desktopScaled(32) },
+  paddingLeft: { xs: `calc(${fluid(30, 34)} + ${fluid(24, 26)})`, md: fluidDesktop(60, 131) },
+  paddingRight: { xs: `calc(${fluid(30, 34)} + ${fluid(24, 26)})`, md: fluidDesktop(60, 131) },
+  fontSize: { xs: fluid(14, 15), md: fluidDesktop(14, 16) },
+  lineHeight: { xs: fluid(20, 22), md: fluidDesktop(20, 24) },
+} as const
+
 export function ReservationsPage() {
-  const { title, image } = content.pages.reservations
-  // Zvolený zdroj; bez volby první ze seznamu
-  const [selected, setSelected] = useState<string | null>(null)
+  const { title, image, types } = content.pages.reservations
+  const [selected, setSelected] = useState<ReservationTypeSlug>(types[0].slug)
   const [weekFrom, setWeekFrom] = useState(() => mondayOf(new Date()))
 
-  const resources = useFetch<ItemsResponse<ReservationResource>>(content.api.reservationResources)
-  const items = resources.data?.items ?? []
-  const active = items.find((item) => item.slug === selected) ?? items[0] ?? null
-  const schedule = useFetch<ReservationSchedule>(active ? content.api.reservationSchedule(active.slug, weekFrom) : null)
+  const active = types.find((type) => type.slug === selected) ?? types[0]
+  const week = useFetch<ReservationWeek>(content.api.reservations(active.slug, weekFrom))
 
   return (
     <>
@@ -49,18 +59,18 @@ export function ReservationsPage() {
           {title}
         </Typography>
 
-        {!active ? (
-          <DataStatus loading={resources.loading} error={resources.error} />
-        ) : (
-          <>
-            <ResourceTabs resources={items} active={active.slug} onChange={setSelected} />
-            <WeekSwitcher
-              label={`${active.name} ${formatDayMonth(weekFrom)} - ${formatDayMonth(addDays(weekFrom, 6))}`}
-              onPrev={() => setWeekFrom((value) => addDays(value, -7))}
-              onNext={() => setWeekFrom((value) => addDays(value, 7))}
-            />
-            <ScheduleTable weekFrom={weekFrom} schedule={schedule.data} loading={schedule.loading} error={schedule.error} notFound={schedule.notFound} />
-          </>
+        <ResourceTabs resources={types} active={active.slug} onChange={setSelected} />
+        <WeekSwitcher
+          label={`${active.name} ${formatDayMonth(weekFrom)} - ${formatDayMonth(addDays(weekFrom, 6))}`}
+          onPrev={() => setWeekFrom((value) => addDays(value, -7))}
+          onNext={() => setWeekFrom((value) => addDays(value, 7))}
+        />
+        <ScheduleTable weekFrom={weekFrom} week={week.data} loading={week.loading} error={week.error} />
+
+        {week.data?.note && (
+          <Box sx={{ paddingLeft: scheduleGutter, paddingRight: scheduleGutter }}>
+            <RichText html={week.data.note} sx={noteSx} />
+          </Box>
         )}
 
         {/* Mezera pod kartou k dolnímu okraji sekce */}

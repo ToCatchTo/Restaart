@@ -1,5 +1,5 @@
 // Všechny statické texty a cesty k assetům aplikace
-import type { AuthAside, AuthField, LegalDocument, NavSectionData } from './types'
+import type { AuthAside, AuthField, LegalDocument, NavSectionData, ReservationType, ReservationTypeSlug, SlotState } from './types'
 
 // Rezervace vedou na stránku přihlášení
 const LOGIN_PATH = '/prihlaseni'
@@ -189,7 +189,17 @@ export const content = {
       nextIcon: '/static-icons/gallery_next.svg',
       emptySlotIcon: '/static-icons/schedule_empty_slot.svg',
       emptySlot: 'Žádný termín',
-      reservedLabel: 'REZERVOVÁNO',
+      // Záložky – API typy nevypisuje, seznam je pevný
+      types: [
+        { slug: 'skupinovky', name: 'Skupinové lekce' },
+        { slug: 'sauna', name: 'Sauna' },
+        { slug: 'squash', name: 'Squash' },
+        { slug: 'badminton', name: 'Badminton' },
+        { slug: 'vacushape', name: 'Vacushape' },
+      ] satisfies ReservationType[],
+      // Texty stavů termínu – pilulky místností a legenda
+      states: { free: 'volno', full: 'obsazeno', cleaning: 'úklid', past: 'proběhlo' } satisfies Record<SlotState, string>,
+      legendLabel: 'Legenda',
       empty: 'V tomto týdnu nejsou v rozvrhu žádné termíny.',
     },
     // Právní stránky – nadpis obsahu
@@ -687,9 +697,8 @@ export const content = {
     event: (slug: string) => `/api/events/${encodeURIComponent(slug)}`,
     // Serverless funkce api/google-rating.ts
     googleRating: '/api/google-rating',
-    // Výpis rezervací – zatím statické soubory, po dodání endpointu stačí změnit cesty na /api/…
-    reservationResources: '/data/reservations/resources.json',
-    reservationSchedule: (resource: string, week: string) => `/data/reservations/${encodeURIComponent(resource)}/${week}.json`,
+    // Týden rozvrhu od pondělí `from` (bez `to` vrací API Po–Ne)
+    reservations: (type: ReservationTypeSlug, from: string) => `/api/reservations/${type}?from=${from}`,
   },
 }
 

@@ -24,10 +24,10 @@ function mockApi(): Plugin {
     name: 'mock-api',
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
-        const path = new URL(req.url ?? '/', 'http://localhost').pathname
+        const { pathname: path, searchParams } = new URL(req.url ?? '/', 'http://localhost')
         if (!path.startsWith('/api/') || path === '/api/google-rating') return next()
-        const { resolveMock } = (await server.ssrLoadModule('/mocks/api.ts')) as { resolveMock: (path: string) => unknown }
-        const body = resolveMock(path)
+        const { resolveMock } = (await server.ssrLoadModule('/mocks/api.ts')) as { resolveMock: (path: string, params: URLSearchParams) => unknown }
+        const body = resolveMock(path, searchParams)
         res.statusCode = body === undefined ? 404 : 200
         res.setHeader('Content-Type', 'application/json')
         res.end(JSON.stringify(body ?? { error: 'Not found' }))

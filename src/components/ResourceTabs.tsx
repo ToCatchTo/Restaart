@@ -5,12 +5,12 @@ import Typography from '@mui/material/Typography'
 import { content } from '../content'
 import { desktopScaled, fluid, fluidDesktop } from '../fluid'
 import { COLORS, DESKTOP, hoverDarkenSx } from '../theme'
-import type { ReservationResource } from '../types'
+import type { ReservationType, ReservationTypeSlug } from '../types'
 
 interface ResourceTabsProps {
-  resources: ReservationResource[]
-  active: string
-  onChange: (slug: string) => void
+  resources: ReservationType[]
+  active: ReservationTypeSlug
+  onChange: (slug: ReservationTypeSlug) => void
 }
 
 export function ResourceTabs({ resources, active, onChange }: ResourceTabsProps) {
