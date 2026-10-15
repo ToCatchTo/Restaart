@@ -3,6 +3,8 @@ import type { AuthAside, AuthField, LegalDocument, NavSectionData, ReservationTy
 
 // Rezervace vedou na stránku přihlášení
 const LOGIN_PATH = '/prihlaseni'
+// Rezervační systém – cíl formulářů přihlášení a registrace
+const RESERVATIONS_URL = (import.meta.env.VITE_REZERVACE_URL || 'https://rezervace.restaart.cz').replace(/\/+$/, '')
 // Dovětek u telefonního čísla
 const PHONE_NOTE = '(na tel jsme v otevírací době)'
 
@@ -130,7 +132,11 @@ export const content = {
       nextLabel: 'Další fotka',
     },
     contact: { image: '/images/contact_bg.webp' },
-    // Chyby formulářů přihlášení a registrace (jen kontrola na straně prohlížeče)
+    // Skryté pole formulářů účtu – původ odeslání pro rezervační systém
+    authSource: { name: 'zdroj', value: 'web' },
+    // Parametry URL, ve kterých rezervační systém vrací hlášky na web
+    authMessages: { error: 'chyba', message: 'zprava' },
+    // Chyby formulářů přihlášení a registrace (kontrola na straně prohlížeče před odesláním)
     authErrors: {
       required: 'Vyplňte toto pole.',
       email: 'Zadejte platný e-mail.',
@@ -142,6 +148,7 @@ export const content = {
     // Statická stránka přihlášení – formulář a druhá část s odkazem na rozpis
     login: {
       title: 'online rezervace',
+      action: `${RESERVATIONS_URL}/login`,
       emailLabel: 'Email',
       passwordLabel: 'Heslo',
       submit: 'přihlásit',
@@ -160,13 +167,15 @@ export const content = {
     // Statická stránka registrace
     register: {
       title: 'registrace',
+      action: `${RESERVATIONS_URL}/registrace`,
+      // Názvy polí odpovídají rezervačnímu systému
       fields: [
-        { type: 'text', name: 'firstName', label: 'Jméno', autoComplete: 'given-name' },
-        { type: 'text', name: 'lastName', label: 'Příjmení', autoComplete: 'family-name' },
+        { type: 'text', name: 'jmeno', label: 'Jméno', autoComplete: 'given-name' },
+        { type: 'text', name: 'prijmeni', label: 'Příjmení', autoComplete: 'family-name' },
         { type: 'email', name: 'email', label: 'Email', autoComplete: 'email' },
-        { type: 'tel', name: 'phone', label: 'Telefon', autoComplete: 'tel' },
-        { type: 'password', name: 'password', label: 'Heslo', autoComplete: 'new-password', minLength: 8 },
-        { type: 'password', name: 'passwordConfirm', label: 'Heslo znovu', autoComplete: 'new-password', matches: 'password' },
+        { type: 'tel', name: 'telefon', label: 'Telefon', autoComplete: 'tel' },
+        { type: 'password', name: 'heslo', label: 'Heslo', autoComplete: 'new-password', minLength: 8 },
+        { type: 'password', name: 'heslo2', label: 'Heslo znovu', autoComplete: 'new-password', matches: 'heslo' },
       ] satisfies AuthField[],
       // Souhlas s podmínkami – text rozdělený kolem dvou odkazů
       consent: {
@@ -178,6 +187,8 @@ export const content = {
         privacyHref: '/ochrana-osobnich-udaju',
         after: '.',
         ariaLabel: 'Souhlas s obchodními podmínkami a zpracováním osobních údajů',
+        name: 'souhlas',
+        value: 'souhlas',
       },
       submit: 'registrovat',
       submitIcon: '/static-icons/button_arrow.svg',
@@ -191,6 +202,8 @@ export const content = {
       title: 'výpis rezervací',
       image: '/images/home_hero.webp',
       tabsLabel: 'Zdroj rezervací',
+      // Mobil: tlačítko pod záložkami (desktop má tlačítko v hlavičce)
+      reserve: { label: 'Rezervovat online', icon: '/static-icons/button_arrow.svg', href: LOGIN_PATH },
       dayNames: ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota', 'Neděle'],
       prevWeek: 'Předchozí týden',
       nextWeek: 'Další týden',

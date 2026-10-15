@@ -1,4 +1,4 @@
-// Formulář přihlášení / registrace – bez odeslání, jen kontrola polí na straně prohlížeče
+// Formulář přihlášení / registrace – kontrola polí v prohlížeči, platný se odesílá POST do rezervačního systému
 import { Fragment, useState, type FormEvent, type ReactNode } from 'react'
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
@@ -6,7 +6,7 @@ import Checkbox from '@mui/material/Checkbox'
 import InputBase from '@mui/material/InputBase'
 import Typography from '@mui/material/Typography'
 import type { ResponsiveStyleValue } from '@mui/system'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { content } from '../content'
 import { desktopType, fluid, fluidBetween, fluidDesktop, round } from '../fluid'
 import { COLORS, DESKTOP_MAX_WIDTH, columnSx, frostedButtonSx } from '../theme'
@@ -19,6 +19,8 @@ import PageBackground from './PageBackground'
 
 interface AuthFormProps {
   title: string
+  // Adresa rezervačního systému, kam se formulář odesílá
+  action: string
   fields: AuthField[]
   submit: string
   submitIcon: string
@@ -35,6 +37,8 @@ interface AuthFormProps {
     privacyHref: string
     after: string
     ariaLabel: string
+    name: string
+    value: string
   }
   // Druhá část stránky s odkazem na rozpis – desktop pravý panel, mobil blok pod formulářem
   aside?: AuthAside
@@ -105,6 +109,16 @@ const errorSx = {
   lineHeight: { xs: fluid(16, 17), md: fluidDesktop(16, 18) },
   fontWeight: 400,
   color: COLORS.error,
+} as const
+
+// Hláška z rezervačního systému nad formulářem (?chyba= / ?zprava=)
+const messageSx = {
+  margin: 0,
+  paddingBottom: { xs: fluid(16, 18), md: fluidDesktop(18, 24) },
+  textAlign: 'center',
+  fontSize: { xs: fluid(16, 17), md: fluidDesktop(16.5, 20) },
+  lineHeight: { xs: fluid(20, 21), md: fluidDesktop(22, 25) },
+  fontWeight: 400,
 } as const
 
 // Poznámka pod tlačítkem
@@ -189,9 +203,12 @@ function ArrowButton({ label, icon, href, minWidth, textWidth, paddingLeft }: Ar
   )
 }
 
-export function AuthForm({ title, fields, submit, submitIcon, image, note, consent, aside }: AuthFormProps) {
+export function AuthForm({ title, action, fields, submit, submitIcon, image, note, consent, aside }: AuthFormProps) {
   const twoColumns = fields.length > 2
-  const { authErrors } = content.pages
+  const { authErrors, authSource, authMessages } = content.pages
+  const [searchParams] = useSearchParams()
+  const errorMessage = searchParams.get(authMessages.error)
+  const infoMessage = searchParams.get(authMessages.message)
   const [values, setValues] = useState<FieldValues>({})
   const [errors, setErrors] = useState<FieldErrors>({})
   const [consentChecked, setConsentChecked] = useState(false)
@@ -203,20 +220,23 @@ export function AuthForm({ title, fields, submit, submitIcon, image, note, conse
     setErrors(({ [name]: _removed, ...rest }) => rest)
   }
 
-  // Odeslání nikam nevede – jen zkontroluje pole a zaměří první neplatné
+  // Neplatný formulář se neodešle a zaměří první neplatné pole, platný jde nativně do rezervačního systému
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
     const nextErrors = validateFields(fields, values)
     const nextConsentError = consent && !consentChecked ? authErrors.consent : ''
     setErrors(nextErrors)
     setConsentError(nextConsentError)
-    const firstInvalid = fields.find((field) => nextErrors[field.name])?.name ?? (nextConsentError ? 'consent' : null)
-    if (firstInvalid) (event.currentTarget.elements.namedItem(firstInvalid) as HTMLElement | null)?.focus()
+    const firstInvalid = fields.find((field) => nextErrors[field.name])?.name ?? (nextConsentError ? consent?.name : null)
+    if (!firstInvalid) return
+    event.preventDefault()
+    ;(event.currentTarget.elements.namedItem(firstInvalid) as HTMLElement | null)?.focus()
   }
 
   const form = (
     <Box
       component="form"
+      method="post"
+      action={action}
       noValidate
       onSubmit={handleSubmit}
       sx={{
@@ -234,6 +254,19 @@ export function AuthForm({ title, fields, submit, submitIcon, image, note, conse
             }),
       }}
     >
+      <input type="hidden" name={authSource.name} value={authSource.value} />
+
+      {errorMessage && (
+        <Typography component="p" role="alert" sx={{ ...messageSx, color: COLORS.error }}>
+          {errorMessage}
+        </Typography>
+      )}
+      {infoMessage && (
+        <Typography component="p" role="status" sx={{ ...messageSx, color: COLORS.white }}>
+          {infoMessage}
+        </Typography>
+      )}
+
       <Typography
         component="h1"
         sx={{
@@ -296,7 +329,8 @@ export function AuthForm({ title, fields, submit, submitIcon, image, note, conse
             >
               <Checkbox
                 required
-                name="consent"
+                name={consent.name}
+                value={consent.value}
                 checked={consentChecked}
                 onChange={(event) => {
                   setConsentChecked(event.target.checked)

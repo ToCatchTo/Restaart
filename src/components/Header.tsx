@@ -1,11 +1,11 @@
 // Hlavička stránky – logo, tlačítko přihlášení k rezervacím / zpět na web (desktop) a ikona menu
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
-import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { content } from '../content'
 import { desktopScaled, desktopType, fluid, fluidDesktop } from '../fluid'
-import { COLORS, DESKTOP, frostedButtonSx, hoverDimMenuSx, theme } from '../theme'
+import { COLORS, DESKTOP, hoverDimMenuSx, theme } from '../theme'
+import ArrowLinkButton from './ArrowLinkButton'
 import Icon from './Icon'
 import { useMenu } from './MenuContext'
 
@@ -40,42 +40,27 @@ export function Header({ action = 'reservation' }: HeaderProps) {
         </Link>
 
         {/* Desktop: tlačítko rezervovat / zpět na web */}
-        <ButtonBase
-          component={Link}
-          to={button.href}
+        <ArrowLinkButton
+          label={button.label}
+          icon={button.icon}
+          href={button.href}
+          reverse={isBack}
+          iconSize={fluidDesktop(18, 27.8)}
+          fontSize={fluidDesktop(16, 24)}
+          lineHeight="25px"
           sx={{
-            ...frostedButtonSx,
             // Na malém desktopu vyšší než sdílené prosklené tlačítko
             height: fluidDesktop(52, 60),
             borderRadius: fluidDesktop(35, 40),
             display: { xs: 'none', md: 'flex' },
             marginLeft: 'auto',
             minWidth: desktopScaled(210),
-            alignItems: 'center',
             // Mezera mezi textem a šipkou jen při zmenšení
             gap: 'clamp(0px, calc((1920px - 100vw) / 60), 8px)',
-            flexDirection: isBack ? 'row-reverse' : 'row',
             paddingLeft: fluidDesktop(14, 17),
             paddingRight: fluidDesktop(14, 17),
           }}
-        >
-          <Typography
-            component="span"
-            sx={{
-              textAlign: 'center',
-              fontSize: fluidDesktop(16, 24),
-              lineHeight: '25px',
-              fontWeight: 400,
-              fontStyle: 'italic',
-              color: COLORS.white,
-            }}
-          >
-            {button.label}
-          </Typography>
-          <Box sx={{ marginLeft: isBack ? 0 : 'auto', marginRight: isBack ? 'auto' : 0, transform: isBack ? 'scaleX(-1)' : 'none' }}>
-            <Icon src={button.icon} size={fluidDesktop(18, 27.8)} />
-          </Box>
-        </ButtonBase>
+        />
 
         <ButtonBase
           aria-label={content.header.openMenu}

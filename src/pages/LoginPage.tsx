@@ -1,20 +1,22 @@
-// Přihlášení – /prihlaseni (statická podoba bez odeslání), vedle formuláře odkaz na veřejný rozpis
+// Přihlášení – /prihlaseni, odesílá se do rezervačního systému; vedle formuláře odkaz na veřejný rozpis
 import { content } from '../content'
 import { SEO } from '../seo'
 import AuthForm from '../components/AuthForm'
 import Seo from '../components/Seo'
 
 export function LoginPage() {
-  const { title, emailLabel, passwordLabel, submit, submitIcon, noAccount, register, registerHref, image, schedule } = content.pages.login
+  const { title, action, emailLabel, passwordLabel, submit, submitIcon, noAccount, register, registerHref, image, schedule } = content.pages.login
 
   return (
     <>
       <Seo path="/prihlaseni" title={SEO['/prihlaseni'].title} description={SEO['/prihlaseni'].description} noindex />
       <AuthForm
         title={title}
+        action={action}
+        // Názvy polí odpovídají rezervačnímu systému (jmeno = e-mail)
         fields={[
-          { type: 'email', name: 'email', label: emailLabel, autoComplete: 'email' },
-          { type: 'password', name: 'password', label: passwordLabel, autoComplete: 'current-password' },
+          { type: 'email', name: 'jmeno', label: emailLabel, autoComplete: 'email' },
+          { type: 'password', name: 'heslo', label: passwordLabel, autoComplete: 'current-password' },
         ]}
         submit={submit}
         submitIcon={submitIcon}

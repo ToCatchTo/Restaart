@@ -10,6 +10,7 @@ import { SEO } from '../seo'
 import { visuallyHiddenSx } from '../theme'
 import type { ReservationTypeSlug, ReservationWeek } from '../types'
 import { useFetch } from '../hooks/useFetch'
+import ArrowLinkButton from '../components/ArrowLinkButton'
 import Header from '../components/Header'
 import PageBackground from '../components/PageBackground'
 import ResourceTabs from '../components/ResourceTabs'
@@ -31,7 +32,7 @@ const noteSx = {
 } as const
 
 export function ReservationsPage() {
-  const { title, image, types } = content.pages.reservations
+  const { title, image, types, reserve } = content.pages.reservations
   const [selected, setSelected] = useState<ReservationTypeSlug>(types[0].slug)
   const [weekFrom, setWeekFrom] = useState(() => mondayOf(new Date()))
 
@@ -48,6 +49,32 @@ export function ReservationsPage() {
         </Typography>
 
         <ResourceTabs resources={types} active={active.slug} onChange={setSelected} />
+
+        {/* Mobil: odkaz na přihlášení k rezervacím pod záložkami, stejný jako tlačítko v hlavičce na desktopu */}
+        <Box
+          sx={{
+            display: { xs: 'block', md: 'none' },
+            paddingTop: fluid(12, 14),
+            paddingLeft: fluid(30, 34),
+            paddingRight: fluid(30, 34),
+          }}
+        >
+          <ArrowLinkButton
+            label={reserve.label}
+            icon={reserve.icon}
+            href={reserve.href}
+            iconSize={fluid(18, 20)}
+            fontSize={fluid(16, 17)}
+            lineHeight={fluid(20, 21)}
+            sx={{
+              width: '100%',
+              height: fluid(44, 48),
+              borderRadius: fluid(22, 24),
+              paddingLeft: fluid(20, 24),
+              paddingRight: fluid(20, 24),
+            }}
+          />
+        </Box>
         <WeekSwitcher
           label={`${active.name} ${formatDayMonth(weekFrom)} - ${formatDayMonth(addDays(weekFrom, 6))}`}
           onPrev={() => setWeekFrom((value) => addDays(value, -7))}
