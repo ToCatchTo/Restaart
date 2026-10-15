@@ -71,14 +71,15 @@ export function ReservationsPage() {
             icon={reserve.icon}
             href={reserve.href}
             iconSize={fluid(27, 28)}
-            textWidth={fluid(137, 140)}
+            // Delší text než „přihlásit“ – širší tlačítko s volnějším vnitřkem
+            textWidth={fluid(176, 184)}
             fontSize={fluid(16, 17)}
             lineHeight={fluid(20, 21)}
             sx={{
-              minWidth: fluid(188, 190),
+              minWidth: fluid(240, 250),
               height: fluid(54, 56),
               borderRadius: fluid(27, 28),
-              paddingLeft: fluid(11, 12),
+              paddingLeft: fluid(18, 20),
               paddingRight: fluid(12, 13),
             }}
           />
