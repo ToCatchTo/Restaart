@@ -15,13 +15,15 @@ interface ArrowLinkButtonProps {
   // Šipka vlevo otočená zpět (návrat na web)
   reverse?: boolean
   iconSize: ResponsiveStyleValue<string>
+  // Šířka textu – text je vycentrovaný v prostoru před šipkou
+  textWidth?: ResponsiveStyleValue<string>
   fontSize: ResponsiveStyleValue<string>
   lineHeight: ResponsiveStyleValue<string>
   // Rozměry a odsazení tlačítka podle místa použití
   sx?: SxProps<Theme>
 }
 
-export function ArrowLinkButton({ label, icon, href, reverse = false, iconSize, fontSize, lineHeight, sx }: ArrowLinkButtonProps) {
+export function ArrowLinkButton({ label, icon, href, reverse = false, iconSize, textWidth, fontSize, lineHeight, sx }: ArrowLinkButtonProps) {
   return (
     <ButtonBase
       component={Link}
@@ -39,7 +41,7 @@ export function ArrowLinkButton({ label, icon, href, reverse = false, iconSize, 
     >
       <Typography
         component="span"
-        sx={{ textAlign: 'center', fontSize, lineHeight, fontWeight: 400, fontStyle: 'italic', color: COLORS.white }}
+        sx={{ width: textWidth, minWidth: 'max-content', textAlign: 'center', fontSize, lineHeight, fontWeight: 400, fontStyle: 'italic', color: COLORS.white }}
       >
         {label}
       </Typography>

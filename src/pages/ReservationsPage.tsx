@@ -1,4 +1,4 @@
-// Výpis rezervací – /vypis-rezervaci: záložky typů, přepínač týdne, karta rozvrhu a podmínky z API
+// Výpis rezervací – /vypis-rezervaci: záložky typů, přepínač týdne, karta rozvrhu a podmínky z API; pozadí podle podstránky aktivity
 import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -8,7 +8,7 @@ import { addDays, formatDayMonth, mondayOf } from '../format'
 import { scheduleCardWidth, scheduleGutter } from '../reservations'
 import { SEO } from '../seo'
 import { visuallyHiddenSx } from '../theme'
-import type { ReservationTypeSlug, ReservationWeek } from '../types'
+import type { PageDetail, ReservationTypeSlug, ReservationWeek } from '../types'
 import { useFetch } from '../hooks/useFetch'
 import ArrowLinkButton from '../components/ArrowLinkButton'
 import Header from '../components/Header'
@@ -39,10 +39,16 @@ export function ReservationsPage() {
   const active = types.find((type) => type.slug === selected) ?? types[0]
   const week = useFetch<ReservationWeek>(content.api.reservations(active.slug, weekFrom))
 
+  // Fotka pozadí z podstránky aktivity; během načítání zůstává předchozí, bez fotky úvodní
+  const page = useFetch<PageDetail>(content.api.page(active.page))
+  const [shownImage, setShownImage] = useState(image)
+  const nextImage = page.data ? (page.data.backgroundImage ?? image) : page.loading ? shownImage : image
+  if (nextImage !== shownImage) setShownImage(nextImage)
+
   return (
     <>
       <Seo path="/vypis-rezervaci" title={SEO['/vypis-rezervaci'].title} description={SEO['/vypis-rezervaci'].description} noindex />
-      <PageBackground image={image} minHeight={{ xs: '100vh', md: '0px' }} viewportHeight position={{ xs: 'center top', md: '50% 42.6%' }}>
+      <PageBackground image={shownImage} fixedImage minHeight={{ xs: '100vh', md: '0px' }} viewportHeight position={{ xs: 'center top', md: '50% 42.6%' }}>
         <Header />
         <Typography component="h1" sx={visuallyHiddenSx}>
           {title}
@@ -50,11 +56,12 @@ export function ReservationsPage() {
 
         <ResourceTabs resources={types} active={active.slug} onChange={setSelected} />
 
-        {/* Mobil: odkaz na přihlášení k rezervacím pod záložkami, stejný jako tlačítko v hlavičce na desktopu */}
+        {/* Mobil: odkaz na přihlášení k rezervacím pod záložkami, užší a vycentrovaný jako tlačítko „přihlásit“ */}
         <Box
           sx={{
-            display: { xs: 'block', md: 'none' },
-            paddingTop: fluid(12, 14),
+            display: { xs: 'flex', md: 'none' },
+            justifyContent: 'center',
+            paddingTop: fluid(24, 28),
             paddingLeft: fluid(30, 34),
             paddingRight: fluid(30, 34),
           }}
@@ -63,15 +70,16 @@ export function ReservationsPage() {
             label={reserve.label}
             icon={reserve.icon}
             href={reserve.href}
-            iconSize={fluid(18, 20)}
+            iconSize={fluid(27, 28)}
+            textWidth={fluid(137, 140)}
             fontSize={fluid(16, 17)}
             lineHeight={fluid(20, 21)}
             sx={{
-              width: '100%',
-              height: fluid(44, 48),
-              borderRadius: fluid(22, 24),
-              paddingLeft: fluid(20, 24),
-              paddingRight: fluid(20, 24),
+              minWidth: fluid(188, 190),
+              height: fluid(54, 56),
+              borderRadius: fluid(27, 28),
+              paddingLeft: fluid(11, 12),
+              paddingRight: fluid(12, 13),
             }}
           />
         </Box>

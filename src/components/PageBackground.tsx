@@ -20,7 +20,12 @@ interface PageBackgroundProps {
   viewportHeight?: boolean
   // Preload fotky jako LCP prvku, vypnuto u druhé fotky na stránce (patička)
   preload?: boolean
+  // Fotka drží velikost okna a při scrollu zůstává na místě – nemění měřítko se změnou výšky obsahu
+  fixedImage?: boolean
 }
+
+// Výška okna prohlížeče (na mobilu bez lišt)
+const viewportSx = { height: '100vh', '@supports (height: 100dvh)': { height: '100dvh' } } as const
 
 export function PageBackground({
   image,
@@ -32,7 +37,15 @@ export function PageBackground({
   size = 'cover',
   viewportHeight = false,
   preload = true,
+  fixedImage = false,
 }: PageBackgroundProps) {
+  const imageSx = {
+    backgroundColor: COLORS.dark,
+    backgroundImage: image ? `url("${image}")` : 'none',
+    backgroundSize: size,
+    backgroundPosition: position,
+  } as const
+
   return (
     <Box
       component="section"
@@ -48,10 +61,7 @@ export function PageBackground({
         // Sloupec obsahu se roztáhne na výšku sekce
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: COLORS.dark,
-        backgroundImage: image ? `url("${image}")` : 'none',
-        backgroundSize: size,
-        backgroundPosition: position,
+        ...(fixedImage ? { backgroundColor: COLORS.dark } : imageSx),
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -62,6 +72,12 @@ export function PageBackground({
     >
       {/* Fotka je LCP prvek – preload ji stáhne dřív, než ji objeví CSS; karta na pozadí se nevykresluje, preload by zůstal nevyužitý */}
       {preload && image && document.visibilityState !== 'hidden' && <link rel="preload" as="image" href={image} fetchPriority="high" />}
+      {fixedImage && (
+        // Přilepená vrstva vysoká jako okno – sedí i na iOS, kde background-attachment: fixed nefunguje
+        <Box aria-hidden sx={{ position: 'absolute', inset: 0, zIndex: -1 }}>
+          <Box sx={{ position: 'sticky', top: 0, ...viewportSx, ...imageSx }} />
+        </Box>
+      )}
       <Box sx={{ ...columnSx, flexGrow: 1 }}>{children}</Box>
     </Box>
   )

@@ -131,6 +131,8 @@ export type ReservationTypeSlug = 'skupinovky' | 'squash' | 'badminton' | 'sauna
 export interface ReservationType {
   slug: ReservationTypeSlug
   name: string
+  // Slug podstránky aktivity, jejíž fotka je na pozadí rozvrhu
+  page: string
 }
 
 // Stav termínu: volno / obsazeno / úklid (sauna) / už začal

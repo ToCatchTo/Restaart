@@ -211,13 +211,13 @@ export const content = {
       nextIcon: '/static-icons/gallery_next.svg',
       emptySlotIcon: '/static-icons/schedule_empty_slot.svg',
       emptySlot: 'Žádný termín',
-      // Záložky – API typy nevypisuje, seznam je pevný
+      // Záložky – API typy nevypisuje, seznam je pevný; `page` je podstránka s fotkou pozadí
       types: [
-        { slug: 'skupinovky', name: 'Skupinové lekce' },
-        { slug: 'sauna', name: 'Sauna' },
-        { slug: 'squash', name: 'Squash' },
-        { slug: 'badminton', name: 'Badminton' },
-        { slug: 'vacushape', name: 'Vacushape' },
+        { slug: 'skupinovky', name: 'Skupinové lekce', page: 'skupinove-lekce' },
+        { slug: 'sauna', name: 'Sauna', page: 'privatni-sauna' },
+        { slug: 'squash', name: 'Squash', page: 'squash' },
+        { slug: 'badminton', name: 'Badminton', page: 'badminton' },
+        { slug: 'vacushape', name: 'Vacushape', page: 'vacushape' },
       ] satisfies ReservationType[],
       // Texty stavů termínu – pilulky místností a legenda
       states: { free: 'volno', full: 'obsazeno', cleaning: 'úklid', past: 'proběhlo' } satisfies Record<SlotState, string>,
