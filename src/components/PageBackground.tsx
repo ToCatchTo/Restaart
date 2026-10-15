@@ -24,9 +24,6 @@ interface PageBackgroundProps {
   fixedImage?: boolean
 }
 
-// Výška okna prohlížeče (na mobilu bez lišt)
-const viewportSx = { height: '100vh', '@supports (height: 100dvh)': { height: '100dvh' } } as const
-
 export function PageBackground({
   image,
   children,
@@ -53,8 +50,8 @@ export function PageBackground({
         position: 'relative',
         minHeight,
         height,
-        // Sekce s pevnou výškou leží nad následující sekcí kvůli přesahujícímu obsahu
-        zIndex: height || viewportHeight ? 1 : undefined,
+        // Sekce s pevnou výškou leží nad následující sekcí kvůli přesahujícímu obsahu; pevná fotka potřebuje vlastní vrstvení
+        zIndex: height || viewportHeight || fixedImage ? 1 : undefined,
         ...(viewportHeight && {
           [DESKTOP_MQ]: { minHeight: '100vh', '@supports (height: 100dvh)': { minHeight: '100dvh' } },
         }),
@@ -73,10 +70,8 @@ export function PageBackground({
       {/* Fotka je LCP prvek – preload ji stáhne dřív, než ji objeví CSS; karta na pozadí se nevykresluje, preload by zůstal nevyužitý */}
       {preload && image && document.visibilityState !== 'hidden' && <link rel="preload" as="image" href={image} fetchPriority="high" />}
       {fixedImage && (
-        // Přilepená vrstva vysoká jako okno – sedí i na iOS, kde background-attachment: fixed nefunguje
-        <Box aria-hidden sx={{ position: 'absolute', inset: 0, zIndex: -1 }}>
-          <Box sx={{ position: 'sticky', top: 0, ...viewportSx, ...imageSx }} />
-        </Box>
+        // Vrstva přes celé okno pod obsahem sekce (sekce má vlastní vrstvení); sedí i na iOS, kde background-attachment: fixed nefunguje
+        <Box aria-hidden sx={{ position: 'fixed', inset: 0, zIndex: -1, ...imageSx }} />
       )}
       <Box sx={{ ...columnSx, flexGrow: 1 }}>{children}</Box>
     </Box>
